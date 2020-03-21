@@ -11,7 +11,7 @@
           ],
           "name": "STIB timetables",
           "description": "A skill to get live update from the STIB timetables"
-        }
+        },
         "fr-FR": {
           "summary": "Horaire STIB en temps réel",
           "examplePhrases": [
