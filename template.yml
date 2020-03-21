@@ -24,12 +24,12 @@ Globals:
       Role: !Ref CodeDeployRole
 
 Resources:
-  CustomDefaultFunction:
+  DailyCommuteFunction:
     Type: AWS::Serverless::Function
     Properties:
-      FunctionName: !Sub 'awscodestar-${ProjectId}-lambda-CustomDefaultFunction'
+      FunctionName: !Sub 'awscodestar-${ProjectId}-lambda-DailyCommuteFunction'
       CodeUri: 'lambda/custom'
-      Handler: hello_world.handler
+      Handler: daily_commute.handler
       Runtime: python3.7
       Role: !GetAtt LambdaExecutionRole.Arn
       Events:
@@ -59,7 +59,7 @@ Outputs:
             "apis": {
               "custom": {
                 "endpoint": {
-                  "uri": "${CustomDefaultFunction.Alias}"
+                  "uri": "${DailyCommuteFunction.Alias}"
                 }
               }
             }

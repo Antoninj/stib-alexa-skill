@@ -3,14 +3,24 @@
     "publishingInformation": {
       "locales": {
         "en-US": {
-          "summary": "A basic skill made from Alexa Skills Kit template",
+          "summary": "Live STIB timetables information",
+          "examplePhrases": [
+              "Alexa open STIB time",
+            "Alexa tell STIB time hello",
+            "Alexa ask STIB time hi"
+          ],
+          "name": "STIB timetables",
+          "description": "A skill to get live update from the STIB timetables"
+        }
+        "fr-FR": {
+          "summary": "Horaire STIB en temps réel",
           "examplePhrases": [
             "Alexa open hello python",
             "Alexa tell hello python hello",
             "Alexa ask hello python say hello"
           ],
-          "name": "hello python",
-          "description": "A basic skill made from Alexa Skills Kit template"
+          "name": "Horaires STIB",
+          "description": "Skill permettant d'obtenir les horaires de la STIB en temps réel"
         }
       },
       "isAvailableWorldwide": true,
