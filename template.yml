@@ -29,6 +29,9 @@ Resources:
     Properties:
       FunctionName: !Sub 'awscodestar-${ProjectId}-lambda-DailyCommuteFunction'
       CodeUri: 'lambda/custom'
+      Environment:
+        Variables:
+          env: sandbox
       Handler: daily_commute.handler
       Runtime: python3.7
       Role: !GetAtt LambdaExecutionRole.Arn
