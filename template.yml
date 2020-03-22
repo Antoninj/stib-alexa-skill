@@ -31,11 +31,9 @@ Resources:
       Name: OpenDataSandboxSecretIAC
       SecretString: '{"key":"","secret":""}'
       Tags: 
-        -
-          Key: project
+        - Key: project
           Value: alexaskill
-        -
-          Key: env
+        - Key: env
           Value: sandbox
   DailyCommuteFunction:
     Type: AWS::Serverless::Function
