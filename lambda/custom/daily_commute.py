@@ -14,6 +14,7 @@ import boto3
 import base64
 import requests
 import requests.auth
+import json
 
 from botocore.exceptions import ClientError
 
@@ -93,8 +94,9 @@ def retrieve_stib_api_access_token():
     stib_api_credentials = get_stib_api_credentials()
     logger.debug("STIB API credentials {}".format(stib_api_credentials))
     
-    CLIENT_ID = stib_api_credentials['key']
-    CLIENT_SECRET = stib_api_credentials['secret']
+    api_credentials = json.loads(stib_api_credentials)
+    CLIENT_ID = api_credentials['key']
+    CLIENT_SECRET = api_credentials['secret']
     TOKEN_URL = "https://opendata-api.stib-mivb.be/token"
     
     access_token = get_access_token(CLIENT_ID,CLIENT_SECRET,TOKEN_URL)
