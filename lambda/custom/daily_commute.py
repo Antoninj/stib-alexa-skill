@@ -18,7 +18,6 @@ logger = logging.getLogger(__name__)
 logger.setLevel(logging.INFO)
 
 
-
 def get_secret():
     """Get OpenData sandbox environment api keys from secret manager."""
 
@@ -38,6 +37,7 @@ def get_secret():
     # We rethrow the exception by default.
 
     try:
+        logger.info("Getting secret value for secret '{}' from secret manager".format(secret_name)) 
         get_secret_value_response = client.get_secret_value(
             SecretId=secret_name
         )
@@ -174,7 +174,7 @@ class ErrorHandler(AbstractExceptionHandler):
 
 
 secret = get_secret()
-logger.info("API key {}".format(secret['key']))
+logger.info("STIB API credentials {}".format(secret))
 
 # This handler acts as the entry point for your skill, routing all request and response
 # payloads to the handlers above. Make sure any new handlers or interceptors you've

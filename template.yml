@@ -24,17 +24,6 @@ Globals:
       Role: !Ref CodeDeployRole
 
 Resources:
-  StibAPICredentials:
-    Type: AWS::SecretsManager::Secret
-    Properties: 
-      Description: Sandbox environment keys for STIB Open Data API
-      Name: OpenDataSandboxSecretIAC
-      SecretString: '{"key":"","secret":""}'
-      Tags: 
-        - Key: project
-          Value: alexaskill
-        - Key: env
-          Value: sandbox
   DailyCommuteFunction:
     Type: AWS::Serverless::Function
     Properties:
@@ -62,6 +51,7 @@ Resources:
           Action: sts:AssumeRole
       Path: /
       ManagedPolicyArns:
+        - !Sub 'arn:${AWS::Partition}:iam::aws:policy/service-role/AWSLambdaVPCAccessExecutionRole'
         - !Sub 'arn:${AWS::Partition}:iam::aws:policy/SecretsManagerReadWrite'
         - !Sub 'arn:${AWS::Partition}:iam::aws:policy/service-role/AWSLambdaBasicExecutionRole'
       PermissionsBoundary: !Sub 'arn:${AWS::Partition}:iam::${AWS::AccountId}:policy/CodeStar_${ProjectId}_PermissionsBoundary'
