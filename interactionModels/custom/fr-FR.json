@@ -20,11 +20,16 @@
                     "slots": [],
                     "samples": [
                         "prochain tram",
+                        "horaire prochain tram",
                         "quand est le prochain tram",
                         "quand est-ce que passe le prochain tram",
                         "quand passe le prochain tram",
+                        "quand passe le tram",
                         "quel est l'horaire pour le prochain tram",
-                        "horaire prochain tram"
+                        "quel est l'horaire du prochain tram",
+                        "dans combien de temps passe le prochain tram",
+                        "dans combien de temps passe le tram",
+                        "dans combien de temps est le prochain tram"
                     ]
                 }
             ],
