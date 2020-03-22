@@ -16,13 +16,15 @@
                     "samples": []
                 },
                 {
-                    "name": "HelloWorldIntent",
+                    "name": "NextTramIntent",
                     "slots": [],
                     "samples": [
-                        "bonjour",
-                        "bonjour comment ca va",
-                        "ca va",
-                        "salut"
+                        "prochain tram",
+                        "quand est le prochain tram",
+                        "quand est-ce que passe le prochain tram",
+                        "quand passe le prochain tram",
+                        "quel est l'horaire pour le prochain tram",
+                        "horaire prochain tram"
                     ]
                 }
             ],

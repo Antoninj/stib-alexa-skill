@@ -3,20 +3,19 @@
 		"publishingInformation": {
 			"locales": {
 				"en-US": {
-					"summary": "Live STIB timetables information",
+					"summary": "Live STIB network information",
 					"examplePhrases": [
-						"Alexa open stib time",
-						"Alexa tell stib time hello",
-						"Alexa ask stib time hi"
+						"Alexa open stib schedule",
+						"Alexa ask stib schedule when is the next tram"
 					],
-					"name": "STIB timetables",
-					"description": "A skill to get live update from the STIB timetables"
+					"name": "STIB schedule",
+					"description": "A skill to get live update from the STIB network"
 				},
 				"fr-FR": {
 					"summary": "Horaire STIB en temps réel",
 					"examplePhrases": [
-						"Alexa ouvre horaires s",
-						"Alexa lance horaires stib hello"
+						"Alexa ouvre horaires stib",
+						"Alexa demande à horaires stib quand passe le prochain tram"
 					],
 					"name": "Horaires STIB",
 					"description": "Skill permettant d'obtenir les horaires de la STIB en temps réel"

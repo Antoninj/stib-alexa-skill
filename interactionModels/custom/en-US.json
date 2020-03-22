@@ -1,7 +1,7 @@
 {
     "interactionModel": {
         "languageModel": {
-            "invocationName": "stib time",
+            "invocationName": "stib schedule",
             "intents": [
                 {
                     "name": "AMAZON.CancelIntent",
@@ -16,16 +16,15 @@
                     "samples": []
                 },
                 {
-                    "name": "HelloWorldIntent",
+                    "name": "NextTramIntent",
                     "slots": [],
                     "samples": [
-                        "hello",
-                        "how are you",
-                        "say hi world",
-                        "say hi",
-                        "hi",
-                        "say hello world",
-                        "say hello"
+                        "next tram",
+                        "when is the next tram",
+                        "when does the next tram leave",
+                        "waiting times",
+                        "bus stop waiting times",
+                        "tram stop waiting times"
                     ]
                 }
             ],

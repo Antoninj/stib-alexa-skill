@@ -1,6 +1,5 @@
 # -*- coding: utf-8 -*-
 
-# This sample demonstrates handling intents from an Alexa skill using the Alexa Skills Kit SDK.
 import logging
 
 from ask_sdk_core.skill_builder import SkillBuilder
@@ -111,20 +110,20 @@ class LaunchRequestHandler(AbstractRequestHandler):
 
     def handle(self, handler_input):
         # type: (HandlerInput) -> Response
-        speech_text = "Welcome, you can say Hello or Help. Which would you like to try?"
+        speech_text = "Welcome, you can ask when is the next tram."
         handler_input.response_builder.speak(speech_text).ask(speech_text)
         return handler_input.response_builder.response
 
 
-class HelloWorldIntentHandler(AbstractRequestHandler):
-    """Handler for Hello World Intent."""
+class NextTramIntentHandler(AbstractRequestHandler):
+    """Handler for Next Tram Intent."""
     def can_handle(self, handler_input):
         # type: (HandlerInput) -> bool
-        return is_intent_name("HelloWorldIntent")(handler_input)
+        return is_intent_name("NextTramIntent")(handler_input)
 
     def handle(self, handler_input):
         # type: (HandlerInput) -> Response
-        speech_text = "Hello. How are you?"
+        speech_text = "The next tram is in 5 minutes."
         handler_input.response_builder.speak(speech_text).set_should_end_session(True)
         return handler_input.response_builder.response
 
@@ -137,7 +136,7 @@ class HelpIntentHandler(AbstractRequestHandler):
 
     def handle(self, handler_input):
         # type: (HandlerInput) -> Response
-        speech_text = "You can say hello to me! How can I help?"
+        speech_text = "You can ask when is the next tram! How can I help?"
         handler_input.response_builder.speak(speech_text).ask(speech_text)
         return handler_input.response_builder.response
 
@@ -210,7 +209,7 @@ access_token = retrieve_stib_api_access_token()
 # defined are included below. The order matters - they're processed top to bottom.
 sb = SkillBuilder()
 sb.add_request_handler(LaunchRequestHandler())
-sb.add_request_handler(HelloWorldIntentHandler())
+sb.add_request_handler(NextTramIntentHandler())
 sb.add_request_handler(HelpIntentHandler())
 sb.add_request_handler(CancelOrStopIntentHandler())
 sb.add_request_handler(SessionEndedRequestHandler())
