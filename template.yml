@@ -32,6 +32,8 @@ Resources:
       Environment:
         Variables:
           env: sandbox
+          token_url: https://opendata-api.stib-mivb.be/token
+          secret_name: OpenDataSandboxSecret
       Handler: daily_commute.handler
       Runtime: python3.7
       Role: !GetAtt LambdaExecutionRole.Arn
@@ -51,7 +53,6 @@ Resources:
           Action: sts:AssumeRole
       Path: /
       ManagedPolicyArns:
-        - !Sub 'arn:${AWS::Partition}:iam::aws:policy/service-role/AWSLambdaVPCAccessExecutionRole'
         - !Sub 'arn:${AWS::Partition}:iam::aws:policy/SecretsManagerReadWrite'
         - !Sub 'arn:${AWS::Partition}:iam::aws:policy/service-role/AWSLambdaBasicExecutionRole'
       PermissionsBoundary: !Sub 'arn:${AWS::Partition}:iam::${AWS::AccountId}:policy/CodeStar_${ProjectId}_PermissionsBoundary'
