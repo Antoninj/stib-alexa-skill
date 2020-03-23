@@ -17,6 +17,7 @@ Parameters:
 
 Globals:
   Function:
+    Timeout: 10
     AutoPublishAlias: live
     DeploymentPreference:
       Enabled: true
