@@ -21,7 +21,7 @@ Globals:
     AutoPublishAlias: live
     DeploymentPreference:
       Enabled: true
-      Type: Canary10Percent5Minutes
+      Type: AllAtOnce
       Role: !Ref CodeDeployRole
 
 Resources:
@@ -37,7 +37,7 @@ Resources:
           secret_name: OpenDataSandboxSecret
           open_data_api_endpoint: https://opendata-api.stib-mivb.be
           
-      Handler: daily_commute.lambda_handler
+      Handler: daily_commute.handler
       Runtime: python3.7
       Role: !GetAtt LambdaExecutionRole.Arn
       Events:
