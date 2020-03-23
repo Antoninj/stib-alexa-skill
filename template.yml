@@ -33,12 +33,11 @@ Resources:
       Environment:
         Variables:
           env: sandbox
-          log_level: logging.INFO
+          log_level: DEBUG
           secret_name: OpenDataSandboxSecret
-          open_data_token_url: https://opendata-api.stib-mivb.be/token
-          open_data_waiting_time_endpoint: https://opendata-api.stibmivb.be/OperationMonitoring/4.0/PassingTimeByPoint/
+          open_data_api_endpoint: https://opendata-api.stib-mivb.be
           
-      Handler: daily_commute.handler
+      Handler: daily_commute.lambda_handler
       Runtime: python3.7
       Role: !GetAtt LambdaExecutionRole.Arn
       Events:

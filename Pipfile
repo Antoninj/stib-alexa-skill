@@ -1,0 +1,15 @@
+[[source]]
+name = "pypi"
+url = "https://pypi.org/simple"
+verify_ssl = true
+
+[dev-packages]
+
+[packages]
+ask-sdk-core = "==1.10.*"
+requests = "*"
+boto3 = "*"
+pytz = "*"
+
+[requires]
+python_version = "3.7"
