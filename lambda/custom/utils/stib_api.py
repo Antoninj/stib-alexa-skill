@@ -4,8 +4,6 @@ import logging
 
 logger = logging.getLogger("Lambda")
 
-OPEN_DATA_API_ENDPOINT = os.environ['open_data_api_endpoint']
-
 
 class OpenDataAPI:
     default_stop_id = "1047"
