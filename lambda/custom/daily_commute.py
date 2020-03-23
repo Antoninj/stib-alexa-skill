@@ -58,7 +58,7 @@ class NextTramIntentHandler(AbstractRequestHandler):
         current_time_be = pytz.utc.localize(current_time_utc)
         tram_arrival_time = expected_arrival_times[0]
         waiting_time = time_utils.compute_time_diff(current_time_be, tram_arrival_time)
-        logger.debug("Waiting time:", waiting_time)
+        logger.debug("Waiting time: {}".format(waiting_time))
 
         speech_text = "The next tram is in {} minutes.".format(waiting_time)
         handler_input.response_builder.speak(speech_text).set_should_end_session(True)
