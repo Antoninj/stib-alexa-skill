@@ -17,7 +17,7 @@ class TokenHelper:
         self.SECRET_NAME = os.environ['secret_name']
         self.OPEN_DATA_API_ENDPOINT = os.environ['open_data_api_endpoint']
         self.TOKEN_VALIDITY_TIME = os.environ['open_data_api_token_validity']
-        self.token_expiration_date = self.compute_token_expiration_date(self.TOKEN_VALIDITY_TIME)
+        self.token_expiration_date = self._compute_token_expiration_date(self.TOKEN_VALIDITY_TIME)
         self.api_credentials = self._get_api_credentials()
         self.security_token = self._retrieve_api_access_token()
 

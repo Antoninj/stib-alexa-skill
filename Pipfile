@@ -4,12 +4,13 @@ url = "https://pypi.org/simple"
 verify_ssl = true
 
 [dev-packages]
+boto3 = "*"
 
 [packages]
-ask-sdk-core = "==1.10.*"
+ask-sdk-core = "==1.13.0"
 requests = "*"
-boto3 = "*"
 pytz = "*"
+ask-sdk = "*"
 
 [requires]
 python_version = "3.7"

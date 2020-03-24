@@ -3,7 +3,8 @@
 import logging
 import os
 
-from ask_sdk_core.skill_builder import SkillBuilder
+from ask_sdk_dynamodb.adapter import DynamoDbAdapter
+from ask_sdk_core.skill_builder import CustomSkillBuilder
 from ask_sdk_core.dispatch_components import AbstractRequestHandler
 from ask_sdk_core.dispatch_components import AbstractExceptionHandler
 from ask_sdk_core.utils import is_request_type, is_intent_name
@@ -145,8 +146,9 @@ stib_api = OpenDataAPI(token_helper)
 waiting_time = stib_api.get_waiting_times_for_stop_id()
 logger.info(waiting_time)
 
+dynamo_db_adapter = DynamoDbAdapter(table_name="DailyCommuteFavorites")
+sb = CustomSkillBuilder(persistence_adapter=dynamo_db_adapter)
 
-sb = SkillBuilder()
 sb.add_request_handler(LaunchRequestHandler())
 sb.add_request_handler(NextTramIntentHandler())
 sb.add_request_handler(HelpIntentHandler())
@@ -159,5 +161,7 @@ sb.add_exception_handler(ErrorHandler())
 
 handler = sb.lambda_handler()
 
-def handler():
-    pass
+def handler(event, context):
+    return handler
+
+
