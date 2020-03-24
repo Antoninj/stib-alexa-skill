@@ -10,12 +10,8 @@ from ask_sdk_core.utils import is_request_type, is_intent_name
 from ask_sdk_core.handler_input import HandlerInput
 from ask_sdk_model import Response
 
-from datetime import datetime
-import pytz
 from utils.token_helper import TokenHelper
 from utils.stib_api import OpenDataAPI
-from utils import time_utils
-
 
 # Environment variables definitions
 ENVIRONMENT = os.environ['env']
@@ -52,14 +48,7 @@ class NextTramIntentHandler(AbstractRequestHandler):
         # type: (HandlerInput) -> Response
         logger.info("In NextTramIntentHandler")
 
-        api_response = stib_api.get_waiting_times_for_stop_id()
-        expected_arrival_times = time_utils.parse_waiting_times(api_response, 'ROODEBEEK')
-        current_time_utc = datetime.utcnow()
-        current_time_be = pytz.utc.localize(current_time_utc)
-        tram_arrival_time = expected_arrival_times[0]
-        waiting_time = time_utils.compute_time_diff(current_time_be, tram_arrival_time)
-        logger.debug("Waiting time: {}".format(waiting_time))
-
+        waiting_time = stib_api.get_waiting_times_for_stop_id()
         speech_text = "The next tram is in {} minutes.".format(waiting_time)
         handler_input.response_builder.speak(speech_text).set_should_end_session(True)
         return handler_input.response_builder.response
@@ -153,9 +142,10 @@ class ErrorHandler(AbstractExceptionHandler):
 token_helper = TokenHelper()
 stib_api = OpenDataAPI(token_helper)
 
-# This handler acts as the entry point for your skill, routing all request and response
-# payloads to the handlers above. Make sure any new handlers or interceptors you've
-# defined are included below. The order matters - they're processed top to bottom.
+waiting_time = stib_api.get_waiting_times_for_stop_id()
+logger.info(waiting_time)
+
+
 sb = SkillBuilder()
 sb.add_request_handler(LaunchRequestHandler())
 sb.add_request_handler(NextTramIntentHandler())
@@ -169,3 +159,5 @@ sb.add_exception_handler(ErrorHandler())
 
 handler = sb.lambda_handler()
 
+def handler():
+    pass

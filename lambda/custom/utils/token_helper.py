@@ -1,7 +1,9 @@
-import requests.auth
 import logging
 import os
 import json
+import calendar
+from datetime import datetime, timedelta
+
 import boto3
 from botocore.exceptions import ClientError
 import base64
@@ -14,8 +16,22 @@ class TokenHelper:
     def __init__(self):
         self.SECRET_NAME = os.environ['secret_name']
         self.OPEN_DATA_API_ENDPOINT = os.environ['open_data_api_endpoint']
+        self.TOKEN_VALIDITY_TIME = os.environ['open_data_api_token_validity']
+        self.token_expiration_date = self.compute_token_expiration_date(self.TOKEN_VALIDITY_TIME)
+        self.api_credentials = self._get_api_credentials()
+        self.security_token = self._retrieve_api_access_token()
 
-    def _get_stib_api_credentials(self):
+    @staticmethod
+    def _compute_token_expiration_date(token_validity_time):
+        future = datetime.utcnow() + timedelta(seconds=int(token_validity_time))
+        return calendar.timegm(future.utctimetuple())
+
+    def _is_token_expired(self):
+        current_time = datetime.now()
+        unix_timestamp = current_time.timestamp()
+        return unix_timestamp > self.token_expiration_date
+
+    def _get_api_credentials(self):
         """Get OpenData api credentials from secret manager."""
 
         secret = None
@@ -82,10 +98,10 @@ class TokenHelper:
         token_json = response.json()
         return token_json["access_token"]
 
-    def retrieve_stib_api_access_token(self):
+    def _retrieve_api_access_token(self):
         """Retrieve STIB api bearer token."""
 
-        stib_api_credentials = self._get_stib_api_credentials()
+        stib_api_credentials = self.api_credentials
         logger.debug("STIB API credentials {}".format(stib_api_credentials))
 
         api_credentials = json.loads(stib_api_credentials)
@@ -95,3 +111,15 @@ class TokenHelper:
         access_token = self._get_access_token(client_id, client_secret)
         logger.debug("STIB API access token {}".format(access_token))
         return access_token
+
+    def get_security_token(self):
+        if not self._is_token_expired():
+            return self.security_token
+        else:
+            logger.warning("Token expired... Getting new token")
+            self.security_token = self._retrieve_api_access_token()
+            new_token_expiration_date = self._compute_token_expiration_date(self.TOKEN_VALIDITY_TIME)
+            self.token_expiration_date = new_token_expiration_date
+            return self.security_token
+
+
