@@ -64,9 +64,9 @@ class NextTramIntentHandler(AbstractRequestHandler):
 
         logger.info("Getting waiting times for line %s at stop %s", favorite_line_id, favorite_stop_id)
 
-        waiting_time = sb.api_client.get_waiting_times_for_stop_id_and_line_id(stop_id=favorite_stop_id,
-                                                                               line_id=favorite_line_id)
-        speech_text = "The next tram is in {} minutes.".format(waiting_time)
+        speech_text = sb.api_client.get_waiting_times_for_stop_id_and_line_id(stop_id=favorite_stop_id,
+                                                                              line_id=favorite_line_id)
+
         handler_input.response_builder.speak(speech_text).set_should_end_session(True)
         return handler_input.response_builder.response
 

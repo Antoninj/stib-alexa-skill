@@ -12,7 +12,6 @@ logger = logging.getLogger("Lambda")
 
 
 class OpenDataAPIClient(ApiClient):
-
     DEFAULT_STOP_ID = "1059"
     DEFAULT_LINE_ID = "93"
 
@@ -30,11 +29,15 @@ class OpenDataAPIClient(ApiClient):
         return expected_arrival_times
 
     @staticmethod
-    def _format_waiting_time(waiting_time_dict):
-        formatted_response = "The next tram is in {} minutes and {} seconds, hurry up!".format(waiting_time_dict["minutes"], waiting_time_dict["seconds"])
+    def _format_waiting_time(waiting_time_dict, line_id):
+        formatted_response = "The next tram {} is in {} minutes and {} seconds, hurry up!".format(line_id,
+                                                                                                  waiting_time_dict[
+                                                                                                      "minutes"],
+                                                                                                  waiting_time_dict[
+                                                                                                      "seconds"])
         return formatted_response
 
-    def get_waiting_times_for_stop_id_and_line_id(self, stop_id=DEFAULT_STOP_ID, line_id=DEFAULT_LINE_ID ):
+    def get_waiting_times_for_stop_id_and_line_id(self, stop_id=DEFAULT_STOP_ID, line_id=DEFAULT_LINE_ID):
         open_data_api_waiting_time_endpoint = self.OPEN_DATA_API_ENDPOINT + "/OperationMonitoring/4.0/PassingTimeByPoint/"
         request_url = open_data_api_waiting_time_endpoint + stop_id
         api_security_token = self.token_helper.get_security_token()
@@ -45,10 +48,11 @@ class OpenDataAPIClient(ApiClient):
         current_localized_time = TimeUtils.get_current_localized_time()
         first_tram_waiting_time_dict = TimeUtils.compute_time_diff(current_localized_time, first_tram_arrival_time)
 
-        return self._format_waiting_time(first_tram_waiting_time_dict)
+        return self._format_waiting_time(first_tram_waiting_time_dict, line_id=line_id)
 
     def invoke(self, request):
         pass
+
 
 class BearerAuth(requests.auth.AuthBase):
     def __init__(self, token):
