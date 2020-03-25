@@ -5,6 +5,7 @@ import os
 
 from ask_sdk_dynamodb.adapter import DynamoDbAdapter
 from ask_sdk_core.skill_builder import CustomSkillBuilder
+
 from ask_sdk_core.dispatch_components import AbstractRequestHandler
 from ask_sdk_core.dispatch_components import AbstractExceptionHandler
 from ask_sdk_core.utils import is_request_type, is_intent_name
@@ -12,7 +13,8 @@ from ask_sdk_core.handler_input import HandlerInput
 from ask_sdk_model import Response
 
 from utils.token_helper import TokenHelper
-from utils.stib_api import OpenDataAPI
+from utils.stib_api_client import OpenDataAPIClient
+import boto3
 
 # Environment variables definitions
 ENVIRONMENT = os.environ['env']
@@ -43,13 +45,27 @@ class NextTramIntentHandler(AbstractRequestHandler):
 
     def can_handle(self, handler_input):
         # type: (HandlerInput) -> bool
-        return is_intent_name("NextTramIntent")(handler_input)
+
+        # extract persistent attributes and check if they are all present
+        attr = handler_input.attributes_manager.persistent_attributes
+        attributes_are_present = ("favorite_stop_id" in attr and "favorite_line_id" in attr)
+
+        return attributes_are_present and is_intent_name("NextTramIntent")(handler_input)
 
     def handle(self, handler_input):
         # type: (HandlerInput) -> Response
         logger.info("In NextTramIntentHandler")
 
-        waiting_time = stib_api.get_waiting_times_for_stop_id()
+        logger.info("Retrieving favorite line and stop from dynamo DB...")
+        persistent_attributes = handler_input.attributes_manager.persistent_attributes
+        logger.info("Persistent attributes found: %s", persistent_attributes)
+        favorite_stop_id = persistent_attributes['favorite_stop_id']
+        favorite_line_id = persistent_attributes['favorite_line_id']
+
+        logger.info("Getting waiting times for line %s at stop %s", favorite_line_id, favorite_stop_id)
+
+        waiting_time = sb.api_client.get_waiting_times_for_stop_id_and_line_id(stop_id=favorite_stop_id,
+                                                                               line_id=favorite_line_id)
         speech_text = "The next tram is in {} minutes.".format(waiting_time)
         handler_input.response_builder.speak(speech_text).set_should_end_session(True)
         return handler_input.response_builder.response
@@ -114,6 +130,7 @@ class IntentReflectorHandler(AbstractRequestHandler):
 
     def handle(self, handler_input):
         # type: (HandlerInput) -> Response
+
         intent_name = handler_input.request_envelope.request.intent.name
         speech_text = ("You just triggered {}").format(intent_name)
         handler_input.response_builder.speak(speech_text).set_should_end_session(True)
@@ -140,15 +157,18 @@ class ErrorHandler(AbstractExceptionHandler):
         return handler_input.response_builder.response
 
 
-token_helper = TokenHelper()
-stib_api = OpenDataAPI(token_helper)
+def setup_skill_builder():
+    token_helper = TokenHelper()
+    stib_api_client = OpenDataAPIClient(token_helper=token_helper)
+    dynamo_db_adapter = DynamoDbAdapter(table_name="DailyCommuteFavorites", partition_key_name="id",
+                                        attribute_name="attributes", create_table=True,
+                                        dynamodb_resource=boto3.resource("dynamodb"))
+    skill_builder = CustomSkillBuilder(persistence_adapter=dynamo_db_adapter, api_client=stib_api_client)
 
-waiting_time = stib_api.get_waiting_times_for_stop_id()
-logger.info(waiting_time)
+    return skill_builder
 
-dynamo_db_adapter = DynamoDbAdapter(table_name="DailyCommuteFavorites")
-sb = CustomSkillBuilder(persistence_adapter=dynamo_db_adapter)
 
+sb = setup_skill_builder()
 sb.add_request_handler(LaunchRequestHandler())
 sb.add_request_handler(NextTramIntentHandler())
 sb.add_request_handler(HelpIntentHandler())
@@ -159,9 +179,7 @@ sb.add_request_handler(
 
 sb.add_exception_handler(ErrorHandler())
 
+# waiting_time = sb.api_client.get_waiting_times_for_stop_id_and_line_id()
+# logger.info(waiting_time)
+
 handler = sb.lambda_handler()
-
-def handler(event, context):
-    return handler
-
-
