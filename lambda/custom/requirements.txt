@@ -5,3 +5,4 @@ ask-sdk-runtime==1.13.0
 ask-sdk==1.13.0
 requests==2.23.0
 pytz==2019.3
+dataclasses-json

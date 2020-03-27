@@ -11,6 +11,8 @@ ask-sdk-core = "==1.13.0"
 requests = "*"
 pytz = "*"
 ask-sdk = "*"
+pystibmvib = "*"
+dataclasses-json = "*"
 
 [requires]
 python_version = "3.7"

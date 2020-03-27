@@ -12,8 +12,9 @@ from ask_sdk_core.utils import is_request_type, is_intent_name
 from ask_sdk_core.handler_input import HandlerInput
 from ask_sdk_model import Response
 
-from utils.token_helper import TokenHelper
-from utils.stib_api_client import OpenDataAPIClient
+from client.stib_api_client import OpenDataAPIClient
+from service.stib_service import OpenDataService
+
 import boto3
 
 # Environment variables definitions
@@ -64,8 +65,8 @@ class NextTramIntentHandler(AbstractRequestHandler):
 
         logger.info("Getting waiting times for line %s at stop %s", favorite_line_id, favorite_stop_id)
 
-        speech_text = sb.api_client.get_waiting_times_for_stop_id_and_line_id(stop_id=favorite_stop_id,
-                                                                              line_id=favorite_line_id)
+        speech_text = stib_service.get_waiting_times_for_stop_id_and_line_id(stop_id=favorite_stop_id,
+                                                                             line_id=favorite_line_id)
 
         handler_input.response_builder.speak(speech_text).set_should_end_session(True)
         return handler_input.response_builder.response
@@ -158,28 +159,31 @@ class ErrorHandler(AbstractExceptionHandler):
 
 
 def setup_skill_builder():
-    token_helper = TokenHelper()
-    stib_api_client = OpenDataAPIClient(token_helper=token_helper)
     dynamo_db_adapter = DynamoDbAdapter(table_name="DailyCommuteFavorites", partition_key_name="id",
                                         attribute_name="attributes", create_table=True,
                                         dynamodb_resource=boto3.resource("dynamodb"))
-    skill_builder = CustomSkillBuilder(persistence_adapter=dynamo_db_adapter, api_client=stib_api_client)
+    skill_builder = CustomSkillBuilder(persistence_adapter=dynamo_db_adapter)
+    skill_builder.add_request_handler(LaunchRequestHandler())
+    skill_builder.add_request_handler(NextTramIntentHandler())
+    skill_builder.add_request_handler(HelpIntentHandler())
+    skill_builder.add_request_handler(CancelOrStopIntentHandler())
+    skill_builder.add_request_handler(SessionEndedRequestHandler())
+    skill_builder.add_request_handler(
+        IntentReflectorHandler())  # make sure IntentReflectorHandler is last so it doesn't override your custom intent handlers
+
+    skill_builder.add_exception_handler(ErrorHandler())
 
     return skill_builder
 
 
+### Set up the skill builder
 sb = setup_skill_builder()
-sb.add_request_handler(LaunchRequestHandler())
-sb.add_request_handler(NextTramIntentHandler())
-sb.add_request_handler(HelpIntentHandler())
-sb.add_request_handler(CancelOrStopIntentHandler())
-sb.add_request_handler(SessionEndedRequestHandler())
-sb.add_request_handler(
-    IntentReflectorHandler())  # make sure IntentReflectorHandler is last so it doesn't override your custom intent handlers
 
-sb.add_exception_handler(ErrorHandler())
+### Create Open Data STIB API client and service instances
+stib_api_client = OpenDataAPIClient()
+stib_service = OpenDataService(stib_api_client=stib_api_client)
 
-# waiting_time = sb.api_client.get_waiting_times_for_stop_id_and_line_id()
+# waiting_time = stib_service.get_waiting_times_for_stop_id_and_line_id()
 # logger.info(waiting_time)
 
 handler = sb.lambda_handler()
