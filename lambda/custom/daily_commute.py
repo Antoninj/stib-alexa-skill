@@ -188,7 +188,7 @@ sb = setup_skill_builder()
 stib_api_client = OpenDataAPIClient()
 stib_service = OpenDataService(stib_api_client=stib_api_client)
 
-passing_times = stib_service.get_passing_times_for_stop_id_and_line_id()
-logger.info(passing_times[0].formatted_waiting_time)
+# passing_times = stib_service.get_passing_times_for_stop_id_and_line_id()
+# logger.info(passing_times[0].formatted_waiting_time)
 
 handler = sb.lambda_handler()
