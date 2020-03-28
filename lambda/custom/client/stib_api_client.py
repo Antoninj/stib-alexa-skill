@@ -12,12 +12,12 @@ from urllib3.util import parse_url
 from .token_helper import TokenHelper
 
 logger = logging.getLogger("Lambda")
+OPEN_DATA_API_ENDPOINT = os.environ['open_data_api_endpoint']
 
 
 class OpenDataAPIClient(ApiClient):
 
     def __init__(self):
-        self.OPEN_DATA_API_ENDPOINT = os.environ['open_data_api_endpoint']
         self.token_helper = TokenHelper()
 
     def invoke(self, request):
@@ -44,7 +44,7 @@ class OpenDataAPIClient(ApiClient):
             http_headers = self._convert_list_tuples_to_dict(
                 headers_list=request.headers)
 
-            request.url = self.OPEN_DATA_API_ENDPOINT + request.url
+            request.url = OPEN_DATA_API_ENDPOINT + request.url
             parsed_url = parse_url(request.url)
             if parsed_url.scheme is None or parsed_url.scheme != "https":
                 raise ApiClientException(
@@ -73,7 +73,8 @@ class OpenDataAPIClient(ApiClient):
             raise ApiClientException(
                 "Error executing the request: {}".format(str(e)))
 
-    def _resolve_method(self, request):
+    @staticmethod
+    def _resolve_method(request):
         # type: (ApiClientRequest) -> Callable
         """Resolve the method from request object to `requests` http
         call.
@@ -95,7 +96,8 @@ class OpenDataAPIClient(ApiClient):
             raise ApiClientException(
                 "Invalid request method: {}".format(request.method))
 
-    def _convert_list_tuples_to_dict(self, headers_list):
+    @staticmethod
+    def _convert_list_tuples_to_dict(headers_list):
         # type: (List[Tuple[str, str]]) -> Dict[str, str]
         """Convert list of tuples from headers of request object to
         dictionary format.
@@ -118,7 +120,8 @@ class OpenDataAPIClient(ApiClient):
                     headers_dict[header_tuple[0]] = value
         return headers_dict
 
-    def _convert_dict_to_list_tuples(self, headers_dict):
+    @staticmethod
+    def _convert_dict_to_list_tuples(headers_dict):
         # type: (Dict[str, str]) -> List[Tuple[str, str]]
         """Convert headers dict to list of string tuples format for
         `ApiClientResponse` headers variable.

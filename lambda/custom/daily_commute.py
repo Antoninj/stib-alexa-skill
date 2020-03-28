@@ -36,7 +36,7 @@ class LaunchRequestHandler(AbstractRequestHandler):
     def handle(self, handler_input):
         # type: (HandlerInput) -> Response
         logger.info("In LaunchRequestHandler")
-        speech_text = "Welcome, you can ask when is the next tram."
+        speech_text = "Bonjour, vous pouvez me demander quand est-ce que passe le prochain tram?."
         handler_input.response_builder.speak(speech_text).ask(speech_text)
         return handler_input.response_builder.response
 
@@ -47,7 +47,7 @@ class NextTramIntentHandler(AbstractRequestHandler):
     def can_handle(self, handler_input):
         # type: (HandlerInput) -> bool
 
-        # extract persistent attributes and check if they are all present
+        # Extract persistent attributes and check if they are all present
         attr = handler_input.attributes_manager.persistent_attributes
         attributes_are_present = ("favorite_stop_id" in attr and "favorite_line_id" in attr)
 
@@ -65,8 +65,12 @@ class NextTramIntentHandler(AbstractRequestHandler):
 
         logger.info("Getting waiting times for line %s at stop %s", favorite_line_id, favorite_stop_id)
 
-        speech_text = stib_service.get_waiting_times_for_stop_id_and_line_id(stop_id=favorite_stop_id,
+        passing_times = stib_service.get_passing_times_for_stop_id_and_line_id(stop_id=favorite_stop_id,
                                                                              line_id=favorite_line_id)
+        if passing_times:
+            speech_text = passing_times[0].formatted_waiting_time
+        else:
+            speech_text = "Je n'ai pas trouvé d'informations pour l'horaire demandé"
 
         handler_input.response_builder.speak(speech_text).set_should_end_session(True)
         return handler_input.response_builder.response
@@ -82,7 +86,7 @@ class HelpIntentHandler(AbstractRequestHandler):
     def handle(self, handler_input):
         # type: (HandlerInput) -> Response
         logger.debug("In HelpIntentHandler")
-        speech_text = "You can ask when is the next tram! How can I help?"
+        speech_text = "Demandez moi quand est-ce que passe le prochain tram!"
         handler_input.response_builder.speak(speech_text).ask(speech_text)
         return handler_input.response_builder.response
 
@@ -98,7 +102,7 @@ class CancelOrStopIntentHandler(AbstractRequestHandler):
     def handle(self, handler_input):
         # type: (HandlerInput) -> Response
         logger.debug("In CancelOrStopIntentHandler")
-        speech_text = "Goodbye!"
+        speech_text = "Au revoir!"
         handler_input.response_builder.speak(speech_text)
         return handler_input.response_builder.response
 
@@ -153,7 +157,7 @@ class ErrorHandler(AbstractExceptionHandler):
     def handle(self, handler_input, exception):
         # type: (HandlerInput, Exception) -> Response
         logger.error(exception, exc_info=True)
-        speech_text = "Sorry, I couldn't understand what you said. Please try again."
+        speech_text = "Désolé, je n'ai pas compris votre requête. Pouvez vous répeter s'il vous plait."
         handler_input.response_builder.speak(speech_text).ask(speech_text)
         return handler_input.response_builder.response
 
@@ -169,21 +173,22 @@ def setup_skill_builder():
     skill_builder.add_request_handler(CancelOrStopIntentHandler())
     skill_builder.add_request_handler(SessionEndedRequestHandler())
     skill_builder.add_request_handler(
-        IntentReflectorHandler())  # make sure IntentReflectorHandler is last so it doesn't override your custom intent handlers
+        IntentReflectorHandler())
+    # make sure IntentReflectorHandler is last so it doesn't override your custom intent handlers
 
     skill_builder.add_exception_handler(ErrorHandler())
 
     return skill_builder
 
 
-### Set up the skill builder
+# Set up the skill builder
 sb = setup_skill_builder()
 
-### Create Open Data STIB API client and service instances
+# Create new Open Data API client and service instances
 stib_api_client = OpenDataAPIClient()
 stib_service = OpenDataService(stib_api_client=stib_api_client)
 
-# waiting_time = stib_service.get_waiting_times_for_stop_id_and_line_id()
-# logger.info(waiting_time)
+passing_times = stib_service.get_passing_times_for_stop_id_and_line_id()
+logger.info(passing_times[0].formatted_waiting_time)
 
 handler = sb.lambda_handler()

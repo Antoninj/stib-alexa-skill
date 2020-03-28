@@ -29,8 +29,8 @@ class TimeUtils:
         hours = seconds // 3600
         minutes = (seconds % 3600) // 60
         seconds = (seconds % 60)
-        duration_dict['seconds'] = seconds
         duration_dict['hours'] = hours
         duration_dict['minutes'] = minutes
+        duration_dict['seconds'] = seconds
 
         return duration_dict
