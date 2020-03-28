@@ -1,12 +1,12 @@
 # -*- coding: utf-8 -*-
-
+import gettext
 import logging
 import os
 
 from ask_sdk_dynamodb.adapter import DynamoDbAdapter
 from ask_sdk_core.skill_builder import CustomSkillBuilder
 
-from ask_sdk_core.dispatch_components import AbstractRequestHandler
+from ask_sdk_core.dispatch_components import AbstractRequestHandler, AbstractRequestInterceptor
 from ask_sdk_core.dispatch_components import AbstractExceptionHandler
 from ask_sdk_core.utils import is_request_type, is_intent_name
 from ask_sdk_core.handler_input import HandlerInput
@@ -14,6 +14,7 @@ from ask_sdk_model import Response
 
 from client.stib_api_client import OpenDataAPIClient
 from service.stib_service import OpenDataService
+from data import data
 
 import boto3
 
@@ -36,8 +37,13 @@ class LaunchRequestHandler(AbstractRequestHandler):
     def handle(self, handler_input):
         # type: (HandlerInput) -> Response
         logger.info("In LaunchRequestHandler")
-        speech_text = "Bonjour, vous pouvez me demander quand est-ce que passe le prochain tram?."
-        handler_input.response_builder.speak(speech_text).ask(speech_text)
+        _ = handler_input.attributes_manager.request_attributes["_"]
+
+        speech = _(data.WELCOME)
+        speech += " " + _(data.HELP)
+        handler_input.response_builder.speak(speech)
+        handler_input.response_builder.ask(_(
+            data.GENERIC_REPROMPT))
         return handler_input.response_builder.response
 
 
@@ -86,9 +92,12 @@ class HelpIntentHandler(AbstractRequestHandler):
     def handle(self, handler_input):
         # type: (HandlerInput) -> Response
         logger.debug("In HelpIntentHandler")
-        speech_text = "Demandez moi quand est-ce que passe le prochain tram!"
-        handler_input.response_builder.speak(speech_text).ask(speech_text)
+        _ = handler_input.attributes_manager.request_attributes["_"]
+
+        handler_input.response_builder.speak(_(
+            data.HELP)).ask(_(data.HELP))
         return handler_input.response_builder.response
+
 
 
 class CancelOrStopIntentHandler(AbstractRequestHandler):
@@ -102,8 +111,10 @@ class CancelOrStopIntentHandler(AbstractRequestHandler):
     def handle(self, handler_input):
         # type: (HandlerInput) -> Response
         logger.debug("In CancelOrStopIntentHandler")
-        speech_text = "Au revoir!"
-        handler_input.response_builder.speak(speech_text)
+        _ = handler_input.attributes_manager.request_attributes["_"]
+
+        handler_input.response_builder.speak(_(
+            data.STOP)).set_should_end_session(True)
         return handler_input.response_builder.response
 
 
@@ -162,6 +173,16 @@ class ErrorHandler(AbstractExceptionHandler):
         return handler_input.response_builder.response
 
 
+class LocalizationInterceptor(AbstractRequestInterceptor):
+    def process(self, handler_input):
+        # type: (HandlerInput) -> None
+        locale = handler_input.request_envelope.request.locale
+        logger.info("Locale is {}".format(locale))
+        i18n = gettext.translation(
+            'base', localedir='locales', languages=[locale], fallback=True)
+        handler_input.attributes_manager.request_attributes["_"] = i18n.gettext
+
+
 def setup_skill_builder():
     dynamo_db_adapter = DynamoDbAdapter(table_name="DailyCommuteFavorites", partition_key_name="id",
                                         attribute_name="attributes", create_table=True,
@@ -177,9 +198,22 @@ def setup_skill_builder():
     # make sure IntentReflectorHandler is last so it doesn't override your custom intent handlers
 
     skill_builder.add_exception_handler(ErrorHandler())
+    skill_builder.add_global_request_interceptor(LocalizationInterceptor())
 
     return skill_builder
 
+
+def local_test():
+    # Test STIB API integration
+    passing_times = stib_service.get_passing_times_for_stop_id_and_line_id()
+    logger.info(passing_times[0].formatted_waiting_time)
+
+    # Test i18n
+    i18n = gettext.translation(
+                'base', localedir='locales', languages=['fr-FR'], fallback=True)
+    _ = i18n.gettext
+    logger.info(_(
+                data.STOP))
 
 # Set up the skill builder
 sb = setup_skill_builder()
@@ -188,7 +222,6 @@ sb = setup_skill_builder()
 stib_api_client = OpenDataAPIClient()
 stib_service = OpenDataService(stib_api_client=stib_api_client)
 
-# passing_times = stib_service.get_passing_times_for_stop_id_and_line_id()
-# logger.info(passing_times[0].formatted_waiting_time)
+#local_test()
 
 handler = sb.lambda_handler()

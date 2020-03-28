@@ -5,13 +5,14 @@ verify_ssl = true
 
 [dev-packages]
 boto3 = "*"
+babel = "*"
+pystibmvib = "*"
 
 [packages]
 ask-sdk-core = "==1.13.0"
 requests = "*"
 pytz = "*"
 ask-sdk = "*"
-pystibmvib = "*"
 dataclasses-json = "*"
 
 [requires]
