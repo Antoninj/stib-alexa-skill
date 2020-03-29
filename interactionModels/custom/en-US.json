@@ -91,6 +91,60 @@
                 }
             ],
             "types": []
-        }
+        },
+		"dialog": {
+			"intents": [
+				{
+					"name": "CaptureCommutePreferencesIntent",
+					"confirmationRequired": false,
+					"prompts": {},
+					"slots": [
+						{
+							"name": "stop_id",
+							"type": "AMAZON.Ordinal",
+							"confirmationRequired": false,
+							"elicitationRequired": true,
+							"prompts": {
+								"elicitation": "Elicit.Slot.303899476312.985837334781"
+							}
+						},
+						{
+							"name": "line_id",
+							"type": "AMAZON.Ordinal",
+							"confirmationRequired": false,
+							"elicitationRequired": true,
+							"prompts": {
+								"elicitation": "Elicit.Slot.303899476312.795077103633"
+							}
+						}
+					]
+				}
+			],
+			"delegationStrategy": "ALWAYS"
+		},
+		"prompts": [
+			{
+				"id": "Elicit.Slot.303899476312.795077103633",
+				"variations": [
+					{
+						"type": "PlainText",
+						"value": "Which line do you take?"
+					},
+					{
+						"type": "PlainText",
+						"value": "Which transportation line do you take?"
+					}
+				]
+			},
+			{
+				"id": "Elicit.Slot.303899476312.985837334781",
+				"variations": [
+					{
+						"type": "PlainText",
+						"value": "At which stop do you start your journey?"
+					}
+				]
+			}
+        ]
     }
 }
