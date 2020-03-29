@@ -25,6 +25,69 @@
                         "bus stop waiting times",
                         "tram stop waiting times"
                     ]
+                },
+                {
+                    "name": "CaptureCommutePreferencesIntent",
+                    "slots": [
+						{
+							"name": "stop_id",
+							"type": "AMAZON.Ordinal",
+							"samples": [
+								"{stop_id}",
+                                "{stop_id} stop",
+                                "stop {stop_id}",
+                                "the {stop_id} stop",
+                                "at {stop_id}",
+                                "at the stop {stop_id}",
+                                "at stop {stop_id}"
+							]
+						},
+						{
+							"name": "line_id",
+							"type": "AMAZON.Ordinal",
+							"samples": [
+                                "{line_id}",
+                                "{line_id} lign",
+                                "the {line_id} line",
+                                "the line {line_id}",
+								"line {line_id}",
+								"the {line_id}",
+                                "bus {line_id}",
+								"metro {line_id}",
+                                "tram {line_id}",
+								"bus {line_id}",
+								"the metro {line_id}",
+                                "the tram {line_id}",
+                                "the {line_id} bus",
+								"the {line_id} metro",
+                                "the {line_id} tram",
+                                "{line_id} bus",
+								"{line_id} metro",
+                                "{line_id} tram"
+							]
+						}
+					],
+                    "samples": [
+                        "tram {line_id} stopping at {stop_id}",
+                        "tram {line_id} passing at {stop_id}",
+                        "tram {line_id} at {stop_id}",
+                        "tram number {line_id} at {stop_id}",
+                        "bus {line_id} at {stop_id}",
+                        "bus {line_id} stopping at {stop_id}",
+                        "bus {line_id} passing at {stop_id}",
+                        "bus {line_id} at {stop_id}",
+                        "bus number {line_id} at {stop_id}",
+                        "metro {line_id} at {stop_id}",
+                        "metro {line_id} stopping at {stop_id}",
+                        "metro {line_id} passing at {stop_id}",
+                        "metro {line_id} at {stop_id}",
+                        "the number {line_id} at {stop_id}",
+                        "number {line_id} at {stop_id}",
+                        "the {line_id} stopping at {stop_id}",
+                        "the {line_id} passing at {stop_id}",
+                        "line {line_id} at {stop_id}"
+
+                    ]
                 }
             ],
             "types": []

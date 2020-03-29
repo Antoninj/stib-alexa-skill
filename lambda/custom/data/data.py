@@ -6,6 +6,6 @@ from gettext import gettext as _
 SKILL_NAME = "Mon trajet quotidien"
 
 WELCOME = _("Bienvenue dans mon trajet quotidien!")
-HELP = _("Demandez moi quand est-ce que passe le prochain tram.")
+HELP = _("Quelle ligne du réseau STIB utilisez vous lors de votre trajet quotidien?")
 STOP = _("A la prochaine!")
-GENERIC_REPROMPT = _("Comment puis-je vous aider?")
+GENERIC_REPROMPT = _("Pourriez vous me dire quel est le numéro de votre ligne favori?")
