@@ -45,6 +45,34 @@ class LaunchRequestHandler(AbstractRequestHandler):
             data.GENERIC_REPROMPT))
         return handler_input.response_builder.response
 
+class CommutePreferencesIntent(AbstractRequestHandler):
+    """
+    Handler for capturing the commute preferences
+    """
+    def can_handle(self, handler_input):
+        return is_intent_name("CaptureCommutePreferencesIntent")(handler_input)
+
+    def handle(self, handler_input):
+        slots = handler_input.request_envelope.request.intent.slots
+
+        # extract slot values
+        stop_id = slots["stop_id"].value
+        line_id = slots["line_id"].value
+
+        # save slots into session attributes
+        session_attr = handler_input.attributes_manager.session_attributes
+        session_attr['favorite_stop_id'] = stop_id
+        session_attr['favorite_line_id'] = line_id
+
+        # save session attributes as persistent attributes
+        handler_input.attributes_manager.persistent_attributes = session_attr
+        handler_input.attributes_manager.save_persistent_attributes()
+
+        speech = "Très bien, je retiendrai que vous prenez la ligne {line_id} à l'arrêt {stop_id}" \
+                 "lors de votre trajet quotidien".format(stop_id=stop_id, line_id = line_id)
+        handler_input.response_builder.speak(speech)
+        return handler_input.response_builder.response
+
 
 class NextTramIntentHandler(AbstractRequestHandler):
     """Handler for Next Tram Intent."""
@@ -75,7 +103,7 @@ class NextTramIntentHandler(AbstractRequestHandler):
         if passing_times:
             speech_text = passing_times[0].formatted_waiting_time
         else:
-            speech_text = "Je n'ai pas trouvé d'informations pour l'horaire demandé"
+            speech_text = "Je n'ai pas trouvé d'informations pour le trajet demandé"
 
         handler_input.response_builder.speak(speech_text).set_should_end_session(True)
         return handler_input.response_builder.response
@@ -186,8 +214,9 @@ def setup_skill_builder():
                                         attribute_name="attributes", create_table=True,
                                         dynamodb_resource=boto3.resource("dynamodb"))
     skill_builder = CustomSkillBuilder(persistence_adapter=dynamo_db_adapter)
-    skill_builder.add_request_handler(LaunchRequestHandler())
     skill_builder.add_request_handler(NextTramIntentHandler())
+    skill_builder.add_request_handler(LaunchRequestHandler())
+    skill_builder.add_request_handler(CommutePreferencesIntent())
     skill_builder.add_request_handler(HelpIntentHandler())
     skill_builder.add_request_handler(CancelOrStopIntentHandler())
     skill_builder.add_request_handler(SessionEndedRequestHandler())
