@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 import logging
 from ask_sdk_model.services import ApiClientRequest, ApiClient
 from .model.passing_times import PointPassingTimes
