@@ -5,7 +5,6 @@ import os
 
 from ask_sdk_dynamodb.adapter import DynamoDbAdapter
 from ask_sdk_core.skill_builder import CustomSkillBuilder
-
 from ask_sdk_core.dispatch_components import AbstractRequestHandler, AbstractRequestInterceptor
 from ask_sdk_core.dispatch_components import AbstractExceptionHandler
 from ask_sdk_core.utils import is_request_type, is_intent_name
@@ -72,7 +71,7 @@ class NextTramIntentHandler(AbstractRequestHandler):
         logger.info("Getting waiting times for line %s at stop %s", favorite_line_id, favorite_stop_id)
 
         passing_times = stib_service.get_passing_times_for_stop_id_and_line_id(stop_id=favorite_stop_id,
-                                                                             line_id=favorite_line_id)
+                                                                               line_id=favorite_line_id)
         if passing_times:
             speech_text = passing_times[0].formatted_waiting_time
         else:
@@ -97,7 +96,6 @@ class HelpIntentHandler(AbstractRequestHandler):
         handler_input.response_builder.speak(_(
             data.HELP)).ask(_(data.HELP))
         return handler_input.response_builder.response
-
 
 
 class CancelOrStopIntentHandler(AbstractRequestHandler):
@@ -210,10 +208,11 @@ def local_test():
 
     # Test i18n
     i18n = gettext.translation(
-                'base', localedir='locales', languages=['fr-FR'], fallback=True)
+        'base', localedir='locales', languages=['fr-FR'], fallback=True)
     _ = i18n.gettext
     logger.info(_(
-                data.STOP))
+        data.STOP))
+
 
 # Set up the skill builder
 sb = setup_skill_builder()

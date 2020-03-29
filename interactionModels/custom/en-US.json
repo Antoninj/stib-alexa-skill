@@ -17,7 +17,6 @@
                 },
                 {
                     "name": "NextTramIntent",
-                    "slots": [],
                     "samples": [
                         "next tram",
                         "when is the next tram",
