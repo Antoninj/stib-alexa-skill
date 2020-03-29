@@ -6,7 +6,7 @@ from lex_bot_tester.aws.alexa.alexaskilltest import AlexaSkillTest
 verbose = True
 
 
-class DailyCommmuteTestSuite(AlexaSkillTest):
+class StibScheduleTestSuite(AlexaSkillTest):
 
     def test_next_tram_intent(self):
         """

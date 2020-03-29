@@ -221,6 +221,6 @@ sb = setup_skill_builder()
 stib_api_client = OpenDataAPIClient()
 stib_service = OpenDataService(stib_api_client=stib_api_client)
 
-# local_test()
+#local_test()
 
 handler = sb.lambda_handler()
