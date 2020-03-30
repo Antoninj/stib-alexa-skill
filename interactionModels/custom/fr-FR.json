@@ -131,7 +131,7 @@
                   "value": 1
                 },
                 {
-                  "type": "isGreaterThanOrEqualTo",
+                  "type": "isLessThanOrEqualTo",
                   "prompt": "Slot.Validation.1",
                   "value": 98
                 }
@@ -190,15 +190,15 @@
         "variations": [
           {
             "type": "PlainText",
-            "value": "Je ne connais que les numéros de ligne allant de 1 à 98."
+            "value": "La ligne {line_id} ne fait pas partie des lignes du réseau de la STIB. Je ne connais que les numéros de ligne allant de 1 à 98."
           },
           {
             "type": "PlainText",
-            "value": "Vous vous êtes surement trompé, les lignes du réseau STIB vont de 1 à 98."
+            "value": "Vous vous êtes surement trompé, la ligne {line_id} n'est pas un numéro de ligne valable. Les lignes du réseau STIB vont de 1 à 98."
           },
           {
             "type": "PlainText",
-            "value": "Cette ligne n'existe pas. Donnez moi une ligne dont le numéro est entre 1 et 98."
+            "value": "La ligne {line_id} n'existe pas. Donnez moi une ligne dont le numéro est entre 1 et 98."
           }
         ]
       }
