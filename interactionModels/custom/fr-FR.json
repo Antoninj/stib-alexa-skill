@@ -1,151 +1,151 @@
 {
-    "interactionModel": {
-        "languageModel": {
-            "invocationName": "horaire stib",
-            "intents": [
-                {
-                    "name": "AMAZON.CancelIntent",
-                    "samples": []
-                },
-                {
-                    "name": "AMAZON.HelpIntent",
-                    "samples": []
-                },
-                {
-                    "name": "AMAZON.StopIntent",
-                    "samples": []
-                },
-                {
-                    "name": "NextTramIntent",
-                    "samples": [
-                        "prochain tram",
-                        "l'horaire du prochain tram",
-                        "horaire du prochain tram",
-                        "quand est le prochain tram",
-                        "quand est-ce que passe le prochain tram",
-                        "quand passe le prochain tram",
-                        "quand passe le tram",
-                        "quel est l'horaire pour le prochain tram",
-                        "quel est l'horaire du prochain tram",
-                        "dans combien de temps passe le prochain tram",
-                        "dans combien de temps passe le tram",
-                        "dans combien de temps est le prochain tram"
-                    ]
-                },
-                {
-                    "name": "CaptureCommutePreferencesIntent",
-                    "slots": [
-						{
-							"name": "stop_id",
-							"type": "AMAZON.Ordinal",
-							"samples": [
-								"{stop_id}",
-                                "à {stop_id}",
-                                "depuis {stop_id}",
-                                "via {stop_id}",
-                                "l'arrêt {stop_id}",
-								"l'arrêt de tram {stop_id}",
-                                "l'arrêt de bus {stop_id}",
-                                "l'arrêt de métro {stop_id}",
-                                "à l'arrêt {stop_id}",
-                                "à l'arrêt de tram {stop_id}",
-                                "à l'arrêt de bus {stop_id}",
-                                "à l'arrêt de métro {stop_id}"
-							]
-						},
-						{
-							"name": "line_id",
-							"type": "AMAZON.Ordinal",
-							"samples": [
-                                "{line_id}",
-                                "numéro {line_id}",
-								"ligne {line_id}",
-								"{line_id}",
-								"bus {line_id}",
-                                "bus numéro {line_id}",
-								"métro {line_id}",
-                                "métro numéro {line_id}",
-                                "tram {line_id}",
-                                "tram numéro {line_id}",
-                                "le numéro {line_id}",
-								"la ligne {line_id}",
-								"le {line_id}",
-								"le bus {line_id}",
-                                "le bus numéro {line_id}",
-								"le métro {line_id}",
-                                "le métro numéro {line_id}",
-                                "le tram {line_id}",
-                                "le tram numéro {line_id}",
-							]
-						}
-					],
-                    "samples": [
-                        "le tram {line_id} à {stop_id}",
-                        "le bus {line_id} à {stop_id}",
-                        "le métro {line_id} à {stop_id}",
-                        "le tram {line_id} à l'arrêt {stop_id}",
-                        "le bus {line_id} à l'arrêt {stop_id}",
-                        "le métro {line_id} à l'arrêt {stop_id}",
-                        "le {line_id} à {stop_id}",
-                        "le {line_id} à l'arrêt {stop_id}"
-                    ]
-                }
-            ],
-            "types": []
+  "interactionModel": {
+    "languageModel": {
+      "invocationName": "horaire stib",
+      "intents": [
+        {
+          "name": "AMAZON.CancelIntent",
+          "samples": []
         },
-		"dialog": {
-			"intents": [
-				{
-					"name": "CaptureCommutePreferencesIntent",
-					"confirmationRequired": false,
-					"prompts": {},
-					"slots": [
-						{
-							"name": "stop_id",
-							"type": "AMAZON.Ordinal",
-							"confirmationRequired": false,
-							"elicitationRequired": true,
-							"prompts": {
-								"elicitation": "Elicit.Slot.303899476312.985837334781"
-							}
-						},
-						{
-							"name": "line_id",
-							"type": "AMAZON.Ordinal",
-							"confirmationRequired": false,
-							"elicitationRequired": true,
-							"prompts": {
-								"elicitation": "Elicit.Slot.303899476312.795077103633"
-							}
-						}
-					]
-				}
-			],
-			"delegationStrategy": "ALWAYS"
-		},
-		"prompts": [
-			{
-				"id": "Elicit.Slot.303899476312.795077103633",
-				"variations": [
-					{
-						"type": "PlainText",
-						"value": "Quelle ligne prenez vous?"
-					},
-					{
-						"type": "PlainText",
-						"value": "Quel est le numéro de la ligne que vous prenez?"
-					}
-				]
-			},
-			{
-				"id": "Elicit.Slot.303899476312.985837334781",
-				"variations": [
-					{
-						"type": "PlainText",
-						"value": "Quel est le nom de l'arrêt?"
-					}
-				]
-			}
+        {
+          "name": "AMAZON.HelpIntent",
+          "samples": []
+        },
+        {
+          "name": "AMAZON.StopIntent",
+          "samples": []
+        },
+        {
+          "name": "NextTramIntent",
+          "samples": [
+            "prochain tram",
+            "l'horaire du prochain tram",
+            "horaire du prochain tram",
+            "quand est le prochain tram",
+            "quand est-ce que passe le prochain tram",
+            "quand passe le prochain tram",
+            "quand passe le tram",
+            "quel est l'horaire pour le prochain tram",
+            "quel est l'horaire du prochain tram",
+            "dans combien de temps passe le prochain tram",
+            "dans combien de temps passe le tram",
+            "dans combien de temps est le prochain tram"
+          ]
+        },
+        {
+          "name": "CaptureCommutePreferencesIntent",
+          "slots": [
+            {
+              "name": "stop_id",
+              "type": "AMAZON.Ordinal",
+              "samples": [
+                "{stop_id}",
+                "à {stop_id}",
+                "depuis {stop_id}",
+                "via {stop_id}",
+                "l'arrêt {stop_id}",
+                "l'arrêt de tram {stop_id}",
+                "l'arrêt de bus {stop_id}",
+                "l'arrêt de métro {stop_id}",
+                "à l'arrêt {stop_id}",
+                "à l'arrêt de tram {stop_id}",
+                "à l'arrêt de bus {stop_id}",
+                "à l'arrêt de métro {stop_id}"
+              ]
+            },
+            {
+              "name": "line_id",
+              "type": "AMAZON.Ordinal",
+              "samples": [
+                "{line_id}",
+                "numéro {line_id}",
+                "ligne {line_id}",
+                "{line_id}",
+                "bus {line_id}",
+                "bus numéro {line_id}",
+                "métro {line_id}",
+                "métro numéro {line_id}",
+                "tram {line_id}",
+                "tram numéro {line_id}",
+                "le numéro {line_id}",
+                "la ligne {line_id}",
+                "le {line_id}",
+                "le bus {line_id}",
+                "le bus numéro {line_id}",
+                "le métro {line_id}",
+                "le métro numéro {line_id}",
+                "le tram {line_id}",
+                "le tram numéro {line_id}"
+              ]
+            }
+          ],
+          "samples": [
+            "le tram {line_id} à {stop_id}",
+            "le bus {line_id} à {stop_id}",
+            "le métro {line_id} à {stop_id}",
+            "le tram {line_id} à l'arrêt {stop_id}",
+            "le bus {line_id} à l'arrêt {stop_id}",
+            "le métro {line_id} à l'arrêt {stop_id}",
+            "le {line_id} à {stop_id}",
+            "le {line_id} à l'arrêt {stop_id}"
+          ]
+        }
+      ],
+      "types": []
+    },
+    "dialog": {
+      "intents": [
+        {
+          "name": "CaptureCommutePreferencesIntent",
+          "confirmationRequired": false,
+          "prompts": {},
+          "slots": [
+            {
+              "name": "stop_id",
+              "type": "AMAZON.Ordinal",
+              "confirmationRequired": false,
+              "elicitationRequired": true,
+              "prompts": {
+                "elicitation": "Elicit.Slot.303899476312.985837334781"
+              }
+            },
+            {
+              "name": "line_id",
+              "type": "AMAZON.Ordinal",
+              "confirmationRequired": false,
+              "elicitationRequired": true,
+              "prompts": {
+                "elicitation": "Elicit.Slot.303899476312.795077103633"
+              }
+            }
+          ]
+        }
+      ],
+      "delegationStrategy": "ALWAYS"
+    },
+    "prompts": [
+      {
+        "id": "Elicit.Slot.303899476312.795077103633",
+        "variations": [
+          {
+            "type": "PlainText",
+            "value": "Quelle ligne prenez vous?"
+          },
+          {
+            "type": "PlainText",
+            "value": "Quel est le numéro de la ligne que vous prenez?"
+          }
         ]
-    }
+      },
+      {
+        "id": "Elicit.Slot.303899476312.985837334781",
+        "variations": [
+          {
+            "type": "PlainText",
+            "value": "Quel est le nom de l'arrêt?"
+          }
+        ]
+      }
+    ]
+  }
 }
