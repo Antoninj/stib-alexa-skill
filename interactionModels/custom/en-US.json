@@ -4,6 +4,14 @@
       "invocationName": "stib schedule",
       "intents": [
         {
+          "name": "AMAZON.YesIntent",
+          "samples": []
+        },
+        {
+          "name": "AMAZON.NoIntent",
+          "samples": []
+        },
+        {
           "name": "AMAZON.CancelIntent",
           "samples": []
         },
@@ -31,7 +39,7 @@
           "slots": [
             {
               "name": "stop_id",
-              "type": "AMAZON.Ordinal",
+              "type": "AMAZON.NUMBER",
               "samples": [
                 "{stop_id}",
                 "{stop_id} stop",
@@ -44,7 +52,7 @@
             },
             {
               "name": "line_id",
-              "type": "AMAZON.Ordinal",
+              "type": "AMAZON.NUMBER",
               "samples": [
                 "{line_id}",
                 "{line_id} lign",
@@ -100,7 +108,7 @@
           "slots": [
             {
               "name": "stop_id",
-              "type": "AMAZON.Ordinal",
+              "type": "AMAZON.NUMBER",
               "confirmationRequired": false,
               "elicitationRequired": true,
               "prompts": {
@@ -109,7 +117,7 @@
             },
             {
               "name": "line_id",
-              "type": "AMAZON.Ordinal",
+              "type": "AMAZON.NUMBER",
               "confirmationRequired": false,
               "elicitationRequired": true,
               "prompts": {
