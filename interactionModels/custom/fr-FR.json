@@ -4,6 +4,14 @@
       "invocationName": "horaire stib",
       "intents": [
         {
+          "name": "AMAZON.YesIntent",
+          "samples": []
+        },
+        {
+          "name": "AMAZON.NoIntent",
+          "samples": []
+        },
+        {
           "name": "AMAZON.CancelIntent",
           "samples": []
         },
@@ -37,7 +45,7 @@
           "slots": [
             {
               "name": "stop_id",
-              "type": "AMAZON.Ordinal",
+              "type": "AMAZON.NUMBER",
               "samples": [
                 "{stop_id}",
                 "à {stop_id}",
@@ -55,12 +63,11 @@
             },
             {
               "name": "line_id",
-              "type": "AMAZON.Ordinal",
+              "type": "AMAZON.NUMBER",
               "samples": [
                 "{line_id}",
                 "numéro {line_id}",
                 "ligne {line_id}",
-                "{line_id}",
                 "bus {line_id}",
                 "bus numéro {line_id}",
                 "métro {line_id}",
@@ -102,7 +109,7 @@
           "slots": [
             {
               "name": "stop_id",
-              "type": "AMAZON.Ordinal",
+              "type": "AMAZON.NUMBER",
               "confirmationRequired": false,
               "elicitationRequired": true,
               "prompts": {
@@ -111,12 +118,24 @@
             },
             {
               "name": "line_id",
-              "type": "AMAZON.Ordinal",
+              "type": "AMAZON.NUMBER",
               "confirmationRequired": false,
               "elicitationRequired": true,
               "prompts": {
                 "elicitation": "Elicit.Slot.303899476312.795077103633"
-              }
+              },
+              "validations": [
+                {
+                  "type": "isGreaterThanOrEqualTo",
+                  "prompt": "Slot.Validation.1",
+                  "value": 1
+                },
+                {
+                  "type": "isGreaterThanOrEqualTo",
+                  "prompt": "Slot.Validation.1",
+                  "value": 98
+                }
+              ]
             }
           ]
         }
@@ -129,11 +148,15 @@
         "variations": [
           {
             "type": "PlainText",
-            "value": "Quelle ligne prenez vous?"
+            "value": "Quelle ligne prenez vous habituellement?"
           },
           {
             "type": "PlainText",
-            "value": "Quel est le numéro de la ligne que vous prenez?"
+            "value": "Quel est le numéro de la ligne que vous prenez habituellement?"
+          },
+          {
+            "type": "PlainText",
+            "value": "Quel est votre ligne de transport en commun favorite?"
           }
         ]
       },
@@ -142,7 +165,40 @@
         "variations": [
           {
             "type": "PlainText",
-            "value": "Quel est le nom de l'arrêt?"
+            "value": "Quel est le nom de l'arrêt auquel vous montez?"
+          },
+          {
+            "type": "PlainText",
+            "value": "A quel arrêt montez vous?"
+          },
+          {
+            "type": "PlainText",
+            "value": "Quel est le nom de votre arrêt?"
+          },
+          {
+            "type": "PlainText",
+            "value": "Quel est votre arrêt?"
+          },
+          {
+            "type": "PlainText",
+            "value": "D'ou partez vous?"
+          }
+        ]
+      },
+      {
+        "id": "Slot.Validation.1",
+        "variations": [
+          {
+            "type": "PlainText",
+            "value": "Je ne connais que les numéros de ligne allant de 1 à 98."
+          },
+          {
+            "type": "PlainText",
+            "value": "Vous vous êtes surement trompé, les lignes du réseau STIB vont de 1 à 98."
+          },
+          {
+            "type": "PlainText",
+            "value": "Cette ligne n'existe pas. Donnez moi une ligne dont le numéro est entre 1 et 98."
           }
         ]
       }

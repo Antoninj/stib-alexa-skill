@@ -69,7 +69,7 @@ class CommutePreferencesIntent(AbstractRequestHandler):
         handler_input.attributes_manager.save_persistent_attributes()
 
         speech = "Très bien, je retiendrai que vous prenez la ligne {line_id} à l'arrêt {stop_id}" \
-                 "lors de votre trajet quotidien".format(stop_id=stop_id, line_id = line_id)
+                 " lors de votre trajet quotidien".format(stop_id=stop_id, line_id = line_id)
         handler_input.response_builder.speak(speech)
         return handler_input.response_builder.response
 
@@ -103,7 +103,7 @@ class NextTramIntentHandler(AbstractRequestHandler):
         if passing_times:
             speech_text = passing_times[0].formatted_waiting_time
         else:
-            speech_text = "Je n'ai pas trouvé d'informations pour le trajet demandé"
+            speech_text = "Désolé, je n'ai pas trouvé d'informations pour le trajet demandé"
 
         handler_input.response_builder.speak(speech_text).set_should_end_session(True)
         return handler_input.response_builder.response
