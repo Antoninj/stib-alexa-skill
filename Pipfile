@@ -8,6 +8,7 @@ boto3 = "*"
 babel = "*"
 pystibmvib = "*"
 pandas = "*"
+black = "*"
 
 [packages]
 ask-sdk-core = "==1.13.0"

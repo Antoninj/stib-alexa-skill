@@ -5,7 +5,10 @@ import os
 
 from ask_sdk_dynamodb.adapter import DynamoDbAdapter
 from ask_sdk_core.skill_builder import CustomSkillBuilder
-from ask_sdk_core.dispatch_components import AbstractRequestHandler, AbstractRequestInterceptor
+from ask_sdk_core.dispatch_components import (
+    AbstractRequestHandler,
+    AbstractRequestInterceptor,
+)
 from ask_sdk_core.dispatch_components import AbstractExceptionHandler
 from ask_sdk_core.utils import is_request_type, is_intent_name
 from ask_sdk_core.handler_input import HandlerInput
@@ -20,8 +23,8 @@ from data import data
 import boto3
 
 # Environment variables definitions
-ENVIRONMENT = os.environ['env']
-LOGGING_LEVEL = os.environ['log_level']
+ENVIRONMENT = os.environ["env"]
+LOGGING_LEVEL = os.environ["log_level"]
 
 # Logging config
 logger = logging.getLogger("Lambda")
@@ -43,8 +46,7 @@ class LaunchRequestHandler(AbstractRequestHandler):
         speech = _(data.WELCOME)
         speech += " " + _(data.HELP)
         handler_input.response_builder.speak(speech)
-        handler_input.response_builder.ask(_(
-            data.GENERIC_REPROMPT))
+        handler_input.response_builder.ask(_(data.GENERIC_REPROMPT))
         return handler_input.response_builder.response
 
 
@@ -54,24 +56,35 @@ class StartedInProgressCommutePreferencesHandler(AbstractRequestHandler):
     """
 
     def can_handle(self, handler_input):
-        return handler_input.request_envelope.request.intent.dialog_state != "COMPLETED" and is_intent_name(
-            "CaptureCommutePreferencesIntent")(handler_input)
+        return (
+            is_intent_name("CaptureCommutePreferencesIntent")(handler_input)
+            and handler_input.request_envelope.request.intent.dialog_state
+            != "COMPLETED"
+        )
 
     def handle(self, handler_input):
-        return handler_input.response_builder.add_directive(DelegateDirective()).response
+        logger.debug("In StartedInProgressCommutePreferencesHandler")
+
+        return handler_input.response_builder.add_directive(
+            DelegateDirective()
+        ).response
 
 
 class CompletedCommutePreferencesHandler(AbstractRequestHandler):
     """
     Handler for the commute preferences completed intent
     """
+
     def can_handle(self, handler_input):
-        return handler_input.request_envelope.request.intent.dialog_state == "COMPLETED" and \
-               is_intent_name("CaptureCommutePreferencesIntent")(handler_input)
+        return (
+            is_intent_name("CaptureCommutePreferencesIntent")(handler_input)
+            and handler_input.request_envelope.request.intent.dialog_state
+            == "COMPLETED"
+        )
 
     def handle(self, handler_input):
 
-        logger.debug("In CommutePreferencesIntent")
+        logger.debug("In CompletedCommutePreferencesHandler")
         slots = handler_input.request_envelope.request.intent.slots
 
         # extract slot values
@@ -81,14 +94,16 @@ class CompletedCommutePreferencesHandler(AbstractRequestHandler):
         logger.debug("Stop id slot value:")
         # save slots into session attributes
         session_attr = handler_input.attributes_manager.session_attributes
-        session_attr['favorite_line_id'] = line_id
-        session_attr['favorite_stop_id'] = stop_id
+        session_attr["favorite_line_id"] = line_id
+        session_attr["favorite_stop_id"] = stop_id
         # save session attributes as persistent attributes
         handler_input.attributes_manager.persistent_attributes = session_attr
         handler_input.attributes_manager.save_persistent_attributes()
 
-        speech = "Très bien, je retiendrai que vous prenez la ligne {line_id} à l'arrêt {stop_id}" \
-                 " lors de votre trajet quotidien".format(stop_id=stop_id, line_id = line_id)
+        speech = (
+            "Très bien, je retiendrai que vous prenez la ligne {line_id} à l'arrêt {stop_id}"
+            " lors de votre trajet quotidien".format(stop_id=stop_id, line_id=line_id)
+        )
         handler_input.response_builder.speak(speech)
         return handler_input.response_builder.response
 
@@ -101,9 +116,13 @@ class GetPassingTimeIntentHandler(AbstractRequestHandler):
 
         # Extract persistent attributes and check if they are all present
         attr = handler_input.attributes_manager.persistent_attributes
-        attributes_are_present = ("favorite_stop_id" in attr and "favorite_line_id" in attr)
+        attributes_are_present = (
+            "favorite_stop_id" in attr and "favorite_line_id" in attr
+        )
 
-        return attributes_are_present and is_intent_name("GetPassingTimeIntent")(handler_input)
+        return attributes_are_present and is_intent_name("GetPassingTimeIntent")(
+            handler_input
+        )
 
     def handle(self, handler_input):
         # type: (HandlerInput) -> Response
@@ -111,14 +130,17 @@ class GetPassingTimeIntentHandler(AbstractRequestHandler):
 
         persistent_attributes = handler_input.attributes_manager.persistent_attributes
         logger.debug("Persistent attributes found: %s", persistent_attributes)
-        favorite_stop_id = persistent_attributes['favorite_stop_id']
-        favorite_line_id = persistent_attributes['favorite_line_id']
-        passing_times = stib_service.get_passing_times_for_stop_id_and_line_id(stop_id=favorite_stop_id,
-                                                                               line_id=favorite_line_id)
+        favorite_stop_id = persistent_attributes["favorite_stop_id"]
+        favorite_line_id = persistent_attributes["favorite_line_id"]
+        passing_times = stib_service.get_passing_times_for_stop_id_and_line_id(
+            stop_id=favorite_stop_id, line_id=favorite_line_id
+        )
         if passing_times:
             speech_text = passing_times[0].formatted_waiting_time
         else:
-            speech_text = "Désolé, je n'ai pas trouvé d'informations pour le trajet demandé"
+            speech_text = (
+                "Désolé, je n'ai pas trouvé d'informations pour le trajet demandé"
+            )
 
         handler_input.response_builder.speak(speech_text).set_should_end_session(True)
         return handler_input.response_builder.response
@@ -136,8 +158,7 @@ class HelpIntentHandler(AbstractRequestHandler):
         logger.debug("In HelpIntentHandler")
         _ = handler_input.attributes_manager.request_attributes["_"]
 
-        handler_input.response_builder.speak(_(
-            data.HELP)).ask(_(data.HELP))
+        handler_input.response_builder.speak(_(data.HELP)).ask(_(data.HELP))
         return handler_input.response_builder.response
 
 
@@ -146,16 +167,16 @@ class CancelOrStopIntentHandler(AbstractRequestHandler):
 
     def can_handle(self, handler_input):
         # type: (HandlerInput) -> bool
-        return (is_intent_name("AMAZON.CancelIntent")(handler_input) or
-                is_intent_name("AMAZON.StopIntent")(handler_input))
+        return is_intent_name("AMAZON.CancelIntent")(handler_input) or is_intent_name(
+            "AMAZON.StopIntent"
+        )(handler_input)
 
     def handle(self, handler_input):
         # type: (HandlerInput) -> Response
         logger.debug("In CancelOrStopIntentHandler")
         _ = handler_input.attributes_manager.request_attributes["_"]
 
-        handler_input.response_builder.speak(_(
-            data.STOP)).set_should_end_session(True)
+        handler_input.response_builder.speak(_(data.STOP)).set_should_end_session(True)
         return handler_input.response_builder.response
 
 
@@ -169,8 +190,11 @@ class SessionEndedRequestHandler(AbstractRequestHandler):
     def handle(self, handler_input):
         # type: (HandlerInput) -> Response
         logger.debug("In SessionEndedRequestHandler")
-        logger.debug("Session ended with reason: {}".format(
-            handler_input.request_envelope.request.reason))
+        logger.debug(
+            "Session ended with reason: {}".format(
+                handler_input.request_envelope.request.reason
+            )
+        )
         return handler_input.response_builder.response
 
 
@@ -220,14 +244,20 @@ class LocalizationInterceptor(AbstractRequestInterceptor):
         locale = handler_input.request_envelope.request.locale
         logger.debug("Locale is {}".format(locale))
         i18n = gettext.translation(
-            'base', localedir='locales', languages=[locale], fallback=True)
+            "base", localedir="locales", languages=[locale], fallback=True
+        )
         handler_input.attributes_manager.request_attributes["_"] = i18n.gettext
 
 
 def setup_skill_builder():
-    dynamo_db_adapter = DynamoDbAdapter(table_name="DailyCommuteFavorites", partition_key_name="id",
-                                        attribute_name="attributes", create_table=True,
-                                        dynamodb_resource=boto3.resource("dynamodb"))
+    dynamo_db_adapter = DynamoDbAdapter(
+        table_name="DailyCommuteFavorites",
+        partition_key_name="id",
+        attribute_name="attributes",
+        create_table=True,
+        dynamodb_resource=boto3.resource("dynamodb"),
+    )
+
     skill_builder = CustomSkillBuilder(persistence_adapter=dynamo_db_adapter)
     skill_builder.add_request_handler(LaunchRequestHandler())
     skill_builder.add_request_handler(GetPassingTimeIntentHandler())
@@ -236,8 +266,7 @@ def setup_skill_builder():
     skill_builder.add_request_handler(HelpIntentHandler())
     skill_builder.add_request_handler(CancelOrStopIntentHandler())
     skill_builder.add_request_handler(SessionEndedRequestHandler())
-    skill_builder.add_request_handler(
-        IntentReflectorHandler())
+    skill_builder.add_request_handler(IntentReflectorHandler())
     # make sure IntentReflectorHandler is last so it doesn't override your custom intent handlers
 
     skill_builder.add_exception_handler(ErrorHandler())
@@ -253,10 +282,10 @@ def local_test():
 
     # Test i18n
     i18n = gettext.translation(
-        'base', localedir='locales', languages=['fr-FR'], fallback=True)
+        "base", localedir="locales", languages=["fr-FR"], fallback=True
+    )
     _ = i18n.gettext
-    logger.info(_(
-        data.STOP))
+    logger.info(_(data.STOP))
 
 
 # Set up the skill builder
@@ -266,6 +295,6 @@ sb = setup_skill_builder()
 stib_api_client = OpenDataAPIClient()
 stib_service = OpenDataService(stib_api_client=stib_api_client)
 
-#local_test()
+# local_test()
 
 handler = sb.lambda_handler()
