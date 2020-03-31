@@ -24,7 +24,7 @@
           "samples": []
         },
         {
-          "name": "NextTramIntent",
+          "name": "GetPassingTimeIntent",
           "samples": [
             "prochain tram",
             "l'horaire du prochain tram",
@@ -33,6 +33,7 @@
             "quand est-ce que passe le prochain tram",
             "quand passe le prochain tram",
             "quand passe le tram",
+            "dis moi quand passe le tram",
             "quel est l'horaire pour le prochain tram",
             "quel est l'horaire du prochain tram",
             "dans combien de temps passe le prochain tram",
@@ -87,6 +88,9 @@
             }
           ],
           "samples": [
+            "trajet quotidien",
+            "la {line_id}",
+            "la ligne {line_id}",
             "le tram {line_id} à {stop_id}",
             "le bus {line_id} à {stop_id}",
             "le métro {line_id} à {stop_id}",
@@ -108,15 +112,6 @@
           "prompts": {},
           "slots": [
             {
-              "name": "stop_id",
-              "type": "AMAZON.NUMBER",
-              "confirmationRequired": false,
-              "elicitationRequired": true,
-              "prompts": {
-                "elicitation": "Elicit.Slot.303899476312.985837334781"
-              }
-            },
-            {
               "name": "line_id",
               "type": "AMAZON.NUMBER",
               "confirmationRequired": false,
@@ -136,6 +131,15 @@
                   "value": 98
                 }
               ]
+            },
+            {
+              "name": "stop_id",
+              "type": "AMAZON.NUMBER",
+              "confirmationRequired": false,
+              "elicitationRequired": true,
+              "prompts": {
+                "elicitation": "Elicit.Slot.303899476312.985837334781"
+              }
             }
           ]
         }
@@ -152,11 +156,15 @@
           },
           {
             "type": "PlainText",
+            "value": "Quel numéro de ligne prenez vous habituellement?"
+          },
+          {
+            "type": "PlainText",
             "value": "Quel est le numéro de la ligne que vous prenez habituellement?"
           },
           {
             "type": "PlainText",
-            "value": "Quel est votre ligne de transport en commun favorite?"
+            "value": "Quel est votre ligne favorite?"
           }
         ]
       },
@@ -190,11 +198,11 @@
         "variations": [
           {
             "type": "PlainText",
-            "value": "La ligne {line_id} ne fait pas partie des lignes du réseau de la STIB. Je ne connais que les numéros de ligne allant de 1 à 98."
+            "value": "La ligne {line_id} ne fait pas partie des lignes du réseau de la STIB. Quel est votre numéro de ligne?"
           },
           {
             "type": "PlainText",
-            "value": "Vous vous êtes surement trompé, la ligne {line_id} n'est pas un numéro de ligne valable. Les lignes du réseau STIB vont de 1 à 98."
+            "value": "Vous vous êtes surement trompé, la ligne {line_id} n'est pas un numéro de ligne valable. Quel est votre numéro de ligne?"
           },
           {
             "type": "PlainText",

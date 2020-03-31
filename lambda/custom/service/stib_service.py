@@ -31,8 +31,8 @@ class OpenDataService:
         else:
             return point_passing_times
 
-    def get_passing_times_for_stop_id_and_line_id(self, stop_id=DEFAULT_STOP_ID, line_id=DEFAULT_LINE_ID,
-                                                  lang: str = 'fr'):
+    def get_passing_times_for_stop_id_and_line_id(self, stop_id=DEFAULT_STOP_ID, line_id=DEFAULT_LINE_ID):
+        logger.debug("Getting passing times for line [%s] at stop [%s]", line_id, stop_id)
         request_url = self.PASSING_TIME_BY_POINT_SUFFIX + stop_id
         api_request = ApiClientRequest(url=request_url, method='GET')
         response = self.api_client.invoke(api_request)
