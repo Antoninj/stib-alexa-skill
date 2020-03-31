@@ -12,11 +12,10 @@ from urllib3.util import parse_url
 from .token_helper import TokenHelper
 
 logger = logging.getLogger("Lambda")
-OPEN_DATA_API_ENDPOINT = os.environ['open_data_api_endpoint']
+OPEN_DATA_API_ENDPOINT = os.environ["open_data_api_endpoint"]
 
 
 class OpenDataAPIClient(ApiClient):
-
     def __init__(self):
         self.token_helper = TokenHelper()
 
@@ -42,19 +41,20 @@ class OpenDataAPIClient(ApiClient):
         try:
             http_method = self._resolve_method(request)
             http_headers = self._convert_list_tuples_to_dict(
-                headers_list=request.headers)
+                headers_list=request.headers
+            )
 
             request.url = OPEN_DATA_API_ENDPOINT + request.url
             parsed_url = parse_url(request.url)
             if parsed_url.scheme is None or parsed_url.scheme != "https":
                 raise ApiClientException(
-                    "Requests against non-HTTPS endpoints are not allowed.")
+                    "Requests against non-HTTPS endpoints are not allowed."
+                )
 
             raw_data = None  # type: Optional[str]
             if request.body:
                 body_content_type = http_headers.get("Content-type", None)
-                if (body_content_type is not None and
-                        "json" in body_content_type):
+                if body_content_type is not None and "json" in body_content_type:
                     raw_data = json.dumps(request.body)
                 else:
                     raw_data = request.body
@@ -62,16 +62,19 @@ class OpenDataAPIClient(ApiClient):
             api_security_token = self.token_helper.get_security_token()
 
             http_response = http_method(
-                url=request.url, headers=http_headers, data=raw_data, auth=BearerAuth(api_security_token))
+                url=request.url,
+                headers=http_headers,
+                data=raw_data,
+                auth=BearerAuth(api_security_token),
+            )
 
             return ApiClientResponse(
-                headers=self._convert_dict_to_list_tuples(
-                    http_response.headers),
+                headers=self._convert_dict_to_list_tuples(http_response.headers),
                 status_code=http_response.status_code,
-                body=http_response)
+                body=http_response,
+            )
         except Exception as e:
-            raise ApiClientException(
-                "Error executing the request: {}".format(str(e)))
+            raise ApiClientException("Error executing the request: {}".format(str(e)))
 
     @staticmethod
     def _resolve_method(request):
@@ -91,10 +94,12 @@ class OpenDataAPIClient(ApiClient):
                 return getattr(requests, request.method.lower())
             else:
                 raise ApiClientException(
-                    "Invalid request method: {}".format(request.method))
+                    "Invalid request method: {}".format(request.method)
+                )
         except AttributeError:
             raise ApiClientException(
-                "Invalid request method: {}".format(request.method))
+                "Invalid request method: {}".format(request.method)
+            )
 
     @staticmethod
     def _convert_list_tuples_to_dict(headers_list):
@@ -114,8 +119,7 @@ class OpenDataAPIClient(ApiClient):
             for header_tuple in headers_list:
                 key, value = header_tuple[0], header_tuple[1]
                 if key in headers_dict:
-                    headers_dict[key] = "{}, {}".format(
-                        headers_dict[key], value)
+                    headers_dict[key] = "{}, {}".format(headers_dict[key], value)
                 else:
                     headers_dict[header_tuple[0]] = value
         return headers_dict
@@ -138,7 +142,7 @@ class OpenDataAPIClient(ApiClient):
             for key, values in six.iteritems(headers_dict):
                 for value in values.split(","):
                     value = value.strip()
-                    if value is not None and value != '':
+                    if value is not None and value != "":
                         headers_list.append((key, value.strip()))
         return headers_list
 
