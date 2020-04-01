@@ -96,7 +96,7 @@
             },
             {
               "name": "transportation_mode",
-              "type": "Transportation Mode"
+              "type": "TRANSPORTATION_MODES"
             }
           ],
           "samples": [
@@ -131,7 +131,7 @@
       ],
       "types": [
         {
-          "name": "Transportation Mode",
+          "name": "TRANSPORTATION_MODES",
           "values": [
             {
               "id": "bus",
