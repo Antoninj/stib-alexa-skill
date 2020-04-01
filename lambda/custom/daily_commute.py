@@ -58,8 +58,7 @@ class StartedInProgressCommutePreferencesHandler(AbstractRequestHandler):
     def can_handle(self, handler_input):
         return (
             is_intent_name("CaptureCommutePreferencesIntent")(handler_input)
-            and handler_input.request_envelope.request.intent.dialog_state
-            != "COMPLETED"
+            and handler_input.request_envelope.request.dialog_state != "COMPLETED"
         )
 
     def handle(self, handler_input):
@@ -78,8 +77,7 @@ class CompletedCommutePreferencesHandler(AbstractRequestHandler):
     def can_handle(self, handler_input):
         return (
             is_intent_name("CaptureCommutePreferencesIntent")(handler_input)
-            and handler_input.request_envelope.request.intent.dialog_state
-            == "COMPLETED"
+            and handler_input.request_envelope.request.dialog_state == "COMPLETED"
         )
 
     def handle(self, handler_input):

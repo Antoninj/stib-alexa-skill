@@ -25,28 +25,41 @@
         },
         {
           "name": "GetArrivalTimesIntent",
+          "slots": [
+            {
+              "name": "transportation_mode",
+              "type": "TRANSPORTATION_MODES"
+            }
+          ],
           "samples": [
-            "prochain tram",
-            "l'heure d'arrivée du tram",
+            "mon trajet favori",
+            "mon trajet quotidien",
             "temps d'attente",
             "le temps d'attente",
-            "le temps d'attente du tram",
-            "l'horaire du tram",
-            "l'horaire du prochain tram",
-            "horaire du prochain tram",
-            "quand est le prochain tram",
-            "quand est-ce que passe le prochain tram",
-            "quand est-ce qu'arrive le tram",
-            "quand passe le prochain tram",
-            "quand passe le tram",
-            "dis moi quand passe le tram",
-            "quel est l'horaire pour le prochain tram",
-            "quel est l'horaire du prochain tram",
-            "dans combien de temps arrive le prochain tram",
-            "dans combien de temps arrive le tram",
-            "dans combien de temps passe le prochain tram",
-            "dans combien de temps passe le tram",
-            "dans combien de temps est le prochain tram"
+            "prochain {transportation_mode}",
+            "l'heure d'arrivée du {transportation_mode}",
+            "le temps d'attente du {transportation_mode}",
+            "l'horaire du {transportation_mode}",
+            "l'horaire du prochain {transportation_mode}",
+            "horaire du prochain {transportation_mode}",
+            "horaire du {transportation_mode}",
+            "quand est le prochain {transportation_mode}",
+            "quand est-ce que passe le {transportation_mode}",
+            "quand est-ce que passe le prochain {transportation_mode}",
+            "quand est-ce qu'arrive le {transportation_mode}",
+            "quand est-ce qu'arrive le prochain {transportation_mode}",
+            "quand passe le prochain {transportation_mode}",
+            "quand passe le {transportation_mode}",
+            "dis moi quand passe le {transportation_mode}",
+            "quel est l'horaire pour le prochain {transportation_mode}",
+            "quel est l'horaire du prochain {transportation_mode}",
+            "quel est l'horaire du {transportation_mode}",
+            "dans combien de temps arrive le prochain {transportation_mode}",
+            "dans combien de temps arrive le {transportation_mode}",
+            "dans combien de temps passe le prochain {transportation_mode}",
+            "dans combien de temps passe le {transportation_mode}",
+            "dans combien de temps est le prochain {transportation_mode}",
+            "dans combien de temps est le {transportation_mode}"
           ]
         },
         {
@@ -100,7 +113,6 @@
             }
           ],
           "samples": [
-            "mon trajet quotidien",
             "configure mon trajet quotidien",
             "enregistre mon trajet quotidien",
             "la {line_id}",
