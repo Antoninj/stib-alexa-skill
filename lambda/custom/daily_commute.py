@@ -108,8 +108,8 @@ class CompletedCommutePreferencesHandler(AbstractRequestHandler):
         return handler_input.response_builder.response
 
 
-class GetPassingTimeIntentHandler(AbstractRequestHandler):
-    """Handler for get passing time Intent."""
+class GetArrivalTimesIntentHandler(AbstractRequestHandler):
+    """Handler for get arrival time Intent."""
 
     def can_handle(self, handler_input):
         # type: (HandlerInput) -> bool
@@ -120,13 +120,13 @@ class GetPassingTimeIntentHandler(AbstractRequestHandler):
             "favorite_stop_id" in attr and "favorite_line_id" in attr
         )
 
-        return attributes_are_present and is_intent_name("GetPassingTimeIntent")(
+        return attributes_are_present and is_intent_name("GetArrivalTimesIntent")(
             handler_input
         )
 
     def handle(self, handler_input):
         # type: (HandlerInput) -> Response
-        logger.debug("In GetPassingTimeIntentHandler")
+        logger.debug("In GetArrivalTimesIntentHandler")
 
         persistent_attributes = handler_input.attributes_manager.persistent_attributes
         logger.debug("Persistent attributes found: %s", persistent_attributes)
@@ -260,7 +260,7 @@ def setup_skill_builder():
 
     skill_builder = CustomSkillBuilder(persistence_adapter=dynamo_db_adapter)
     skill_builder.add_request_handler(LaunchRequestHandler())
-    skill_builder.add_request_handler(GetPassingTimeIntentHandler())
+    skill_builder.add_request_handler(GetArrivalTimesIntentHandler())
     skill_builder.add_request_handler(StartedInProgressCommutePreferencesHandler())
     skill_builder.add_request_handler(CompletedCommutePreferencesHandler())
     skill_builder.add_request_handler(HelpIntentHandler())
