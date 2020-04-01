@@ -24,7 +24,7 @@
           "samples": []
         },
         {
-          "name": "NextTramIntent",
+          "name": "GetArrivalTimesIntent",
           "samples": [
             "next tram",
             "when is the next tram",
