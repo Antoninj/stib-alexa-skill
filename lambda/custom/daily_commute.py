@@ -58,12 +58,15 @@ class StartedInProgressCommutePreferencesHandler(AbstractRequestHandler):
     def can_handle(self, handler_input):
         return (
             is_intent_name("CaptureCommutePreferencesIntent")(handler_input)
-            and handler_input.request_envelope.request.dialog_state != "COMPLETED"
+            and handler_input.request_envelope.request.dialog_state
+            != DialogState.COMPLETED
         )
 
     def handle(self, handler_input):
         logger.debug("In StartedInProgressCommutePreferencesHandler")
-
+        logger.debug(
+            "Dialog state %s", handler_input.request_envelope.request.dialog_state
+        )
         return handler_input.response_builder.add_directive(
             DelegateDirective()
         ).response
@@ -77,14 +80,18 @@ class CompletedCommutePreferencesHandler(AbstractRequestHandler):
     def can_handle(self, handler_input):
         return (
             is_intent_name("CaptureCommutePreferencesIntent")(handler_input)
-            and handler_input.request_envelope.request.dialog_state == "COMPLETED"
+            and handler_input.request_envelope.request.dialog_state
+            == DialogState.COMPLETED
         )
 
     def handle(self, handler_input):
 
         logger.debug("In CompletedCommutePreferencesHandler")
+        logger.debug(
+            "Dialog state %s", handler_input.request_envelope.request.dialog_state
+        )
         slots = handler_input.request_envelope.request.intent.slots
-
+        logger.debug("Slots %s", handler_input.request_envelope.request.intent.slots)
         # extract slot values
         line_id = slots["line_id"].value
         stop_id = slots["stop_id"].value
