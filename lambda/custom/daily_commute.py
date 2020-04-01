@@ -85,7 +85,6 @@ class CompletedCommutePreferencesHandler(AbstractRequestHandler):
         )
 
     def handle(self, handler_input):
-
         logger.debug("In CompletedCommutePreferencesHandler")
         logger.debug(
             "Dialog state %s", handler_input.request_envelope.request.dialog_state
@@ -95,8 +94,6 @@ class CompletedCommutePreferencesHandler(AbstractRequestHandler):
         # extract slot values
         line_id = slots["line_id"].value
         stop_id = slots["stop_id"].value
-        logger.debug("Line id slot value:")
-        logger.debug("Stop id slot value:")
         # save slots into session attributes
         session_attr = handler_input.attributes_manager.session_attributes
         session_attr["favorite_line_id"] = line_id
@@ -133,8 +130,9 @@ class GetArrivalTimesIntentHandler(AbstractRequestHandler):
         # type: (HandlerInput) -> Response
         logger.debug("In GetArrivalTimesIntentHandler")
 
+        logger.debug("Slots: %s", handler_input.request_envelope.request.intent.slots)
         persistent_attributes = handler_input.attributes_manager.persistent_attributes
-        logger.debug("Persistent attributes found: %s", persistent_attributes)
+        logger.debug("Persistent attributes: %s", persistent_attributes)
         favorite_stop_id = persistent_attributes["favorite_stop_id"]
         favorite_line_id = persistent_attributes["favorite_line_id"]
         passing_times = stib_service.get_passing_times_for_stop_id_and_line_id(
