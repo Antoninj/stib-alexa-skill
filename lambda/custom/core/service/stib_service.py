@@ -2,6 +2,7 @@
 import logging
 from ask_sdk_model.services import ApiClientRequest, ApiClient
 from .model.passing_times import PointPassingTimes
+from .model.line_stops import LineDetails
 
 logger = logging.getLogger("Lambda")
 
@@ -10,6 +11,7 @@ class OpenDataService:
     DEFAULT_STOP_ID = "1059"
     DEFAULT_LINE_ID = "93"
     PASSING_TIME_BY_POINT_SUFFIX = "/OperationMonitoring/4.0/PassingTimeByPoint/"
+    STOPS_BY_LINE_SUFFIX = "/NetworkDescription/1.0/PointByLine/"
 
     def __init__(self, stib_api_client: ApiClient):
         self.api_client = stib_api_client
@@ -40,7 +42,7 @@ class OpenDataService:
         self, stop_id=DEFAULT_STOP_ID, line_id=DEFAULT_LINE_ID
     ):
         logger.debug(
-            "Getting passing times for line [%s] at stop [%s]", line_id, stop_id
+            "Getting arrival times for line [%s] at stop [%s]", line_id, stop_id
         )
         request_url = self.PASSING_TIME_BY_POINT_SUFFIX + stop_id
         api_request = ApiClientRequest(url=request_url, method="GET")
@@ -51,3 +53,13 @@ class OpenDataService:
         )
 
         return self._get_passing_times_for_line_id(point_passing_times, line_id)
+
+    def get_stops_by_line_id(self, line_id=DEFAULT_LINE_ID):
+        logger.debug("Getting line details for line [%s]", line_id)
+        request_url = self.STOPS_BY_LINE_SUFFIX + line_id
+        api_request = ApiClientRequest(url=request_url, method="GET")
+        response = self.api_client.invoke(api_request)
+        raw_lines_info = response.body.json()
+        line_details = LineDetails.schema().load(raw_lines_info["lines"], many=True)
+
+        return line_details

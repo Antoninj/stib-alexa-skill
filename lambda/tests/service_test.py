@@ -1,6 +1,6 @@
 import unittest
 from .mock_api_client import MockAPIClient
-from ..custom.service.stib_service import OpenDataService
+from ..custom.core.service.stib_service import OpenDataService
 
 
 class TestStibAPIService(unittest.TestCase):
@@ -10,6 +10,10 @@ class TestStibAPIService(unittest.TestCase):
     def test_get_passing_times_for_stop_id_and_line_id(self):
         passing_times = self.stib_service.get_passing_times_for_stop_id_and_line_id()
         self.assertIsNotNone(passing_times)
+
+    def test_get_stops_by_line_id(self):
+        line_details = self.stib_service.get_stops_by_line_id()
+        self.assertIsNotNone(line_details)
 
 
 if __name__ == "__main__":

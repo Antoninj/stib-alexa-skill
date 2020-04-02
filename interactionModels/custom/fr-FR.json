@@ -66,24 +66,6 @@
           "name": "CaptureCommutePreferencesIntent",
           "slots": [
             {
-              "name": "stop_id",
-              "type": "AMAZON.NUMBER",
-              "samples": [
-                "{stop_id}",
-                "à {stop_id}",
-                "depuis {stop_id}",
-                "via {stop_id}",
-                "l'arrêt {stop_id}",
-                "l'arrêt de tram {stop_id}",
-                "l'arrêt de bus {stop_id}",
-                "l'arrêt de métro {stop_id}",
-                "à l'arrêt {stop_id}",
-                "à l'arrêt de tram {stop_id}",
-                "à l'arrêt de bus {stop_id}",
-                "à l'arrêt de métro {stop_id}"
-              ]
-            },
-            {
               "name": "line_id",
               "type": "AMAZON.NUMBER",
               "samples": [
@@ -105,6 +87,24 @@
                 "le métro numéro {line_id}",
                 "le tram {line_id}",
                 "le tram numéro {line_id}"
+              ]
+            },
+            {
+              "name": "stop_name",
+              "type": "STOP_NAME",
+              "samples": [
+                "{stop_id}",
+                "à {stop_id}",
+                "depuis {stop_id}",
+                "via {stop_id}",
+                "l'arrêt {stop_id}",
+                "l'arrêt de tram {stop_id}",
+                "l'arrêt de bus {stop_id}",
+                "l'arrêt de métro {stop_id}",
+                "à l'arrêt {stop_id}",
+                "à l'arrêt de tram {stop_id}",
+                "à l'arrêt de bus {stop_id}",
+                "à l'arrêt de métro {stop_id}"
               ]
             },
             {
@@ -142,6 +142,17 @@
         }
       ],
       "types": [
+        {
+          "name": "STOP_NAME",
+          "values": [
+            {
+              "id": "legrand",
+              "name": {
+                "value": "LEGRAND"
+              }
+            }
+          ]
+        },
         {
           "name": "TRANSPORTATION_MODES",
           "values": [
@@ -208,13 +219,19 @@
               ]
             },
             {
-              "name": "stop_id",
-              "type": "AMAZON.NUMBER",
+              "name": "stop_name",
+              "type": "STOP_NAME",
               "confirmationRequired": false,
               "elicitationRequired": true,
               "prompts": {
                 "elicitation": "Elicit.Slot.303899476312.985837334781"
-              }
+              },
+              "validations": [
+                {
+                  "type": "hasEntityResolutionMatch",
+                  "prompt": "Slot.Validation.2"
+                }
+              ]
             }
           ]
         }
@@ -282,6 +299,15 @@
           {
             "type": "PlainText",
             "value": "La ligne {line_id} n'existe pas. Donnez moi une ligne dont le numéro est entre 1 et 98."
+          }
+        ]
+      },
+       {
+        "id": "Slot.Validation.2",
+        "variations": [
+          {
+            "type": "PlainText",
+            "value": "Je ne connais pas l'arret {stop_name}."
           }
         ]
       }
