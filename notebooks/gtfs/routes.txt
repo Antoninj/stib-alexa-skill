@@ -1,4 +1,4 @@
-route_id,route_short_name,route_long_name,route_desc,route_type,route_url,route_color,route_text_color
+ route_id,route_short_name,route_long_name,route_desc,route_type,route_url,route_color,route_text_color
 2,1,"GARE DE L'OUEST - STOCKEL",,1,,C4008F,FFFFFF
 4,2,"SIMONIS - ELISABETH",,1,,F57000,FFFFFF
 5,3,"ESPLANADE - CHURCHILL",,0,,B5BA05,000000
