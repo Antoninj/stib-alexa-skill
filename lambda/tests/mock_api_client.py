@@ -1,11 +1,88 @@
 from ask_sdk_model.services import ApiClient, ApiClientResponse
 import json
 
-SUCCESS_API_RESPONSE = (
+
+PASSING_TIME_BY_POINT_SUFFIX = "/OperationMonitoring/4.0/PassingTimeByPoint/"
+PASSING_TIME_BY_POINT_SUCCESS_API_RESPONSE = (
     '{"points": [{"passingTimes": [{"destination": {"fr": "WTC / GLIBERT", "nl": "WTC / GLIBERT"}, '
     '"expectedArrivalTime": "2021-03-30T11:15:00+01:00", "lineId": "93"},'
     ' {"destination": {"fr": "WTC / GLIBERT", "nl": "WTC / GLIBERT"},'
     ' "expectedArrivalTime": "2021-03-30T11:24:00+01:00", "lineId": "93"}], "pointId": "1059"}]}'
+)
+STOPS_BY_LINE_SUFFIX = "/NetworkDescription/1.0/PointByLine/"
+STOPS_BY_LINE_SUCCESS_API_RESPONSE = (
+    '{"lines": [{"destination": {"fr": "LEGRAND", "nl": "LEGRAND"}, '
+    '"direction": "Suburb",'
+    '"lineId": "93",'
+    '"points": [{"id": "5400", "order": 1},'
+    '{"id": "5402", "order": 2},'
+    '{"id": "5399F", "order": 3},'
+    '{"id": "5403", "order": 4},'
+    '{"id": "5010", "order": 5},'
+    '{"id": "6501", "order": 6},'
+    '{"id": "6505", "order": 7},'
+    '{"id": "6504", "order": 8},'
+    '{"id": "4130F", "order": 9},'
+    '{"id": "6100", "order": 10},'
+    '{"id": "6122", "order": 11},'
+    '{"id": "1073", "order": 12},'
+    '{"id": "6103F", "order": 13},'
+    '{"id": "6178", "order": 14},'
+    '{"id": "5762", "order": 15},'
+    '{"id": "1646F", "order": 16},'
+    '{"id": "6012G", "order": 17},'
+    '{"id": "6412F", "order": 18},'
+    '{"id": "6014", "order": 19},'
+    '{"id": "6437F", "order": 20},'
+    '{"id": "6308F", "order": 21},'
+    '{"id": "6309F", "order": 22},'
+    '{"id": "6310F", "order": 23},'
+    '{"id": "6311", "order": 24},'
+    '{"id": "6312", "order": 25},'
+    '{"id": "6313", "order": 26},'
+    '{"id": "6314", "order": 27},'
+    '{"id": "5405", "order": 28},'
+    '{"id": "5406", "order": 29},'
+    '{"id": "5404", "order": 30},'
+    '{"id": "5408", "order": 31},'
+    '{"id": "5409", "order": 32},'
+    '{"id": "1047F", "order": 33}]},'
+    '{"destination": {"fr": "STADE", "nl": "STADION"},'
+    '"direction": "City",'
+    '"lineId": "93",'
+    '"points": [{"id": "1059", "order": 1},'
+    '{"id": "5466", "order": 2},'
+    '{"id": "5467", "order": 3},'
+    '{"id": "5475", "order": 4},'
+    '{"id": "5469", "order": 5},'
+    '{"id": "5470", "order": 6},'
+    '{"id": "6361", "order": 7},'
+    '{"id": "6352", "order": 8},'
+    '{"id": "6353F", "order": 9},'
+    '{"id": "6354", "order": 10},'
+    '{"id": "6355F", "order": 11},'
+    '{"id": "6356F", "order": 12},'
+    '{"id": "6357F", "order": 13},'
+    '{"id": "6434F", "order": 14},'
+    '{"id": "6359F", "order": 15},'
+    '{"id": "6413F", "order": 16},'
+    '{"id": "6066G", "order": 17},'
+    '{"id": "1644F", "order": 18},'
+    '{"id": "6177", "order": 19},'
+    '{"id": "6179", "order": 20},'
+    '{"id": "6168F", "order": 21},'
+    '{"id": "1076", "order": 22},'
+    '{"id": "6174F", "order": 23},'
+    '{"id": "6171", "order": 24},'
+    '{"id": "4126F", "order": 25},'
+    '{"id": "6172", "order": 26},'
+    '{"id": "6552", "order": 27},'
+    '{"id": "6553", "order": 28},'
+    '{"id": "5081F", "order": 29},'
+    '{"id": "5471", "order": 30},'
+    '{"id": "5398F", "order": 31},'
+    '{"id": "5472", "order": 32},'
+    '{"id": "5474", "order": 33}]}]}'
 )
 
 
@@ -25,6 +102,15 @@ class MockAPIClient(ApiClient):
         pass
 
     def invoke(self, request):
-        mock_api_response = MockResponse(json.loads(SUCCESS_API_RESPONSE), "200")
-        apiClientResponse = ApiClientResponse(body=mock_api_response)
-        return apiClientResponse
+        url = request.url
+        if PASSING_TIME_BY_POINT_SUFFIX in url:
+            mock_api_response = MockResponse(
+                json.loads(PASSING_TIME_BY_POINT_SUCCESS_API_RESPONSE), "200"
+            )
+        else:
+            mock_api_response = MockResponse(
+                json.loads(STOPS_BY_LINE_SUCCESS_API_RESPONSE), "200"
+            )
+
+        api_client_response = ApiClientResponse(body=mock_api_response)
+        return api_client_response

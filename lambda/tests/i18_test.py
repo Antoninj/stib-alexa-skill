@@ -1,12 +1,12 @@
 import unittest
 import gettext
-from ..custom.data import data
+from ..custom.core.data import data
 
 
 class TestI18n(unittest.TestCase):
     def setUp(self):
         i18n = gettext.translation(
-            "base", localedir="locales", languages=["fr-FR"], fallback=True
+            "base", localedir="locales", languages=["fr-FR"], fallback=True,
         )
         self._ = i18n.gettext
 
