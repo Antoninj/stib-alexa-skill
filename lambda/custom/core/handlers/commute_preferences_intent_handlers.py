@@ -66,8 +66,8 @@ class HasLineIdCommutePreferencesHandler(AbstractRequestHandler):
         line_details = self.stib_service.get_stops_by_line_id(line_id)
         logger.debug(line_details)
 
-        entity_value_and_synonyms = EntityValueAndSynonyms(value="LEGRAND")
-        entity = Entity(id="1059", name=entity_value_and_synonyms)
+        entity_value_and_synonyms = EntityValueAndSynonyms(value="ABBAYE")
+        entity = Entity(id="5466", name=entity_value_and_synonyms)
         entities = [entity]
         entity_list_items = [EntityListItem(name="STOP_NAME", values=entities)]
 
@@ -103,11 +103,11 @@ class CompletedCommutePreferencesHandler(AbstractRequestHandler):
         logger.debug("Slots %s", handler_input.request_envelope.request.intent.slots)
         # extract slot values
         line_id = slots["line_id"].value
-        stop_id = slots["stop_id"].value
+        stop_name = slots["stop_name"].value
         # save slots into session attributes
         session_attr = handler_input.attributes_manager.session_attributes
         session_attr["favorite_line_id"] = line_id
-        session_attr["favorite_stop_id"] = stop_id
+        session_attr["favorite_stop_id"] = stop_name
         # save session attributes as persistent attributes
         handler_input.attributes_manager.persistent_attributes = session_attr
         handler_input.attributes_manager.save_persistent_attributes()
