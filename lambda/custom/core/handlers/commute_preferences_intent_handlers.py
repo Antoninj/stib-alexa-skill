@@ -4,7 +4,12 @@ from ask_sdk_core.utils import is_intent_name
 from ask_sdk_model.dialog_state import DialogState
 from ask_sdk_model.dialog.delegate_directive import DelegateDirective
 from ask_sdk_model.dialog.dynamic_entities_directive import *
-from ask_sdk_model.er.dynamic import Entity, EntityValueAndSynonyms, EntityListItem
+from ask_sdk_model.er.dynamic import (
+    Entity,
+    EntityValueAndSynonyms,
+    EntityListItem,
+    UpdateBehavior,
+)
 import logging
 
 logger = logging.getLogger("Lambda")
@@ -114,7 +119,7 @@ class CompletedCommutePreferencesHandler(AbstractRequestHandler):
 
         speech = (
             "Très bien, je retiendrai que vous prenez la ligne {line_id} à l'arrêt {stop_id}"
-            " lors de votre trajet quotidien".format(stop_id=stop_id, line_id=line_id)
+            " lors de votre trajet quotidien".format(stop_id=stop_name, line_id=line_id)
         )
         handler_input.response_builder.speak(speech)
         return handler_input.response_builder.response
