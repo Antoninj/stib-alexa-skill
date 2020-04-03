@@ -5,13 +5,10 @@ import logging
 logger = logging.getLogger("Lambda")
 
 
-# Generic error handling to capture any syntax or routing errors. If you receive an error
-# stating the request handler chain is not found, you have not implemented a handler for
-# the intent being invoked or included it in the skill builder below.
 class ErrorHandler(AbstractExceptionHandler):
-    """Catch-all exception handler, log exception and
-    respond with custom message.
-    """
+    """Catch All Exception handler.
+    This handler catches all kinds of exceptions and prints
+    the stack trace on AWS Cloudwatch with the request envelope."""
 
     def can_handle(self, handler_input, exception):
         # type: (HandlerInput, Exception) -> bool

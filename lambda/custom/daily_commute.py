@@ -14,6 +14,7 @@ from core.handlers.common_handlers import *
 from core.handlers.intent_reflector_handler import IntentReflectorHandler
 from core.handlers.error_handler import ErrorHandler
 from core.interceptors.i18_interceptor import LocalizationInterceptor
+from core.interceptors.logger_interceptors import *
 from core.client.stib_api_client import OpenDataAPIClient
 from core.service.stib_service import OpenDataService
 from core.data import data
@@ -28,7 +29,7 @@ logger.setLevel(LOGGING_LEVEL)
 
 
 def setup_skill_builder(service):
-    logger.info("Setting up Dynamo DB persistence adapter")
+    logger.info("Setting up Custom Skill Builder with Dynamo DB persistence adapter...")
     dynamo_db_adapter = DynamoDbAdapter(
         table_name="DailyCommuteFavorites",
         partition_key_name="id",
@@ -37,9 +38,8 @@ def setup_skill_builder(service):
         dynamodb_resource=boto3.resource("dynamodb"),
     )
 
-    logger.info("Setting up Custom Skill Builder")
     skill_builder = CustomSkillBuilder(persistence_adapter=dynamo_db_adapter)
-    logger.info("Adding request handlers")
+    logger.info("Adding skill request handlers...")
     skill_builder.add_request_handler(LaunchRequestHandler())
     skill_builder.add_request_handler(GetArrivalTimesIntentHandler(service))
     skill_builder.add_request_handler(HasLineIdCommutePreferencesHandler(service))
@@ -52,10 +52,13 @@ def setup_skill_builder(service):
     skill_builder.add_request_handler(SessionEndedRequestHandler())
     skill_builder.add_request_handler(IntentReflectorHandler())
     # make sure IntentReflectorHandler is last so it doesn't override your custom intent handlers
-
+    logger.info("Adding skill exception handler...")
     skill_builder.add_exception_handler(ErrorHandler())
+    logger.info("Adding skill request interceptors...")
     skill_builder.add_global_request_interceptor(LocalizationInterceptor())
-
+    skill_builder.add_global_request_interceptor(RequestLogger())
+    logger.info("Adding skill response interceptors...")
+    skill_builder.add_global_response_interceptor(ResponseLogger())
     return skill_builder
 
 
