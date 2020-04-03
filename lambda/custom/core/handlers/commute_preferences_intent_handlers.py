@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 from ask_sdk_core.dispatch_components import AbstractRequestHandler
-from ask_sdk_core.utils import is_intent_name
+from ask_sdk_core.utils import is_intent_name, get_slot_value, get_dialog_state
 from ask_sdk_model.dialog_state import DialogState
 from ask_sdk_model.dialog.delegate_directive import DelegateDirective
 from ask_sdk_model.dialog.dynamic_entities_directive import *
@@ -76,13 +76,16 @@ class HasLineIdCommutePreferencesHandler(AbstractRequestHandler):
         entities = [entity]
         entity_list_items = [EntityListItem(name="STOP_NAME", values=entities)]
 
+        stop_name_ellicitation_speech = "Quel est le nom de votre arrêt?"
+        reprompt_speech = "Quel est votre arrêt?"
         return (
             handler_input.response_builder.add_directive(
                 DynamicEntitiesDirective(
                     update_behavior=UpdateBehavior.REPLACE, types=entity_list_items
                 )
             )
-            .add_directive(DelegateDirective())
+            .speak(stop_name_ellicitation_speech)
+            .ask(reprompt_speech)
             .response
         )
 
