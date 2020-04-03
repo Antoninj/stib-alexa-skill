@@ -15,9 +15,6 @@ class StartedInProgressCommutePreferencesHandler(AbstractRequestHandler):
     Handler to delegate the commute preferences intent dialog to alexa
     """
 
-    def __init__(self, service):
-        self.stib_service = service
-
     def can_handle(self, handler_input):
         return (
             is_intent_name("CaptureCommutePreferencesIntent")(handler_input)
@@ -48,10 +45,12 @@ class HasLineIdCommutePreferencesHandler(AbstractRequestHandler):
     def can_handle(self, handler_input):
         return (
             is_intent_name("CaptureCommutePreferencesIntent")(handler_input)
-            and handler_input.request_envelope.request.intent.slots.line_id.value
-            and not handler_input.request_envelope.request.intent.slots.stop_id.value
             and handler_input.request_envelope.request.dialog_state
             != DialogState.COMPLETED
+            and handler_input.request_envelope.request.intent.slots["line_id"].value
+            and not handler_input.request_envelope.request.intent.slots[
+                "stop_name"
+            ].value
         )
 
     def handle(self, handler_input):
