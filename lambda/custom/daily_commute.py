@@ -39,6 +39,7 @@ def setup_skill_builder(service):
     )
 
     skill_builder = CustomSkillBuilder(persistence_adapter=dynamo_db_adapter)
+    skill_builder.skill_id = "amzn1.ask.skill.789c381d-5f2c-469e-a888-ee60e260c9de"
     logger.info("Adding skill request handlers...")
     skill_builder.add_request_handler(LaunchRequestHandler())
     skill_builder.add_request_handler(GetArrivalTimesIntentHandler(service))
