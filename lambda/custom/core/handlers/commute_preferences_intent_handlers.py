@@ -119,7 +119,7 @@ class CompletedCommutePreferencesHandler(AbstractRequestHandler):
 
         speech = (
             "Très bien, je retiendrai que vous prenez la ligne {line_id} à l'arrêt {stop_id}"
-            " lors de votre trajet quotidien".format(stop_id=stop_id, line_id=line_id)
+            " lors de votre trajet quotidien".format(stop_id=stop_name, line_id=line_id)
         )
         handler_input.response_builder.speak(speech)
         return handler_input.response_builder.response
