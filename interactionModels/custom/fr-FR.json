@@ -207,50 +207,6 @@
               ]
             }
           ]
-        },
-        {
-          "name": "CaptureCommutePreferencesIntent",
-          "delegationStrategy": "SKILL_RESPONSE",
-          "confirmationRequired": false,
-          "prompts": {},
-          "slots": [
-            {
-              "name": "line_id",
-              "type": "AMAZON.NUMBER",
-              "confirmationRequired": false,
-              "elicitationRequired": true,
-              "prompts": {
-                "elicitation": "Elicit.Slot.LineId"
-              },
-              "validations": [
-                {
-                  "type": "isGreaterThanOrEqualTo",
-                  "prompt": "Slot.Validation.LineId",
-                  "value": 1
-                },
-                {
-                  "type": "isLessThanOrEqualTo",
-                  "prompt": "Slot.Validation.LineId",
-                  "value": 98
-                }
-              ]
-            },
-            {
-              "name": "stop_name",
-              "type": "STOP_NAME",
-              "confirmationRequired": false,
-              "elicitationRequired": true,
-              "prompts": {
-                "elicitation": "Elicit.Slot.StopName"
-              },
-              "validations": [
-                {
-                  "type": "hasEntityResolutionMatch",
-                  "prompt": "Slot.Validation.StopName"
-                }
-              ]
-            }
-          ]
         }
       ],
       "delegationStrategy": "ALWAYS"
