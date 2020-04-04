@@ -9,6 +9,7 @@ babel = "*"
 pystibmvib = "*"
 pandas = "*"
 black = "*"
+lex-bot-tester = "*"
 
 [packages]
 ask-sdk-core = "==1.13.0"
@@ -16,7 +17,10 @@ requests = "*"
 pytz = "*"
 ask-sdk = "*"
 dataclasses-json = "*"
-lex-bot-tester = "*"
+pandas = "*"
 
 [requires]
 python_version = "3.7"
+
+[pipenv]
+allow_prereleases = true
