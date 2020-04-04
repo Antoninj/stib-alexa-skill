@@ -76,7 +76,7 @@ class HasLineIdCommutePreferencesHandler(AbstractRequestHandler):
         entities = [entity]
         entity_list_items = [EntityListItem(name="STOP_NAME", values=entities)]
 
-        stop_name_ellicitation_speech = "Quel est le nom de votre arrêt?"
+        stop_name_elicitation_speech = "Quel est le nom de votre arrêt?"
         reprompt_speech = "Quel est votre arrêt?"
         return (
             handler_input.response_builder.add_directive(
@@ -84,7 +84,7 @@ class HasLineIdCommutePreferencesHandler(AbstractRequestHandler):
                     update_behavior=UpdateBehavior.REPLACE, types=entity_list_items
                 )
             )
-            .speak(stop_name_ellicitation_speech)
+            .speak(stop_name_elicitation_speech)
             .ask(reprompt_speech)
             .response
         )

@@ -8,7 +8,9 @@ from ask_sdk_dynamodb.adapter import DynamoDbAdapter
 from ask_sdk_core.skill_builder import CustomSkillBuilder
 
 from core.handlers.get_arrival_times_intent_handler import *
-from core.handlers.commute_preferences_intent_handlers import *
+from core.handlers.commute_preferences_intent_handler import *
+from core.handlers.favorite_line_intent_handler import *
+
 from core.handlers.launch_handler import LaunchRequestHandler
 from core.handlers.common_handlers import *
 from core.handlers.intent_reflector_handler import IntentReflectorHandler
@@ -43,14 +45,15 @@ def setup_skill_builder(service):
     logger.info("Adding skill request handlers...")
     skill_builder.add_request_handler(LaunchRequestHandler())
     skill_builder.add_request_handler(GetArrivalTimesIntentHandler(service))
-    skill_builder.add_request_handler(HasLineIdCommutePreferencesHandler(service))
-    skill_builder.add_request_handler(StartedInProgressCommutePreferencesHandler())
-    skill_builder.add_request_handler(CompletedCommutePreferencesHandler())
+    skill_builder.add_request_handler(StartedInProgressFavoriteLineHandler())
+    skill_builder.add_request_handler(CompletedFavoriteLineHandler(service))
+    # skill_builder.add_request_handler(HasLineIdCommutePreferencesHandler(service))
+    # skill_builder.add_request_handler(StartedInProgressCommutePreferencesHandler())
+    # skill_builder.add_request_handler(CompletedCommutePreferencesHandler())
     skill_builder.add_request_handler(HelpIntentHandler())
     skill_builder.add_request_handler(CancelOrStopIntentHandler())
     skill_builder.add_request_handler(SessionEndedRequestHandler())
     skill_builder.add_request_handler(IntentReflectorHandler())
-    # make sure IntentReflectorHandler is last so it doesn't override your custom intent handlers
     logger.info("Adding skill exception handler...")
     skill_builder.add_exception_handler(ErrorHandler())
     logger.info("Adding skill request interceptors...")

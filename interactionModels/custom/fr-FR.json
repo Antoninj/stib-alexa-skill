@@ -24,11 +24,51 @@
           "samples": []
         },
         {
+          "name": "SetFavoriteLineIntent",
+          "slots": [
+            {
+              "name": "line_id",
+              "type": "AMAZON.NUMBER",
+              "samples": [
+                "{line_id}",
+                "numéro {line_id}",
+                "ligne {line_id}",
+                "le numéro {line_id}",
+                "la ligne {line_id}",
+                "le {line_id}"
+              ]
+            },
+            {
+              "name": "transportation_type",
+              "type": "TRANSPORTATION_TYPES"
+            }
+          ],
+          "samples": [
+            "ma ligne préférée",
+            "ma ligne favorite",
+            "je prends la {line_id}",
+            "je prends la ligne {line_id}",
+            "je prends la ligne de {transportation_type} {line_id}",
+            "je prends la ligne de {transportation_type} numéro {line_id}",
+            "je prends le {transportation_type} {line_id}",
+            "je prends le {transportation_type} numéro {line_id}",
+            "je prends le numéro {line_id}",
+            "la {line_id}",
+            "la ligne {line_id}",
+            "la ligne de {transportation_type} {line_id}",
+            "la ligne de {transportation_type} numéro {line_id}",
+            "le {line_id}",
+            "le {transportation_type} {line_id}",
+            "le {transportation_type} numéro {line_id}",
+            "le numéro {line_id}"
+          ]
+        },
+        {
           "name": "GetArrivalTimesIntent",
           "slots": [
             {
-              "name": "transportation_mode",
-              "type": "TRANSPORTATION_MODES"
+              "name": "transportation_type",
+              "type": "TRANSPORTATION_TYPES"
             }
           ],
           "samples": [
@@ -36,30 +76,30 @@
             "mon trajet quotidien",
             "temps d'attente",
             "le temps d'attente",
-            "prochain {transportation_mode}",
-            "l'heure d'arrivée du {transportation_mode}",
-            "le temps d'attente du {transportation_mode}",
-            "l'horaire du {transportation_mode}",
-            "l'horaire du prochain {transportation_mode}",
-            "horaire du prochain {transportation_mode}",
-            "horaire du {transportation_mode}",
-            "quand est le prochain {transportation_mode}",
-            "quand est-ce que passe le {transportation_mode}",
-            "quand est-ce que passe le prochain {transportation_mode}",
-            "quand est-ce qu'arrive le {transportation_mode}",
-            "quand est-ce qu'arrive le prochain {transportation_mode}",
-            "quand passe le prochain {transportation_mode}",
-            "quand passe le {transportation_mode}",
-            "dis moi quand passe le {transportation_mode}",
-            "quel est l'horaire pour le prochain {transportation_mode}",
-            "quel est l'horaire du prochain {transportation_mode}",
-            "quel est l'horaire du {transportation_mode}",
-            "dans combien de temps arrive le prochain {transportation_mode}",
-            "dans combien de temps arrive le {transportation_mode}",
-            "dans combien de temps passe le prochain {transportation_mode}",
-            "dans combien de temps passe le {transportation_mode}",
-            "dans combien de temps est le prochain {transportation_mode}",
-            "dans combien de temps est le {transportation_mode}"
+            "prochain {transportation_type}",
+            "l'heure d'arrivée du {transportation_type}",
+            "le temps d'attente du {transportation_type}",
+            "l'horaire du {transportation_type}",
+            "l'horaire du prochain {transportation_type}",
+            "horaire du prochain {transportation_type}",
+            "horaire du {transportation_type}",
+            "quand est le prochain {transportation_type}",
+            "quand est-ce que passe le {transportation_type}",
+            "quand est-ce que passe le prochain {transportation_type}",
+            "quand est-ce qu'arrive le {transportation_type}",
+            "quand est-ce qu'arrive le prochain {transportation_type}",
+            "quand passe le prochain {transportation_type}",
+            "quand passe le {transportation_type}",
+            "dis moi quand passe le {transportation_type}",
+            "quel est l'horaire pour le prochain {transportation_type}",
+            "quel est l'horaire du prochain {transportation_type}",
+            "quel est l'horaire du {transportation_type}",
+            "dans combien de temps arrive le prochain {transportation_type}",
+            "dans combien de temps arrive le {transportation_type}",
+            "dans combien de temps passe le prochain {transportation_type}",
+            "dans combien de temps passe le {transportation_type}",
+            "dans combien de temps est le prochain {transportation_type}",
+            "dans combien de temps est le {transportation_type}"
           ]
         },
         {
@@ -108,8 +148,8 @@
               ]
             },
             {
-              "name": "transportation_mode",
-              "type": "TRANSPORTATION_MODES"
+              "name": "transportation_type",
+              "type": "TRANSPORTATION_TYPES"
             }
           ],
           "samples": [
@@ -120,28 +160,39 @@
             "la ligne {line_id}",
             "la ligne {line_id} à {stop_name}",
             "la ligne {line_id} à l'arrêt {stop_name}",
-            "la ligne de {transportation_mode} {line_id}",
-            "la ligne de {transportation_mode} numéro {line_id}",
-            "la ligne de {transportation_mode} {line_id} à l'arrêt {stop_name}",
-            "la ligne de {transportation_mode} numéro {line_id} à l'arrêt {stop_name}",
+            "la ligne de {transportation_type} {line_id}",
+            "la ligne de {transportation_type} numéro {line_id}",
+            "la ligne de {transportation_type} {line_id} à l'arrêt {stop_name}",
+            "la ligne de {transportation_type} numéro {line_id} à l'arrêt {stop_name}",
             "le {line_id}",
-            "le {transportation_mode} {line_id}",
-            "le {transportation_mode} numéro {line_id}",
-            "le {transportation_mode} {line_id} à {stop_name}",
-            "le {transportation_mode} {line_id} à l'arrêt {stop_name}",
-            "le {transportation_mode} numéro {line_id} à {stop_name}",
-            "le {transportation_mode} numéro {line_id} à l'arrêt {stop_name}",
+            "le {transportation_type} {line_id}",
+            "le {transportation_type} numéro {line_id}",
+            "le {transportation_type} {line_id} à {stop_name}",
+            "le {transportation_type} {line_id} à l'arrêt {stop_name}",
+            "le {transportation_type} numéro {line_id} à {stop_name}",
+            "le {transportation_type} numéro {line_id} à l'arrêt {stop_name}",
             "le {line_id} à {stop_name}",
             "le {line_id} à l'arrêt {stop_name}",
-            "le {line_id} à l'arrêt de {transportation_mode} {stop_name}",
+            "le {line_id} à l'arrêt de {transportation_type} {stop_name}",
             "le numéro {line_id}",
             "le numéro {line_id} à {stop_name}",
             "le numéro {line_id} à l'arrêt {stop_name}",
-            "le numéro {line_id} à l'arrêt de {transportation_mode} {stop_name}"
+            "le numéro {line_id} à l'arrêt de {transportation_type} {stop_name}"
           ]
         }
       ],
       "types": [
+        {
+          "name": "DESTINATION_NAME",
+          "values": [
+            {
+              "id": "1047F",
+              "name": {
+                "value": "LEGRAND"
+              }
+            }
+          ]
+        },
         {
           "name": "STOP_NAME",
           "values": [
@@ -154,7 +205,7 @@
           ]
         },
         {
-          "name": "TRANSPORTATION_MODES",
+          "name": "TRANSPORTATION_TYPES",
           "values": [
             {
               "id": "bus",
@@ -192,6 +243,50 @@
     "dialog": {
       "intents": [
         {
+          "name": "SetFavoriteLineIntent",
+          "delegationStrategy": "SKILL_RESPONSE",
+          "confirmationRequired": false,
+          "prompts": {},
+          "slots": [
+            {
+              "name": "line_id",
+              "type": "AMAZON.NUMBER",
+              "confirmationRequired": false,
+              "elicitationRequired": true,
+              "prompts": {
+                "elicitation": "Elicit.Slot.LineId"
+              },
+              "validations": [
+                {
+                  "type": "isGreaterThanOrEqualTo",
+                  "prompt": "Slot.Validation.LineId",
+                  "value": 1
+                },
+                {
+                  "type": "isLessThanOrEqualTo",
+                  "prompt": "Slot.Validation.LineId",
+                  "value": 98
+                }
+              ]
+            },
+            {
+              "name": "transportation_type",
+              "type": "TRANSPORTATION_TYPES",
+              "confirmationRequired": false,
+              "elicitationRequired": true,
+              "prompts": {
+                "elicitation": "Elicit.Slot.TransportationType"
+              },
+              "validations": [
+                {
+                  "type": "hasEntityResolutionMatch",
+                  "prompt": "Slot.Validation.TransportationType"
+                }
+              ]
+            }
+          ]
+        },
+        {
           "name": "CaptureCommutePreferencesIntent",
           "delegationStrategy": "SKILL_RESPONSE",
           "confirmationRequired": false,
@@ -203,17 +298,17 @@
               "confirmationRequired": false,
               "elicitationRequired": true,
               "prompts": {
-                "elicitation": "Elicit.Slot.303899476312.795077103633"
+                "elicitation": "Elicit.Slot.LineId"
               },
               "validations": [
                 {
                   "type": "isGreaterThanOrEqualTo",
-                  "prompt": "Slot.Validation.1",
+                  "prompt": "Slot.Validation.LineId",
                   "value": 1
                 },
                 {
                   "type": "isLessThanOrEqualTo",
-                  "prompt": "Slot.Validation.1",
+                  "prompt": "Slot.Validation.LineId",
                   "value": 98
                 }
               ]
@@ -224,12 +319,12 @@
               "confirmationRequired": false,
               "elicitationRequired": true,
               "prompts": {
-                "elicitation": "Elicit.Slot.303899476312.985837334781"
+                "elicitation": "Elicit.Slot.StopName"
               },
               "validations": [
                 {
                   "type": "hasEntityResolutionMatch",
-                  "prompt": "Slot.Validation.2"
+                  "prompt": "Slot.Validation.StopName"
                 }
               ]
             }
@@ -240,7 +335,7 @@
     },
     "prompts": [
       {
-        "id": "Elicit.Slot.303899476312.795077103633",
+        "id": "Elicit.Slot.LineId",
         "variations": [
           {
             "type": "PlainText",
@@ -261,7 +356,20 @@
         ]
       },
       {
-        "id": "Elicit.Slot.303899476312.985837334781",
+        "id": "Elicit.Slot.TransportationType",
+        "variations": [
+          {
+            "type": "PlainText",
+            "value": "Quel mode de transport en commun utilisez vous?"
+          },
+          {
+            "type": "PlainText",
+            "value": "Vous êtes plutot bus, métro ou bien tram?"
+          }
+        ]
+      },
+      {
+        "id": "Elicit.Slot.StopName",
         "variations": [
           {
             "type": "PlainText",
@@ -282,11 +390,15 @@
           {
             "type": "PlainText",
             "value": "D'ou partez vous?"
+          },
+          {
+            "type": "PlainText",
+            "value": "A quel arrêt commence votre voyage?"
           }
         ]
       },
       {
-        "id": "Slot.Validation.1",
+        "id": "Slot.Validation.LineId",
         "variations": [
           {
             "type": "PlainText",
@@ -302,9 +414,26 @@
           }
         ]
       },
-       {
-        "id": "Slot.Validation.2",
+      {
+        "id": "Slot.Validation.TransportationType",
         "variations": [
+          {
+            "type": "PlainText",
+            "value": "Le {transportation_type} n'est pas un mode de transport valable. Choisissez entre le bus, le métro et le tram"
+          },
+          {
+            "type": "PlainText",
+            "value": "Vous ne pouvez pas voyager en {transportation_type} sur les lignes de la STIB. Choisissez entre le bus, le métro et le tram"
+          }
+        ]
+      },
+      {
+        "id": "Slot.Validation.StopName",
+        "variations": [
+          {
+            "type": "PlainText",
+            "value": "L'arrêt {stop_name} n'est pas un arrêt valable."
+          },
           {
             "type": "PlainText",
             "value": "Je ne connais pas l'arret {stop_name}."
