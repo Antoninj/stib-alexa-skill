@@ -81,6 +81,7 @@ class CompletedFavoriteLineHandler(AbstractRequestHandler):
 
         # Retrieve transportation_type
         stib_transportation_type = line_details[0].route_type.name.lower()
+        logger.debug("Transportation type: %s", stib_transportation_type)
 
         # save slots into session attributes
         session_attr = handler_input.attributes_manager.session_attributes
@@ -92,7 +93,9 @@ class CompletedFavoriteLineHandler(AbstractRequestHandler):
         handler_input.attributes_manager.save_persistent_attributes()
 
         # save line details into  session attributes
-        session_attr["session_line_details"] = line_details
+        session_attr["session_line_details"] = [
+            line_detail.to_dict() for line_detail in line_details
+        ]
 
         stop_name_elicitation_speech = "Dans quelle direction allez vous?"
         reprompt_speech = "Dans quelle direction prenez vous le {}?".format(
