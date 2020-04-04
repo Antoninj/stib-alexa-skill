@@ -61,18 +61,6 @@ class CompletedFavoriteLineHandler(AbstractRequestHandler):
         )
         slots = handler_input.request_envelope.request.intent.slots
         logger.debug("Slots %s", handler_input.request_envelope.request.intent.slots)
-        # extract slot values
-        line_id = slots["line_id"].value
-        transportation_type = slots["transportation_type"].value
-
-        # save slots into session attributes
-        session_attr = handler_input.attributes_manager.session_attributes
-        session_attr["favorite_line_id"] = line_id
-        session_attr["favorite_transportation_type"] = transportation_type
-
-        # save session attributes as persistent attributes
-        handler_input.attributes_manager.persistent_attributes = session_attr
-        handler_input.attributes_manager.save_persistent_attributes()
 
         # Get list of valid stops for given line
         line_id = slots["line_id"].value
@@ -90,10 +78,27 @@ class CompletedFavoriteLineHandler(AbstractRequestHandler):
             EntityListItem(name="STOP_NAME", values=[stop_entity]),
             EntityListItem(name="DESTINATION_NAME", values=[destination_entity]),
         ]
+
+        # Retrieve transportation_type
+        stib_transportation_type = line_details[0].route_type.name.lower()
+
+        # save slots into session attributes
+        session_attr = handler_input.attributes_manager.session_attributes
+        session_attr["favorite_line_id"] = line_id
+        session_attr["favorite_transportation_type"] = stib_transportation_type
+
+        # save session attributes as persistent attributes
+        handler_input.attributes_manager.persistent_attributes = session_attr
+        handler_input.attributes_manager.save_persistent_attributes()
+
+        # save line details into  session attributes
+        session_attr["session_line_details"] = line_details
+
         stop_name_elicitation_speech = "Dans quelle direction allez vous?"
         reprompt_speech = "Dans quelle direction prenez vous le {}?".format(
-            transportation_type
+            stib_transportation_type
         )
+
         return (
             handler_input.response_builder.add_directive(
                 DynamicEntitiesDirective(
