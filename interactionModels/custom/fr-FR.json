@@ -190,21 +190,6 @@
                   "value": 98
                 }
               ]
-            },
-            {
-              "name": "transportation_type",
-              "type": "TRANSPORTATION_TYPES",
-              "confirmationRequired": false,
-              "elicitationRequired": true,
-              "prompts": {
-                "elicitation": "Elicit.Slot.TransportationType"
-              },
-              "validations": [
-                {
-                  "type": "hasEntityResolutionMatch",
-                  "prompt": "Slot.Validation.TransportationType"
-                }
-              ]
             }
           ]
         }
