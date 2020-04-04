@@ -13,7 +13,7 @@ stops_df = pd.read_csv(STOP_DATAPATH)
 
 
 class RouteType(Enum):
-    TRAMWAY = 0
+    TRAM = 0
     METRO = 1
     BUS = 3
 
@@ -32,7 +32,7 @@ class LinePoint:
                 "stop_name"
             ]
         except:
-            self.stop_name = ""
+            self.stop_name = "NOT FOUND"
 
 
 @dataclass_json(letter_case=LetterCase.CAMEL)
