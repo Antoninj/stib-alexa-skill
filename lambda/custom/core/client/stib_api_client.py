@@ -16,7 +16,7 @@ OPEN_DATA_API_ENDPOINT = os.environ["open_data_api_endpoint"]
 
 
 class OpenDataAPIClient(ApiClient):
-    """Define class here"""
+    """OpenData API client implementation wrapping HTTP requests"""
 
     def __init__(self):
         self.token_helper = TokenHelper()

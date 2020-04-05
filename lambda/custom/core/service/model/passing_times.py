@@ -9,7 +9,7 @@ from ..utils.time_utils import TimeUtils
 @dataclass_json(letter_case=LetterCase.CAMEL)
 @dataclass
 class Message:
-    """Define class here"""
+    """Message dataclass."""
 
     fr: str = ""
     nl: str = ""
@@ -18,7 +18,7 @@ class Message:
 @dataclass_json(letter_case=LetterCase.CAMEL)
 @dataclass
 class Destination:
-    """Define class here"""
+    """Destination dataclass."""
 
     fr: str = ""
     nl: str = ""
@@ -27,7 +27,7 @@ class Destination:
 @dataclass_json(letter_case=LetterCase.CAMEL)
 @dataclass
 class PassingTime:
-    """Define class here"""
+    """Dataclass for the passing/arrival time at a STIB stop/point."""
 
     destination: Optional[Destination] = None
     message: Optional[Message] = None
@@ -65,7 +65,7 @@ class PassingTime:
 @dataclass_json(letter_case=LetterCase.CAMEL)
 @dataclass
 class PointPassingTimes:
-    """Define class here"""
+    """Dataclass for a list of passing/arrival times at a STIB stop/point."""
 
     passing_times: List[PassingTime] = field(default_factory=list)
     point_id: str = ""

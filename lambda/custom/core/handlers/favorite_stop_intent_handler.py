@@ -12,7 +12,7 @@ logger = logging.getLogger("Lambda")
 
 class StartedInProgressFavoriteStopHandler(AbstractRequestHandler):
     """
-    Handler to delegate the favorite line intent dialog to alexa
+    Handler to delegate the favorite stop intent dialog to alexa
     """
 
     def can_handle(self, handler_input):
@@ -39,7 +39,7 @@ class StartedInProgressFavoriteStopHandler(AbstractRequestHandler):
 
 class CompletedFavoriteStopHandler(AbstractRequestHandler):
     """
-    Handler for the favorite line completed intent
+    Handler for the favorite stop completed intent
     """
 
     def can_handle(self, handler_input):

@@ -9,7 +9,7 @@ logger = logging.getLogger("Lambda")
 
 
 class LocalizationInterceptor(AbstractRequestInterceptor):
-    """Define class here."""
+    """Parse locale information and add i18n manager to the request attributes."""
 
     def process(self, handler_input):
         # type: (HandlerInput) -> None

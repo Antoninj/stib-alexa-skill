@@ -3,12 +3,13 @@ from ask_sdk_core.handler_input import HandlerInput
 from ask_sdk_core.utils import is_request_type, get_intent_name
 from ask_sdk_model import Response
 
+
 # The intent reflector is used for interaction model testing and debugging.
 # It will simply repeat the intent the user said. You can create custom handlers
 # for your intents by defining them above, then also adding them to the request
 # handler chain below.
 class IntentReflectorHandler(AbstractRequestHandler):
-    """Handler for Hello World Intent."""
+    """Intent Reflector Handler."""
 
     def can_handle(self, handler_input):
         # type: (HandlerInput) -> bool

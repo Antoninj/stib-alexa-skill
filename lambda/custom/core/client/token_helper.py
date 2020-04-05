@@ -14,7 +14,7 @@ logger = logging.getLogger("Lambda")
 
 
 class TokenHelper:
-    """Define class here"""
+    """Helper to manage OpenData API bearer token lifecycle."""
 
     def __init__(self):
         self.SECRET_NAME: str = os.environ["secret_name"]
@@ -28,20 +28,20 @@ class TokenHelper:
 
     @staticmethod
     def _compute_token_expiration_date(token_validity_time: str) -> int:
-        """Define method here."""
+        """Compute future expiration date of a token."""
 
         future = datetime.utcnow() + timedelta(seconds=int(token_validity_time))
         return calendar.timegm(future.utctimetuple())
 
     def _is_token_expired(self) -> bool:
-        """Define method here."""
+        """Check validity of a token"""
 
         current_time = datetime.now()
         unix_timestamp = current_time.timestamp()
         return unix_timestamp > self.token_expiration_date
 
     def _get_api_credentials(self) -> str:
-        """Get OpenData api credentials from secret manager."""
+        """Get OpenData api credentials from AWS secrets manager."""
 
         secret = None
         secret_name = self.SECRET_NAME
@@ -94,7 +94,7 @@ class TokenHelper:
         return secret
 
     def _get_access_token(self, client_id: str, client_secret: str) -> str:
-        """Get OpenData access token."""
+        """Get OpenData API access token."""
 
         request_url = self.OPEN_DATA_API_ENDPOINT + "/token"
         logger.info(
@@ -109,7 +109,7 @@ class TokenHelper:
         return token_json["access_token"]
 
     def _retrieve_api_access_token(self) -> str:
-        """Retrieve STIB api bearer token."""
+        """Retrieve OpenData api bearer token."""
 
         stib_api_credentials = self.api_credentials
         logger.debug("STIB API credentials {}".format(stib_api_credentials))
@@ -123,7 +123,7 @@ class TokenHelper:
         return access_token
 
     def get_security_token(self) -> str:
-        """Define method here."""
+        """Retrieve OpenData api bearer token."""
 
         if not self._is_token_expired():
             return self.security_token

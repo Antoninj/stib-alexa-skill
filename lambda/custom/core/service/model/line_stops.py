@@ -13,7 +13,7 @@ stops_df = pd.read_csv(STOP_DATAPATH)
 
 
 class RouteType(Enum):
-    """Define class here"""
+    """STIB network route type enumeration."""
 
     TRAM = 0
     METRO = 1
@@ -23,7 +23,7 @@ class RouteType(Enum):
 @dataclass_json(letter_case=LetterCase.CAMEL)
 @dataclass
 class LinePoint:
-    """Define class here"""
+    """Dataclass for a stop/point of a STIB line."""
 
     id: str = ""
     order: int = 0
@@ -42,7 +42,7 @@ class LinePoint:
 @dataclass_json(letter_case=LetterCase.CAMEL)
 @dataclass
 class LineDetails:
-    """Define class here"""
+    """Dataclass for details of a STIB line."""
 
     destination: Optional[Destination] = None
     direction: str = ""

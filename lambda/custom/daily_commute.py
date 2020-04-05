@@ -26,13 +26,13 @@ from core.data import data
 ENVIRONMENT = os.environ["env"]
 LOGGING_LEVEL = os.environ["log_level"]
 
-# Logging config
+# Logging configuration
 logger = logging.getLogger("Lambda")
 logger.setLevel(LOGGING_LEVEL)
 
 
 def setup_skill_builder(service: OpenDataService) -> CustomSkillBuilder:
-    """Define method here."""
+    """Helper method to create the custom skill builder instance."""
 
     logger.info("Setting up Custom Skill Builder with Dynamo DB persistence adapter...")
     dynamo_db_adapter = DynamoDbAdapter(
@@ -70,7 +70,7 @@ def setup_skill_builder(service: OpenDataService) -> CustomSkillBuilder:
 
 
 def local_test():
-    """Define method here."""
+    """Perform some tests locally by bypassing lambda invocation."""
 
     # Test STIB API integration
     passing_times = stib_service.get_passing_times_for_stop_id_and_line_id()

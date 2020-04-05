@@ -9,7 +9,7 @@ logger = logging.getLogger("Lambda")
 
 
 class OpenDataService:
-    """Define class here"""
+    """Service to handle custom OpenData API endpoints queries."""
 
     DEFAULT_STOP_ID: str = "1059"
     DEFAULT_LINE_ID: str = "93"
@@ -52,7 +52,7 @@ class OpenDataService:
     def get_passing_times_for_stop_id_and_line_id(
         self, stop_id: str = DEFAULT_STOP_ID, line_id: str = DEFAULT_LINE_ID
     ) -> Optional[List[PassingTime]]:
-        """Define method here."""
+        """Retrieve arrival times at a given stop based on the stop ID and line ID of the STIB network."""
 
         logger.debug(
             "Getting arrival times for line [%s] at stop [%s]", line_id, stop_id
@@ -68,7 +68,7 @@ class OpenDataService:
         return self._get_passing_times_for_line_id(point_passing_times, line_id)
 
     def get_stops_by_line_id(self, line_id: str = DEFAULT_LINE_ID) -> List[LineDetails]:
-        """Define method here."""
+        """Retrieve line information based on a line ID of the STIB networks."""
 
         logger.debug("Getting line details for line [%s]", line_id)
         request_url = self.STOPS_BY_LINE_SUFFIX + line_id
