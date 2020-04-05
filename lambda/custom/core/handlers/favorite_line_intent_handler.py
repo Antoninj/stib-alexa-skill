@@ -97,10 +97,10 @@ class CompletedFavoriteLineHandler(AbstractRequestHandler):
 
         destinations = [line_detail.destination.fr for line_detail in line_details]
 
-        destination_elicitation_speech = "Dans quelle direction prenez vous le {} {}? {} ou {}".format(
+        destination_elicitation_speech = "C'est noté. Dans quelle direction prenez vous le {} {}, {} ou {}?".format(
             stib_transportation_type, line_id, destinations[0], destinations[1]
         )
-        reprompt_speech = "Dans quelle direction allez vous? {} ou {}".format(
+        reprompt_speech = "Dans quelle direction allez vous, {} ou {}?".format(
             destinations[0], destinations[1]
         )
 
