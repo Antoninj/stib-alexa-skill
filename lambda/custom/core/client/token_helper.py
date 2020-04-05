@@ -17,30 +17,30 @@ class TokenHelper:
     """Define class here"""
 
     def __init__(self):
-        self.SECRET_NAME = os.environ["secret_name"]
-        self.OPEN_DATA_API_ENDPOINT = os.environ["open_data_api_endpoint"]
-        self.TOKEN_VALIDITY_TIME = os.environ["open_data_api_token_validity"]
-        self.token_expiration_date = self._compute_token_expiration_date(
+        self.SECRET_NAME: str = os.environ["secret_name"]
+        self.OPEN_DATA_API_ENDPOINT: str = os.environ["open_data_api_endpoint"]
+        self.TOKEN_VALIDITY_TIME: str = os.environ["open_data_api_token_validity"]
+        self.token_expiration_date: int = self._compute_token_expiration_date(
             self.TOKEN_VALIDITY_TIME
         )
-        self.api_credentials = self._get_api_credentials()
-        self.security_token = self._retrieve_api_access_token()
+        self.api_credentials: str = self._get_api_credentials()
+        self.security_token: str = self._retrieve_api_access_token()
 
     @staticmethod
-    def _compute_token_expiration_date(token_validity_time):
+    def _compute_token_expiration_date(token_validity_time: str) -> int:
         """Define method here."""
 
         future = datetime.utcnow() + timedelta(seconds=int(token_validity_time))
         return calendar.timegm(future.utctimetuple())
 
-    def _is_token_expired(self):
+    def _is_token_expired(self) -> bool:
         """Define method here."""
 
         current_time = datetime.now()
         unix_timestamp = current_time.timestamp()
         return unix_timestamp > self.token_expiration_date
 
-    def _get_api_credentials(self):
+    def _get_api_credentials(self) -> str:
         """Get OpenData api credentials from secret manager."""
 
         secret = None
@@ -93,7 +93,7 @@ class TokenHelper:
 
         return secret
 
-    def _get_access_token(self, client_id, client_secret):
+    def _get_access_token(self, client_id: str, client_secret: str) -> str:
         """Get OpenData access token."""
 
         request_url = self.OPEN_DATA_API_ENDPOINT + "/token"
@@ -108,7 +108,7 @@ class TokenHelper:
         token_json = response.json()
         return token_json["access_token"]
 
-    def _retrieve_api_access_token(self):
+    def _retrieve_api_access_token(self) -> str:
         """Retrieve STIB api bearer token."""
 
         stib_api_credentials = self.api_credentials
@@ -122,7 +122,7 @@ class TokenHelper:
         logger.debug("STIB API access token {}".format(access_token))
         return access_token
 
-    def get_security_token(self):
+    def get_security_token(self) -> str:
         """Define method here."""
 
         if not self._is_token_expired():

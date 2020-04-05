@@ -9,6 +9,8 @@ logger = logging.getLogger("Lambda")
 
 
 class LocalizationInterceptor(AbstractRequestInterceptor):
+    """Define class here."""
+
     def process(self, handler_input):
         # type: (HandlerInput) -> None
         logger.debug("In LocalizationInterceptor")

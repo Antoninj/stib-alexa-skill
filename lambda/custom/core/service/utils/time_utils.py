@@ -1,16 +1,22 @@
 # -*- coding: utf-8 -*-
 from datetime import datetime, time as datetime_time, timedelta
+from typing import Dict
+
 import pytz
 
 
 class TimeUtils:
+    """Define class here"""
+
     @staticmethod
     def get_current_localized_time():
+        """Define method here."""
+
         current_time_utc = datetime.utcnow()
         return pytz.utc.localize(current_time_utc)
 
     @staticmethod
-    def compute_time_diff(start, end):
+    def compute_time_diff(start, end) -> Dict:
         """Define method here."""
 
         if isinstance(start, datetime_time):  # convert to datetime
@@ -25,7 +31,7 @@ class TimeUtils:
             return TimeUtils._convert_timedelta(end - start)
 
     @staticmethod
-    def _convert_timedelta(duration):
+    def _convert_timedelta(duration) -> Dict:
         """Define method here."""
 
         duration_dict = {}

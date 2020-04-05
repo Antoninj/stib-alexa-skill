@@ -11,10 +11,10 @@ logger = logging.getLogger("Lambda")
 class OpenDataService:
     """Define class here"""
 
-    DEFAULT_STOP_ID = "1059"
-    DEFAULT_LINE_ID = "93"
-    PASSING_TIME_BY_POINT_SUFFIX = "/OperationMonitoring/4.0/PassingTimeByPoint/"
-    STOPS_BY_LINE_SUFFIX = "/NetworkDescription/1.0/PointByLine/"
+    DEFAULT_STOP_ID: str = "1059"
+    DEFAULT_LINE_ID: str = "93"
+    PASSING_TIME_BY_POINT_SUFFIX: str = "/OperationMonitoring/4.0/PassingTimeByPoint/"
+    STOPS_BY_LINE_SUFFIX: str = "/NetworkDescription/1.0/PointByLine/"
 
     def __init__(self, stib_api_client: ApiClient):
         self.api_client = stib_api_client
