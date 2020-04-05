@@ -14,28 +14,34 @@ logger = logging.getLogger("Lambda")
 
 
 class TokenHelper:
+    """Helper to manage OpenData API bearer token lifecycle."""
+
     def __init__(self):
-        self.SECRET_NAME = os.environ["secret_name"]
-        self.OPEN_DATA_API_ENDPOINT = os.environ["open_data_api_endpoint"]
-        self.TOKEN_VALIDITY_TIME = os.environ["open_data_api_token_validity"]
-        self.token_expiration_date = self._compute_token_expiration_date(
+        self.SECRET_NAME: str = os.environ["secret_name"]
+        self.OPEN_DATA_API_ENDPOINT: str = os.environ["open_data_api_endpoint"]
+        self.TOKEN_VALIDITY_TIME: str = os.environ["open_data_api_token_validity"]
+        self.token_expiration_date: int = self._compute_token_expiration_date(
             self.TOKEN_VALIDITY_TIME
         )
-        self.api_credentials = self._get_api_credentials()
-        self.security_token = self._retrieve_api_access_token()
+        self.api_credentials: str = self._get_api_credentials()
+        self.security_token: str = self._retrieve_api_access_token()
 
     @staticmethod
-    def _compute_token_expiration_date(token_validity_time):
+    def _compute_token_expiration_date(token_validity_time: str) -> int:
+        """Compute future expiration date of a token."""
+
         future = datetime.utcnow() + timedelta(seconds=int(token_validity_time))
         return calendar.timegm(future.utctimetuple())
 
-    def _is_token_expired(self):
+    def _is_token_expired(self) -> bool:
+        """Check validity of a token"""
+
         current_time = datetime.now()
         unix_timestamp = current_time.timestamp()
         return unix_timestamp > self.token_expiration_date
 
-    def _get_api_credentials(self):
-        """Get OpenData api credentials from secret manager."""
+    def _get_api_credentials(self) -> str:
+        """Get OpenData api credentials from AWS secrets manager."""
 
         secret = None
         secret_name = self.SECRET_NAME
@@ -87,8 +93,8 @@ class TokenHelper:
 
         return secret
 
-    def _get_access_token(self, client_id, client_secret):
-        """Get OpenData access token."""
+    def _get_access_token(self, client_id: str, client_secret: str) -> str:
+        """Get OpenData API access token."""
 
         request_url = self.OPEN_DATA_API_ENDPOINT + "/token"
         logger.info(
@@ -102,8 +108,8 @@ class TokenHelper:
         token_json = response.json()
         return token_json["access_token"]
 
-    def _retrieve_api_access_token(self):
-        """Retrieve STIB api bearer token."""
+    def _retrieve_api_access_token(self) -> str:
+        """Retrieve OpenData api bearer token."""
 
         stib_api_credentials = self.api_credentials
         logger.debug("STIB API credentials {}".format(stib_api_credentials))
@@ -113,10 +119,12 @@ class TokenHelper:
         client_secret = api_credentials["secret"]
 
         access_token = self._get_access_token(client_id, client_secret)
-        logger.debug("STIB API access token {}".format(access_token))
+        logger.debug("STIB API access token [{}]".format(access_token))
         return access_token
 
-    def get_security_token(self):
+    def get_security_token(self) -> str:
+        """Retrieve OpenData api bearer token."""
+
         if not self._is_token_expired():
             return self.security_token
         else:

@@ -78,21 +78,7 @@
             },
             {
               "name": "stop_name",
-              "type": "STOP_NAME",
-              "samples": [
-                "{stop_name}",
-                "à {stop_name}",
-                "depuis {stop_name}",
-                "via {stop_name}",
-                "l'arrêt {stop_name}",
-                "l'arrêt de tram {stop_name}",
-                "l'arrêt de bus {stop_name}",
-                "l'arrêt de métro {stop_name}",
-                "à l'arrêt {stop_name}",
-                "à l'arrêt de tram {stop_name}",
-                "à l'arrêt de bus {stop_name}",
-                "à l'arrêt de métro {stop_name}"
-              ]
+              "type": "STOP_NAME"
             }
           ],
           "samples": [

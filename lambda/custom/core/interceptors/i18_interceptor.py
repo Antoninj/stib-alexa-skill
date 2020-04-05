@@ -1,5 +1,7 @@
 from ask_sdk_core.dispatch_components import AbstractRequestInterceptor
 from ask_sdk_core.handler_input import HandlerInput
+from ask_sdk_core.utils import get_locale
+
 import logging
 import gettext
 
@@ -7,10 +9,12 @@ logger = logging.getLogger("Lambda")
 
 
 class LocalizationInterceptor(AbstractRequestInterceptor):
+    """Parse locale information and add i18n manager to the request attributes."""
+
     def process(self, handler_input):
         # type: (HandlerInput) -> None
         logger.debug("In LocalizationInterceptor")
-        locale = handler_input.request_envelope.request.locale
+        locale = get_locale(handler_input)
         logger.debug("Locale is {}".format(locale))
         i18n = gettext.translation(
             "base", localedir="../locales", languages=[locale], fallback=True

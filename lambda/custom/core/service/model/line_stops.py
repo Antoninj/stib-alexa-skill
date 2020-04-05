@@ -5,14 +5,17 @@ from dataclasses_json import dataclass_json, LetterCase
 from .passing_times import Destination
 from enum import Enum
 import pandas as pd
+import os
 
-ROUTE_DATAPATH = "core/service/model/routes.txt"
-STOP_DATAPATH = "core/service/model/stops.txt"
+ROUTE_DATAPATH = os.path.dirname(os.path.abspath(__file__)) + "/routes.txt"
+STOP_DATAPATH = os.path.dirname(os.path.abspath(__file__)) + "/stops.txt"
 routes_df = pd.read_csv(ROUTE_DATAPATH)
 stops_df = pd.read_csv(STOP_DATAPATH)
 
 
 class RouteType(Enum):
+    """STIB network route type enumeration."""
+
     TRAM = 0
     METRO = 1
     BUS = 3
@@ -21,6 +24,8 @@ class RouteType(Enum):
 @dataclass_json(letter_case=LetterCase.CAMEL)
 @dataclass
 class LinePoint:
+    """Dataclass for a stop/point of a STIB line."""
+
     id: str = ""
     order: int = 0
     stop_name: str = ""
@@ -38,6 +43,8 @@ class LinePoint:
 @dataclass_json(letter_case=LetterCase.CAMEL)
 @dataclass
 class LineDetails:
+    """Dataclass for details of a STIB line."""
+
     destination: Optional[Destination] = None
     direction: str = ""
     line_id: str = ""
@@ -45,8 +52,12 @@ class LineDetails:
     route_type: Optional[RouteType] = None
 
     def __post_init__(self):
-        self.route_type = RouteType(
-            routes_df[routes_df["route_short_name"] == self.line_id].iloc[0][
-                "route_type"
-            ]
-        )
+        try:
+            self.route_type = RouteType(
+                routes_df[routes_df["route_short_name"] == self.line_id].iloc[0][
+                    "route_type"
+                ]
+            )
+        except:
+            # Hardcode the route type if not defined... need to change this later
+            self.route_type = RouteType(0)
