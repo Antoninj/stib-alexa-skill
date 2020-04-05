@@ -12,6 +12,7 @@ from ask_sdk_model.er.dynamic import (
     EntityListItem,
     UpdateBehavior,
 )
+from typing import List
 from ..service.model.line_stops import LineDetails
 import logging
 

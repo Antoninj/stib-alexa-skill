@@ -119,7 +119,7 @@ class TokenHelper:
         client_secret = api_credentials["secret"]
 
         access_token = self._get_access_token(client_id, client_secret)
-        logger.debug("STIB API access token {}".format(access_token))
+        logger.debug("STIB API access token [{}]".format(access_token))
         return access_token
 
     def get_security_token(self) -> str:

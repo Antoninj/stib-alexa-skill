@@ -5,9 +5,10 @@ from dataclasses_json import dataclass_json, LetterCase
 from .passing_times import Destination
 from enum import Enum
 import pandas as pd
+import os
 
-ROUTE_DATAPATH = "core/service/model/routes.txt"
-STOP_DATAPATH = "core/service/model/stops.txt"
+ROUTE_DATAPATH = os.path.dirname(os.path.abspath(__file__)) + "/routes.txt"
+STOP_DATAPATH = os.path.dirname(os.path.abspath(__file__)) + "/stops.txt"
 routes_df = pd.read_csv(ROUTE_DATAPATH)
 stops_df = pd.read_csv(STOP_DATAPATH)
 
