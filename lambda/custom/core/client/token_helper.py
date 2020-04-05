@@ -14,6 +14,8 @@ logger = logging.getLogger("Lambda")
 
 
 class TokenHelper:
+    """Define class here"""
+
     def __init__(self):
         self.SECRET_NAME = os.environ["secret_name"]
         self.OPEN_DATA_API_ENDPOINT = os.environ["open_data_api_endpoint"]
@@ -26,10 +28,14 @@ class TokenHelper:
 
     @staticmethod
     def _compute_token_expiration_date(token_validity_time):
+        """Define method here."""
+
         future = datetime.utcnow() + timedelta(seconds=int(token_validity_time))
         return calendar.timegm(future.utctimetuple())
 
     def _is_token_expired(self):
+        """Define method here."""
+
         current_time = datetime.now()
         unix_timestamp = current_time.timestamp()
         return unix_timestamp > self.token_expiration_date
@@ -117,6 +123,8 @@ class TokenHelper:
         return access_token
 
     def get_security_token(self):
+        """Define method here."""
+
         if not self._is_token_expired():
             return self.security_token
         else:

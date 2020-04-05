@@ -1,6 +1,8 @@
 # -*- coding: utf-8 -*-
 from ask_sdk_core.dispatch_components import AbstractRequestHandler
-from ask_sdk_core.utils import is_intent_name, get_slot_value, get_dialog_state
+from ask_sdk_core.handler_input import HandlerInput
+from ask_sdk_core.utils import is_intent_name, get_dialog_state, get_slot_value
+from ask_sdk_model import Response
 from ask_sdk_model.dialog_state import DialogState
 from ask_sdk_model.dialog.delegate_directive import DelegateDirective
 from ask_sdk_model.dialog.dynamic_entities_directive import *
@@ -10,6 +12,7 @@ from ask_sdk_model.er.dynamic import (
     EntityListItem,
     UpdateBehavior,
 )
+from ..service.model.line_stops import LineDetails
 import logging
 
 logger = logging.getLogger("Lambda")
@@ -21,13 +24,16 @@ class StartedInProgressFavoriteLineHandler(AbstractRequestHandler):
     """
 
     def can_handle(self, handler_input):
+        # type: (HandlerInput) -> bool
+
         return (
             is_intent_name("SetFavoriteLineIntent")(handler_input)
-            and handler_input.request_envelope.request.dialog_state
-            != DialogState.COMPLETED
+            and get_dialog_state(handler_input) != DialogState.COMPLETED
         )
 
     def handle(self, handler_input):
+        # type: (HandlerInput) -> Response
+
         logger.debug("In StartedInProgressFavoriteLineHandler")
         logger.debug(
             "Dialog state %s", handler_input.request_envelope.request.dialog_state
@@ -48,22 +54,21 @@ class CompletedFavoriteLineHandler(AbstractRequestHandler):
         self.stib_service = service
 
     def can_handle(self, handler_input):
+        # type: (HandlerInput) -> bool
+
         return (
             is_intent_name("SetFavoriteLineIntent")(handler_input)
-            and handler_input.request_envelope.request.dialog_state
-            == DialogState.COMPLETED
+            and get_dialog_state(handler_input) == DialogState.COMPLETED
         )
 
     def handle(self, handler_input):
+        # type: (HandlerInput) -> Response
+
         logger.debug("In CompletedFavoriteLineHandler")
-        logger.debug(
-            "Dialog state %s", handler_input.request_envelope.request.dialog_state
-        )
-        slots = handler_input.request_envelope.request.intent.slots
         logger.debug("Slots %s", handler_input.request_envelope.request.intent.slots)
 
         # Get list of valid stops for given line
-        line_id = slots["line_id"].value
+        line_id = get_slot_value(handler_input, "line_id")
         line_details = self.stib_service.get_stops_by_line_id(line_id)
         logger.debug(line_details)
 
@@ -112,3 +117,8 @@ class CompletedFavoriteLineHandler(AbstractRequestHandler):
             .ask(reprompt_speech)
             .response
         )
+
+    def _build_entity_list_items_from_line_details(
+        self, line_details: List[LineDetails]
+    ):
+        pass

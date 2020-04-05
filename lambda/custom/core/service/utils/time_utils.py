@@ -11,6 +11,8 @@ class TimeUtils:
 
     @staticmethod
     def compute_time_diff(start, end):
+        """Define method here."""
+
         if isinstance(start, datetime_time):  # convert to datetime
             assert isinstance(end, datetime_time)
             start, end = [datetime.combine(datetime.min, t) for t in [start, end]]
@@ -24,6 +26,8 @@ class TimeUtils:
 
     @staticmethod
     def _convert_timedelta(duration):
+        """Define method here."""
+
         duration_dict = {}
         days, seconds = duration.days, duration.seconds
         duration_dict["days"] = days

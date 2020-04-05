@@ -1,6 +1,6 @@
 from ask_sdk_core.dispatch_components import AbstractRequestHandler
 from ask_sdk_core.handler_input import HandlerInput
-from ask_sdk_core.utils import is_request_type
+from ask_sdk_core.utils import is_request_type, get_intent_name
 from ask_sdk_model import Response
 
 # The intent reflector is used for interaction model testing and debugging.
@@ -16,7 +16,7 @@ class IntentReflectorHandler(AbstractRequestHandler):
 
     def handle(self, handler_input):
         # type: (HandlerInput) -> Response
-        intent_name = handler_input.request_envelope.request.intent.name
+        intent_name = get_intent_name(handler_input)
         speech_text = ("You just triggered {}").format(intent_name)
         handler_input.response_builder.speak(speech_text).set_should_end_session(True)
         return handler_input.response_builder.response

@@ -13,6 +13,8 @@ stops_df = pd.read_csv(STOP_DATAPATH)
 
 
 class RouteType(Enum):
+    """Define class here"""
+
     TRAM = 0
     METRO = 1
     BUS = 3
@@ -21,6 +23,8 @@ class RouteType(Enum):
 @dataclass_json(letter_case=LetterCase.CAMEL)
 @dataclass
 class LinePoint:
+    """Define class here"""
+
     id: str = ""
     order: int = 0
     stop_name: str = ""
@@ -38,6 +42,8 @@ class LinePoint:
 @dataclass_json(letter_case=LetterCase.CAMEL)
 @dataclass
 class LineDetails:
+    """Define class here"""
+
     destination: Optional[Destination] = None
     direction: str = ""
     line_id: str = ""
@@ -45,8 +51,12 @@ class LineDetails:
     route_type: Optional[RouteType] = None
 
     def __post_init__(self):
-        self.route_type = RouteType(
-            routes_df[routes_df["route_short_name"] == self.line_id].iloc[0][
-                "route_type"
-            ]
-        )
+        try:
+            self.route_type = RouteType(
+                routes_df[routes_df["route_short_name"] == self.line_id].iloc[0][
+                    "route_type"
+                ]
+            )
+        except:
+            # Hardcode the route type if not defined... need to change this later
+            self.route_type = RouteType(0)

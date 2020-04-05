@@ -31,7 +31,9 @@ logger = logging.getLogger("Lambda")
 logger.setLevel(LOGGING_LEVEL)
 
 
-def setup_skill_builder(service):
+def setup_skill_builder(service: OpenDataService) -> CustomSkillBuilder:
+    """Define method here."""
+
     logger.info("Setting up Custom Skill Builder with Dynamo DB persistence adapter...")
     dynamo_db_adapter = DynamoDbAdapter(
         table_name="DailyCommuteFavorites",
@@ -68,6 +70,8 @@ def setup_skill_builder(service):
 
 
 def local_test():
+    """Define method here."""
+
     # Test STIB API integration
     passing_times = stib_service.get_passing_times_for_stop_id_and_line_id()
     logger.info(passing_times[0].formatted_waiting_time)

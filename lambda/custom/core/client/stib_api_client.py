@@ -6,7 +6,7 @@ import logging
 import six
 
 from ask_sdk_core.exceptions import ApiClientException
-from ask_sdk_model.services import ApiClient, ApiClientResponse
+from ask_sdk_model.services import ApiClient, ApiClientResponse, ApiClientRequest
 from urllib3.util import parse_url
 
 from .token_helper import TokenHelper
@@ -16,6 +16,8 @@ OPEN_DATA_API_ENDPOINT = os.environ["open_data_api_endpoint"]
 
 
 class OpenDataAPIClient(ApiClient):
+    """Define class here"""
+
     def __init__(self):
         self.token_helper = TokenHelper()
 
