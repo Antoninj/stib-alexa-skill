@@ -73,17 +73,9 @@ class CompletedFavoriteLineHandler(AbstractRequestHandler):
         line_details = self.stib_service.get_stops_by_line_id(line_id)
         logger.debug(line_details)
 
-        # Hardcode dynamic entities value for now
-        stop_entity_value_and_synonyms = EntityValueAndSynonyms(value="ABBAYE")
-        stop_entity = Entity(id="5466", name=stop_entity_value_and_synonyms)
-        destination_entity_value_and_synonyms = EntityValueAndSynonyms(value="STADE")
-        destination_entity = Entity(
-            id="5474", name=destination_entity_value_and_synonyms
+        entity_list_items = self._build_entity_list_items_from_line_details(
+            line_details
         )
-        entity_list_items = [
-            EntityListItem(name="STOP_NAME", values=[stop_entity]),
-            EntityListItem(name="DESTINATION_NAME", values=[destination_entity]),
-        ]
 
         # Retrieve transportation_type
         stib_transportation_type = line_details[0].route_type.name.lower()
@@ -98,14 +90,18 @@ class CompletedFavoriteLineHandler(AbstractRequestHandler):
         handler_input.attributes_manager.persistent_attributes = session_attr
         handler_input.attributes_manager.save_persistent_attributes()
 
-        # save line details into session attributes
+        # save line details into session attributes for later use
         session_attr["session_line_details"] = [
             line_detail.to_dict() for line_detail in line_details
         ]
 
-        stop_name_elicitation_speech = "Dans quelle direction allez vous?"
-        reprompt_speech = "Dans quelle direction prenez vous le {} {}?".format(
-            stib_transportation_type, line_id
+        destinations = [line_detail.destination.fr for line_detail in line_details]
+
+        destination_elicitation_speech = "Dans quelle direction prenez vous le {} {}? {} ou {}".format(
+            stib_transportation_type, line_id, destinations[0], destinations[1]
+        )
+        reprompt_speech = "Dans quelle direction allez vous? {} ou {}".format(
+            destinations[0], destinations[1]
         )
 
         return (
@@ -114,12 +110,33 @@ class CompletedFavoriteLineHandler(AbstractRequestHandler):
                     update_behavior=UpdateBehavior.REPLACE, types=entity_list_items
                 )
             )
-            .speak(stop_name_elicitation_speech)
+            .speak(destination_elicitation_speech)
             .ask(reprompt_speech)
             .response
         )
 
+    @staticmethod
     def _build_entity_list_items_from_line_details(
-        self, line_details: List[LineDetails]
-    ):
-        pass
+        line_details: List[LineDetails],
+    ) -> List[EntityListItem]:
+        """
+        Create list of dynamic entity items from line details
+        """
+
+        # todo: refine this to add try/catch statements and validations
+        points = line_details[0].points + line_details[1].points
+        destinations = [line.destination for line in line_details]
+
+        stop_entities = [
+            Entity(id=point.id, name=EntityValueAndSynonyms(value=point.stop_name))
+            for point in points
+        ]
+        destination_entities = [
+            Entity(id=destination.fr, name=EntityValueAndSynonyms(value=destination.fr))
+            for destination in destinations
+        ]
+        entity_list_items = [
+            EntityListItem(name="STOP_NAME", values=stop_entities),
+            EntityListItem(name="DESTINATION_NAME", values=destination_entities),
+        ]
+        return entity_list_items

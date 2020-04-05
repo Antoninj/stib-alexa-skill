@@ -61,13 +61,9 @@ class CompletedFavoriteStopHandler(AbstractRequestHandler):
         destination_name = get_slot_value(handler_input, "destination_name")
         stop_name = get_slot_value(handler_input, "stop_name")
 
-        # Retrieve session attributes
-        session_attr = handler_input.attributes_manager.session_attributes
-        session_line_details = session_attr["session_line_details"]
-
-        # save session attributes as persistent attributes
-        # handler_input.attributes_manager.persistent_attributes = session_attr
-        # handler_input.attributes_manager.save_persistent_attributes()
+        persistent_attributes = handler_input.attributes_manager.persistent_attributes
+        persistent_attributes["favorite_stop_id"] = stop_name
+        handler_input.attributes_manager.save_persistent_attributes()
 
         intent_complete_speech = (
             "Merci, vos préférences ont été correctement sauvegardées."
