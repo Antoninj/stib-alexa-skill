@@ -64,6 +64,45 @@
           ]
         },
         {
+          "name": "SetFavoriteStopIntent",
+          "slots": [
+            {
+              "name": "destination_name",
+              "type": "DESTINATION_NAME",
+              "samples": [
+                "{destination_name}",
+                "vers {destination_name}",
+                "en direction de {destination_name}",
+                "direction {destination_name}"
+              ]
+            },
+            {
+              "name": "stop_name",
+              "type": "STOP_NAME",
+              "samples": [
+                "{stop_name}",
+                "à {stop_name}",
+                "depuis {stop_name}",
+                "via {stop_name}",
+                "l'arrêt {stop_name}",
+                "l'arrêt de tram {stop_name}",
+                "l'arrêt de bus {stop_name}",
+                "l'arrêt de métro {stop_name}",
+                "à l'arrêt {stop_name}",
+                "à l'arrêt de tram {stop_name}",
+                "à l'arrêt de bus {stop_name}",
+                "à l'arrêt de métro {stop_name}"
+              ]
+            }
+          ],
+          "samples": [
+            "{destination_name}",
+            "vers {destination_name}",
+            "en direction de {destination_name}",
+            "direction {destination_name}"
+          ]
+        },
+        {
           "name": "GetArrivalTimesIntent",
           "slots": [
             {
@@ -192,6 +231,44 @@
               ]
             }
           ]
+        },
+        {
+          "name": "SetFavoriteStopIntent",
+          "delegationStrategy": "SKILL_RESPONSE",
+          "confirmationRequired": false,
+          "prompts": {},
+          "slots": [
+            {
+              "name": "destination_name",
+              "type": "DESTINATION_NAME",
+              "confirmationRequired": false,
+              "elicitationRequired": true,
+              "prompts": {
+                "elicitation": "Elicit.Slot.DestinationName"
+              },
+              "validations": [
+                {
+                  "type": "hasEntityResolutionMatch",
+                  "prompt": "Slot.Validation.DestinationName"
+                }
+              ]
+            },
+            {
+              "name": "stop_name",
+              "type": "STOP_NAME",
+              "confirmationRequired": false,
+              "elicitationRequired": true,
+              "prompts": {
+                "elicitation": "Elicit.Slot.StopName"
+              },
+              "validations": [
+                {
+                  "type": "hasEntityResolutionMatch",
+                  "prompt": "Slot.Validation.StopName"
+                }
+              ]
+            }
+          ]
         }
       ],
       "delegationStrategy": "ALWAYS"
@@ -228,6 +305,15 @@
           {
             "type": "PlainText",
             "value": "Vous êtes plutot bus, métro ou bien tram?"
+          }
+        ]
+      },
+      {
+        "id": "Elicit.Slot.DestinationName",
+        "variations": [
+          {
+            "type": "PlainText",
+            "value": "Dans quelle direction allez vous?"
           }
         ]
       },
@@ -287,6 +373,15 @@
           {
             "type": "PlainText",
             "value": "Vous ne pouvez pas voyager en {transportation_type} sur les lignes de la STIB. Choisissez entre le bus, le métro et le tram"
+          }
+        ]
+      },
+      {
+        "id": "Slot.Validation.DestinationName",
+        "variations": [
+          {
+            "type": "PlainText",
+            "value": "La destination {destination_name} n'est pas une destination valable."
           }
         ]
       },
