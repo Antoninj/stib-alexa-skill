@@ -10,6 +10,7 @@ from ask_sdk_core.skill_builder import CustomSkillBuilder
 from core.handlers.get_arrival_times_intent_handler import *
 from core.handlers.commute_preferences_intent_handler import *
 from core.handlers.favorite_line_intent_handler import *
+from core.handlers.favorite_stop_intent_handler import *
 
 from core.handlers.launch_handler import LaunchRequestHandler
 from core.handlers.common_handlers import *
@@ -45,6 +46,8 @@ def setup_skill_builder(service):
     logger.info("Adding skill request handlers...")
     skill_builder.add_request_handler(LaunchRequestHandler())
     skill_builder.add_request_handler(GetArrivalTimesIntentHandler(service))
+    skill_builder.add_request_handler(StartedInProgressFavoriteStopHandler())
+    skill_builder.add_request_handler(CompletedFavoriteStopHandler())
     skill_builder.add_request_handler(StartedInProgressFavoriteLineHandler())
     skill_builder.add_request_handler(CompletedFavoriteLineHandler(service))
     # skill_builder.add_request_handler(HasLineIdCommutePreferencesHandler(service))
