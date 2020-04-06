@@ -67,7 +67,8 @@ class CompletedFavoriteStopHandler(AbstractRequestHandler):
 
         slots = handler_input.request_envelope.request.intent.slots
         logger.debug("Slots %s", slots)
-        destination_name = get_slot_value(handler_input, "destination_name")
+        # Todo: retrieve this properly via entity resolution results
+        destination_name = get_slot_value(handler_input, "destination_name").upper()
         stop_name_slot = get_slot(handler_input, "stop_name")
         session_line_details = session_attr["session_line_details"]
         success_slot_er_results = self._parse_successful_entity_resolution_results_for_slot(
@@ -98,13 +99,11 @@ class CompletedFavoriteStopHandler(AbstractRequestHandler):
     def _parse_successful_entity_resolution_results_for_slot(
         slot: Optional[Slot],
     ) -> dict:
-        entity_resolutions = {"values": [], "resolved": slot["value"]}
+        entity_resolutions = {"values": [], "resolved": slot.value}
         success_entity_resolutions = [
-            resolution_per_authority["values"]
-            for resolution_per_authority in slot["resolutions"][
-                "resolutions_per_authority"
-            ]
-            if resolution_per_authority["status"]["code"] == "ER_SUCCESS_MATCH"
+            resolution_per_authority.values
+            for resolution_per_authority in slot.resolutions.resolutions_per_authority
+            if resolution_per_authority.status.code == "ER_SUCCESS_MATCH"
         ]
         flatten_success_entity_resolutions = [
             item for sublist in success_entity_resolutions for item in sublist
