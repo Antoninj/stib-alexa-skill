@@ -12,6 +12,7 @@ from ask_sdk_model.er.dynamic import (
     EntityListItem,
     UpdateBehavior,
 )
+import uuid
 from typing import List
 from ..service.model.line_stops import LineDetails
 import logging
@@ -132,8 +133,11 @@ class CompletedFavoriteLineHandler(AbstractRequestHandler):
             Entity(id=point.id, name=EntityValueAndSynonyms(value=point.stop_name))
             for point in points
         ]
+        # Todo: use destination stop id instead of generated ID
         destination_entities = [
-            Entity(id=destination.fr, name=EntityValueAndSynonyms(value=destination.fr))
+            Entity(
+                id=str(uuid.uuid4()), name=EntityValueAndSynonyms(value=destination.fr)
+            )
             for destination in destinations
         ]
         entity_list_items = [
