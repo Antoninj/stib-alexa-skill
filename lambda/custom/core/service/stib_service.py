@@ -59,6 +59,7 @@ class OpenDataService:
         )
         request_url = self.PASSING_TIME_BY_POINT_SUFFIX + stop_id
         api_request = ApiClientRequest(url=request_url, method="GET")
+        # Todo: Add try/catch statements for error handling
         response = self.api_client.invoke(api_request)
         raw_passages = response.body.json()
         point_passing_times = PointPassingTimes.schema().load(
@@ -73,6 +74,7 @@ class OpenDataService:
         logger.debug("Getting line details for line [%s]", line_id)
         request_url = self.STOPS_BY_LINE_SUFFIX + line_id
         api_request = ApiClientRequest(url=request_url, method="GET")
+        # Todo: Add try/catch statements for error handling
         response = self.api_client.invoke(api_request)
         raw_lines_info = response.body.json()
         line_details = LineDetails.schema().load(raw_lines_info["lines"], many=True)
