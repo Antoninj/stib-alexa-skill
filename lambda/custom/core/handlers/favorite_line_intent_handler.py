@@ -67,6 +67,9 @@ class CompletedFavoriteLineHandler(AbstractRequestHandler):
         # type: (HandlerInput) -> Response
 
         logger.debug("In CompletedFavoriteLineHandler")
+        persistent_attributes = handler_input.attributes_manager.persistent_attributes
+        session_attributes = handler_input.attributes_manager.session_attributes
+
         logger.debug("Slots %s", handler_input.request_envelope.request.intent.slots)
 
         # Get list of valid stops for given line
@@ -83,17 +86,13 @@ class CompletedFavoriteLineHandler(AbstractRequestHandler):
         stib_transportation_type = line_details[0].route_type.name.lower()
         logger.debug("Transportation type: %s", stib_transportation_type)
 
-        # save slots into session attributes
-        session_attr = handler_input.attributes_manager.session_attributes
-        session_attr["favorite_line_id"] = line_id
-        session_attr["favorite_transportation_type"] = stib_transportation_type
-
-        # save session attributes as persistent attributes
-        handler_input.attributes_manager.persistent_attributes = session_attr
+        # save some attributes as persistent attributes
+        persistent_attributes["favorite_line_id"] = line_id
+        persistent_attributes["favorite_transportation_type"] = stib_transportation_type
         handler_input.attributes_manager.save_persistent_attributes()
 
         # save line details into session attributes for later use
-        session_attr["session_line_details"] = [
+        session_attributes["session_line_details"] = [
             line_detail.to_dict() for line_detail in line_details
         ]
 
