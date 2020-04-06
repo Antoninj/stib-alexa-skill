@@ -109,7 +109,7 @@ class CompletedFavoriteStopHandler(AbstractRequestHandler):
             if resolution_per_authority.status.code.value == "ER_SUCCESS_MATCH"
         ]
         flatten_success_entity_resolutions = [
-            item for sublist in success_entity_resolutions for item in sublist
+            item.to_dict() for sublist in success_entity_resolutions for item in sublist
         ]
         entity_resolutions["values"] = flatten_success_entity_resolutions
         return entity_resolutions
