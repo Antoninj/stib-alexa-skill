@@ -78,7 +78,14 @@
             },
             {
               "name": "stop_name",
-              "type": "STOP_NAME"
+              "type": "STOP_NAME",
+              "samples": [
+                "{stop_name}",
+                "à l'arrêt {stop_name}",
+                "à {stop_name}",
+                "depuis l'arrêt {stop_name}",
+                "depuis {stop_name}"
+              ]
             }
           ],
           "samples": [

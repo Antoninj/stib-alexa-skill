@@ -60,18 +60,16 @@ class CompletedFavoriteStopHandler(AbstractRequestHandler):
     def handle(self, handler_input):
         # type: (HandlerInput) -> Response
         logger.debug("In CompletedFavoriteStopHandler")
-        # Get persistent attributes
         persistent_attributes = handler_input.attributes_manager.persistent_attributes
-        # Get session attributes
-        session_attr = handler_input.attributes_manager.session_attributes
+        session_attributes = handler_input.attributes_manager.session_attributes
 
-        slots = handler_input.request_envelope.request.intent.slots
-        logger.debug("Slots %s", slots)
+        logger.debug("Slots %s", handler_input.request_envelope.request.intent.slots)
+
         # Todo: retrieve this properly via entity resolution results
         destination_name = get_slot_value(handler_input, "destination_name").upper()
         logger.debug("Destination: %s", destination_name)
         stop_name_slot = get_slot(handler_input, "stop_name")
-        session_line_details = session_attr["session_line_details"]
+        session_line_details = session_attributes["session_line_details"]
         success_slot_er_results = self._parse_successful_entity_resolution_results_for_slot(
             stop_name_slot
         )
@@ -91,8 +89,8 @@ class CompletedFavoriteStopHandler(AbstractRequestHandler):
 
         intent_complete_speech = (
             "Merci, vos préférences ont été correctement sauvegardées. Vous prenez donc le {} {} direction {}"
-            "à l'arret {}".format(
-                line_id, stib_transportation_type, destination_name, stop_name,
+            " à l'arret {}".format(
+                stib_transportation_type, line_id, destination_name, stop_name,
             )
         )
 
