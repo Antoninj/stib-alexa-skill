@@ -12,6 +12,8 @@ STOP_DATAPATH = os.path.dirname(os.path.abspath(__file__)) + "/stops.txt"
 routes_df = pd.read_csv(ROUTE_DATAPATH)
 stops_df = pd.read_csv(STOP_DATAPATH)
 
+# Todo: get rid of pandas/numpy dependency in this class
+
 
 class RouteType(Enum):
     """STIB network route type enumeration."""

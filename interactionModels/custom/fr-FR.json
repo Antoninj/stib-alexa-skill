@@ -273,10 +273,6 @@
           },
           {
             "type": "PlainText",
-            "value": "Quel est le numéro de la ligne que vous prenez habituellement?"
-          },
-          {
-            "type": "PlainText",
             "value": "Quel est votre ligne favorite?"
           }
         ]
@@ -308,27 +304,27 @@
         "variations": [
           {
             "type": "PlainText",
-            "value": "Quel est le nom de l'arrêt auquel vous montez?"
+            "value": "Top! Quel est le nom de l'arrêt auquel vous montez?"
           },
           {
             "type": "PlainText",
-            "value": "A quel arrêt montez vous?"
+            "value": "Super! A quel arrêt montez vous?"
           },
           {
             "type": "PlainText",
-            "value": "Quel est le nom de votre arrêt?"
+            "value": "Parfait! Quel est le nom de votre arrêt?"
           },
           {
             "type": "PlainText",
-            "value": "Quel est votre arrêt?"
+            "value": "Ok! Quel est votre arrêt?"
           },
           {
             "type": "PlainText",
-            "value": "D'ou partez vous?"
+            "value": "Très bien. D'ou partez vous?"
           },
           {
             "type": "PlainText",
-            "value": "A quel arrêt commence votre voyage?"
+            "value": "D'accord. A quel arrêt commence votre voyage?"
           }
         ]
       },
@@ -380,7 +376,7 @@
           },
           {
             "type": "PlainText",
-            "value": "Je ne connais pas l'arret {stop_name}."
+            "value": "Désolé, je ne connais pas l'arret {stop_name}."
           }
         ]
       }

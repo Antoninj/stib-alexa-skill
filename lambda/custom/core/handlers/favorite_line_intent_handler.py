@@ -69,6 +69,7 @@ class CompletedFavoriteLineHandler(AbstractRequestHandler):
         logger.debug("Slots %s", handler_input.request_envelope.request.intent.slots)
 
         # Get list of valid stops for given line
+        # Todo: Add try/catch statements for error handling
         line_id = get_slot_value(handler_input, "line_id")
         line_details = self.stib_service.get_stops_by_line_id(line_id)
         logger.debug(line_details)
@@ -97,11 +98,11 @@ class CompletedFavoriteLineHandler(AbstractRequestHandler):
 
         destinations = [line_detail.destination.fr for line_detail in line_details]
 
-        destination_elicitation_speech = "Dans quelle direction prenez vous le {} {}? {} ou {}".format(
-            stib_transportation_type, line_id, destinations[0], destinations[1]
+        destination_elicitation_speech = "C'est noté. Dans quelle direction prenez vous le {} {}, {} ou {}?".format(
+            stib_transportation_type, line_id, *destinations
         )
-        reprompt_speech = "Dans quelle direction allez vous? {} ou {}".format(
-            destinations[0], destinations[1]
+        reprompt_speech = "Dans quelle direction allez vous, {} ou {}?".format(
+            *destinations
         )
 
         return (
