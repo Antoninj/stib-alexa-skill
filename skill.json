@@ -3,32 +3,42 @@
 		"publishingInformation": {
 			"locales": {
 				"en-US": {
-					"summary": "Live STIB network information",
+					"summary": "Live data from the STIB-MIVB network",
 					"examplePhrases": [
 						"Alexa open stib schedule",
 						"Alexa ask stib schedule when is the next tram"
 					],
-					"name": "STIB schedule",
-					"description": "A skill to get live update from the STIB network"
+					"keywords": ["STIB", "STIB-MIVB ", "Brussels", "Public transportation"],
+					"name": "STIB network",
+					"description": "Live data from the STIB-MIVB network"
 				},
 				"fr-FR": {
-					"summary": "Horaire STIB en temps réel",
+					"summary": "Informations sur le réseau STIB-MIVB en temps réel",
 					"examplePhrases": [
 						"Alexa ouvre horaires stib",
 						"Alexa demande à horaires stib quand passe le prochain tram"
 					],
-					"name": "Horaires STIB",
-					"description": "Skill permettant d'obtenir les horaires de la STIB en temps réel"
+					"keywords": ["STIB", "STIB-MIVB", "Bruxelles", "Transports publics"],
+					"name": "Réseau STIB-MIVB",
+					"description": "Informations sur le réseau STIB-MIVB en temps réel"
 				}
 			},
-			"isAvailableWorldwide": true,
+			"isAvailableWorldwide": false,
 			"testingInstructions": "Sample Testing Instructions.",
-			"category": "EDUCATION_AND_REFERENCE",
-			"distributionCountries": []
+			"category": "PUBLIC_TRANSPORTATION",
+			"distributionCountries": ["FR", "BE"],
+			"distributionMode": "PUBLIC"
 		},
 		"apis": {
 			"custom": {}
 		},
-		"manifestVersion": "1.0"
+		"manifestVersion": "1.0",
+		"privacyAndCompliance": {
+		  "allowsPurchases": false,
+		  "usesPersonalInfo": false,
+		  "isChildDirected": false,
+		  "isExportCompliant": true,
+		  "containsAds": false
+		}
 	}
 }
