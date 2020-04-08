@@ -94,7 +94,3 @@ sb = setup_skill_builder(service=stib_service)
 local_test()
 
 handler = sb.lambda_handler()
-
-
-def handler():
-    pass

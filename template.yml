@@ -70,7 +70,8 @@ Outputs:
             "apis": {
               "custom": {
                 "endpoint": {
-                  "uri": "${DailyCommuteFunction.Alias}"
+                  "uri": "https://09ac1600.ngrok.io",
+                  "sslCertificateType": "Wildcard"
                 }
               }
             }
