@@ -138,25 +138,11 @@
       "types": [
         {
           "name": "DESTINATION_NAME",
-          "values": [
-            {
-              "id": "1047F",
-              "name": {
-                "value": "LEGRAND"
-              }
-            }
-          ]
+          "values": []
         },
         {
           "name": "STOP_NAME",
-          "values": [
-            {
-              "id": "1059",
-              "name": {
-                "value": "LEGRAND"
-              }
-            }
-          ]
+          "values": []
         },
         {
           "name": "TRANSPORTATION_TYPES",

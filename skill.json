@@ -2,23 +2,13 @@
 	"manifest": {
 		"publishingInformation": {
 			"locales": {
-				"en-US": {
-					"summary": "Live data from the STIB-MIVB network",
-					"examplePhrases": [
-						"Alexa open stib schedule",
-						"Alexa ask stib schedule when is the next tram"
-					],
-					"keywords": ["STIB", "STIB-MIVB ", "Brussels", "Public transportation"],
-					"name": "STIB network",
-					"description": "Live data from the STIB-MIVB network"
-				},
 				"fr-FR": {
 					"summary": "Informations sur le réseau STIB-MIVB en temps réel",
 					"examplePhrases": [
 						"Alexa ouvre horaires stib",
 						"Alexa demande à horaires stib quand passe le prochain tram"
 					],
-					"keywords": ["STIB", "STIB-MIVB", "Bruxelles", "Transports publics"],
+					"keywords": ["STIB", "STIB-MIVB", "bruxelles", "transports en commun", "horaires", "temps réel"],
 					"name": "Réseau STIB-MIVB",
 					"description": "Informations sur le réseau STIB-MIVB en temps réel"
 				}

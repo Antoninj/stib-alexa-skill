@@ -22,6 +22,20 @@ import os.path
 import six
 import re
 import typing
+import logging
+import sys
+
+stdout_handler = logging.StreamHandler(sys.stdout)
+handlers = [stdout_handler]
+
+logging.basicConfig(
+    level=logging.DEBUG,
+    format="[%(asctime)s] {%(filename)s:%(lineno)d} %(levelname)s - %(message)s",
+    handlers=handlers,
+)
+
+logger = logging.getLogger("Lambda")
+
 
 if typing.TYPE_CHECKING:
     from typing import Dict, Any, List, AnyStr, Tuple
