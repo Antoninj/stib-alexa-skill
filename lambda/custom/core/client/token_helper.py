@@ -20,18 +20,16 @@ class TokenHelper:
         self.SECRET_NAME: str = os.environ["secret_name"]
         self.OPEN_DATA_API_ENDPOINT: str = os.environ["open_data_api_endpoint"]
         self.TOKEN_VALIDITY_TIME: str = os.environ["open_data_api_token_validity"]
-        self.token_expiration_date: int = self._compute_token_expiration_date(
-            self.TOKEN_VALIDITY_TIME
-        )
         self.api_credentials: str = self._get_api_credentials()
         self.security_token: str = self._retrieve_api_access_token()
+        self._set_token_expiration_date()
 
-    @staticmethod
-    def _compute_token_expiration_date(token_validity_time: str) -> int:
+    def _set_token_expiration_date(self, token_validity_time: int = None) -> None:
         """Compute future expiration date of a token."""
-
-        future = datetime.utcnow() + timedelta(seconds=int(token_validity_time))
-        return calendar.timegm(future.utctimetuple())
+        if not token_validity_time:
+            token_validity_time = int(self.TOKEN_VALIDITY_TIME)
+        future = datetime.utcnow() + timedelta(seconds=token_validity_time)
+        self.token_expiration_date = calendar.timegm(future.utctimetuple())
 
     def _is_token_expired(self) -> bool:
         """Check validity of a token"""
@@ -130,8 +128,5 @@ class TokenHelper:
         else:
             logger.warning("Token expired... Getting new token")
             self.security_token = self._retrieve_api_access_token()
-            new_token_expiration_date = self._compute_token_expiration_date(
-                self.TOKEN_VALIDITY_TIME
-            )
-            self.token_expiration_date = new_token_expiration_date
+            self._set_token_expiration_date()
             return self.security_token

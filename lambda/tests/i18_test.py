@@ -1,14 +1,20 @@
+import os
 import unittest
 import gettext
+
 from ..custom.core.data import data
 
 
 class TestI18n(unittest.TestCase):
+
+    LOCALE_DIR = os.path.dirname(os.path.dirname(__file__)) + "/custom/core/locales/"
+
     def setUp(self):
         i18n = gettext.translation(
-            "base", localedir="locales", languages=["fr-FR"], fallback=True,
+            "base", localedir=self.LOCALE_DIR, languages=["en-US"]
         )
         self._ = i18n.gettext
 
     def test_translate_data(self):
-        self.assertEqual(self._(data.STOP), "A la prochaine!")
+        print(self._(data.STOP))
+        self.assertEqual(self._(data.STOP), "Bye bye!")

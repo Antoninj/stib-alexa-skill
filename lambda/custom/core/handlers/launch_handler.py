@@ -24,5 +24,5 @@ class LaunchRequestHandler(AbstractRequestHandler):
         speech = _(data.WELCOME)
         speech += " " + _(data.HELP)
         handler_input.response_builder.speak(speech)
-        handler_input.response_builder.ask(_(data.GENERIC_REPROMPT))
+        handler_input.response_builder.ask(_(data.HELP_REPROMPT))
         return handler_input.response_builder.response
