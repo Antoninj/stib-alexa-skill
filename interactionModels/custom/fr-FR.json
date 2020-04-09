@@ -24,6 +24,14 @@
           "samples": []
         },
         {
+          "name": "AMAZON.RepeatIntent",
+          "samples": []
+        },
+        {
+          "name": "AMAZON.FallbackIntent",
+          "samples": []
+        },
+        {
           "name": "SetFavoriteLineIntent",
           "slots": [
             {

@@ -17,6 +17,6 @@ class LocalizationInterceptor(AbstractRequestInterceptor):
         locale = get_locale(handler_input)
         logger.debug("Locale is {}".format(locale))
         i18n = gettext.translation(
-            "base", localedir="../locales", languages=[locale], fallback=True
+            "base", localedir="core/locales/", languages=[locale], fallback=True
         )
         handler_input.attributes_manager.request_attributes["_"] = i18n.gettext

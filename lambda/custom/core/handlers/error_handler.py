@@ -1,6 +1,7 @@
 from ask_sdk_core.dispatch_components import AbstractExceptionHandler
 from ask_sdk_core.handler_input import HandlerInput
 import logging
+from ..data import data
 
 logger = logging.getLogger("Lambda")
 
@@ -17,6 +18,7 @@ class ErrorHandler(AbstractExceptionHandler):
     def handle(self, handler_input, exception):
         # type: (HandlerInput, Exception) -> Response
         logger.error(exception, exc_info=True)
-        speech_text = "Désolé, je n'ai pas compris votre requête. Pouvez vous répeter s'il vous plait."
-        handler_input.response_builder.speak(speech_text).ask(speech_text)
+        _ = handler_input.attributes_manager.request_attributes["_"]
+
+        handler_input.response_builder.speak(_(data.ERROR)).ask(_(data.ERROR_REPROMPT))
         return handler_input.response_builder.response

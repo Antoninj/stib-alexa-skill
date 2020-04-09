@@ -5,7 +5,6 @@ Priority:
     - Implement repeat handler
     - Implement slots confirmation in dialog model
 - Add unit tests to build process
-- Add local debugging via NGROK => OK
 
 Nice to have:
 - Implement personalisation 
