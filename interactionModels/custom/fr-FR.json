@@ -146,11 +146,25 @@
       "types": [
         {
           "name": "DESTINATION_NAME",
-          "values": []
+          "values": [
+            {
+              "id": "PLACEHOLDER",
+              "name": {
+                "value": "PLACEHOLDER"
+              }
+            }
+          ]
         },
         {
           "name": "STOP_NAME",
-          "values": []
+          "values": [
+            {
+              "id": "PLACEHOLDER",
+              "name": {
+                "value": "PLACEHOLDER"
+              }
+            }
+          ]
         },
         {
           "name": "TRANSPORTATION_TYPES",
