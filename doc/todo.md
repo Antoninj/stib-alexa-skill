@@ -1,11 +1,11 @@
 Priority:
 - Add local caching of STIB API data
 - Handle correctly the two basic dialog flows including edge cases and error handling
-- Implement fallback handler
-- Implement repeat handler
-- Implement slots confirmation in dialog model
+    - Implement fallback handler
+    - Implement repeat handler
+    - Implement slots confirmation in dialog model
 - Add unit tests to build process
-- Add local debugging via NGROK
+- Add local debugging via NGROK => OK
 
 Nice to have:
 - Implement personalisation 

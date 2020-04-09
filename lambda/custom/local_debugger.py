@@ -25,15 +25,11 @@ import typing
 import logging
 import sys
 
-stdout_handler = logging.StreamHandler(sys.stdout)
-handlers = [stdout_handler]
-
 logging.basicConfig(
     level=logging.DEBUG,
     format="[%(asctime)s] {%(filename)s:%(lineno)d} %(levelname)s - %(message)s",
-    handlers=handlers,
+    handlers=[logging.StreamHandler(sys.stdout)],
 )
-
 logger = logging.getLogger("Lambda")
 
 
