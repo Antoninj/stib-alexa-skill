@@ -1,4 +1,4 @@
-Priority:
+### Priority:
 - Add local caching of STIB API data
 - Handle correctly the two basic dialog flows including edge cases and error handling
     - Implement fallback handler
@@ -6,7 +6,7 @@ Priority:
     - Implement slots confirmation in dialog model
 - Add unit tests to build process
 
-Nice to have:
+### Nice to have:
 - Implement personalisation 
 - i18n :
     - Support EN

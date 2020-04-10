@@ -3,10 +3,42 @@ from ask_sdk_core.dispatch_components import AbstractRequestHandler
 from ask_sdk_core.handler_input import HandlerInput
 from ask_sdk_core.utils import is_intent_name
 import logging
+from ..data import data
 
 from ask_sdk_model import Response
 
 logger = logging.getLogger("Lambda")
+
+
+class GetArrivalTimesNoPrefsIntentHandler(AbstractRequestHandler):
+    """Handler for get arrival time Intent."""
+
+    def can_handle(self, handler_input):
+        # type: (HandlerInput) -> bool
+
+        # Extract persistent attributes and check if they are all present
+        attr = handler_input.attributes_manager.persistent_attributes
+        attributes_are_present = (
+            "favorite_stop_id" in attr and "favorite_line_id" in attr
+        )
+
+        return not attributes_are_present and is_intent_name("GetArrivalTimesIntent")(
+            handler_input
+        )
+
+    def handle(self, handler_input):
+        # type: (HandlerInput) -> Response
+        logger.debug("In GetArrivalTimesNoPrefsIntentHandler")
+        _ = handler_input.attributes_manager.request_attributes["_"]
+
+        speech = _(data.WELCOME_NEW_USER)
+        speech += " " + _(data.SKILL_DESCRIPTION_WITHOUT_PREFERENCES)
+        speech += " " + _(data.ASK_FOR_PREFERENCES)
+        reprompt = _(data.ASK_FOR_PREFERENCES_REPROMPT)
+
+        handler_input.response_builder.speak(speech)
+        handler_input.response_builder.ask(reprompt)
+        return handler_input.response_builder.response
 
 
 class GetArrivalTimesIntentHandler(AbstractRequestHandler):

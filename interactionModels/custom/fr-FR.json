@@ -32,6 +32,38 @@
           "samples": []
         },
         {
+          "name": "SaveTripPreferencesIntent",
+          "samples": [
+            "trajet favori",
+            "trajet préféré",
+            "trajet enregistré",
+            "enregistre mes préférences",
+            "sauvegarde mes préférences",
+            "modifie mes préférences",
+            "configure mes préférences",
+            "enregistre mon trajet",
+            "sauvegarde mon trajet",
+            "modifie mon trajet",
+            "configure mon trajet",
+            "enregistre mon trajet favori",
+            "sauvegarde mon trajet favori",
+            "modifie mon trajet favori",
+            "configure mon trajet favori",
+            "enregistre mon trajet préféré",
+            "sauvegarde mon trajet préféré",
+            "modifie mon trajet préféré",
+            "configure mon trajet préféré",
+            "enregistre mon trajet quotidien",
+            "sauvegarde mon trajet quotidien",
+            "modifie mon trajet quotidien",
+            "configure mon trajet quotidien",
+            "enregistre mon trajet habituel",
+            "sauvegarde mon trajet habituel",
+            "modifie mon trajet habituel",
+            "configure mon trajet habituel"
+          ]
+        },
+        {
           "name": "SetFavoriteLineIntent",
           "slots": [
             {
@@ -100,7 +132,11 @@
             "{destination_name}",
             "vers {destination_name}",
             "en direction de {destination_name}",
-            "direction {destination_name}"
+            "direction {destination_name}",
+            "je vais en direction de {destination_name}",
+            "je vais direction {destination_name}",
+            "je vais vers {destination_name}",
+            "je voyage en direction de {destination_name}"
           ]
         },
         {
@@ -112,8 +148,6 @@
             }
           ],
           "samples": [
-            "mon trajet favori",
-            "mon trajet quotidien",
             "temps d'attente",
             "le temps d'attente",
             "prochain {transportation_type}",

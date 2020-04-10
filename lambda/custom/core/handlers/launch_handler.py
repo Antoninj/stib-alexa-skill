@@ -20,9 +20,19 @@ class LaunchRequestHandler(AbstractRequestHandler):
         # type: (HandlerInput) -> Response
         logger.debug("In LaunchRequestHandler")
         _ = handler_input.attributes_manager.request_attributes["_"]
+        persistent_attributes = handler_input.attributes_manager.persistent_attributes
+        logger.debug(persistent_attributes)
 
-        speech = _(data.WELCOME)
-        speech += " " + _(data.HELP)
+        if not persistent_attributes:
+            speech = _(data.WELCOME_NEW_USER)
+            speech += " " + _(data.SKILL_DESCRIPTION_WITHOUT_PREFERENCES)
+            speech += " " + _(data.ASK_FOR_PREFERENCES)
+            reprompt = _(data.ASK_FOR_PREFERENCES_REPROMPT)
+        else:
+            speech = _(data.WELCOME_RETURNING_USER)
+            speech += " " + _(data.SKILL_DESCRIPTION_WITH_PREFERENCES)
+            reprompt = _(data.SKILL_DESCRIPTION_WITH_PREFERENCES_REPROMPT)
+
         handler_input.response_builder.speak(speech)
-        handler_input.response_builder.ask(_(data.HELP_REPROMPT))
+        handler_input.response_builder.ask(reprompt)
         return handler_input.response_builder.response

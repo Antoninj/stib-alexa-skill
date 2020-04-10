@@ -11,9 +11,12 @@ from core.handlers.get_arrival_times_intent_handler import *
 from core.handlers.commute_preferences_intent_handler import *
 from core.handlers.favorite_line_intent_handler import *
 from core.handlers.favorite_stop_intent_handler import *
+from core.handlers.save_trip_preferences_intent_handler import (
+    SaveTripPreferencesHandler,
+)
 
 from core.handlers.launch_handler import LaunchRequestHandler
-from core.handlers.common_handlers import *
+from core.handlers.common_intents_handlers import *
 from core.handlers.fallback_intent_handler import FallBackHandler
 from core.handlers.intent_reflector_handler import IntentReflectorHandler
 from core.handlers.error_handler import ErrorHandler
@@ -48,6 +51,8 @@ def setup_skill_builder(service: OpenDataService) -> CustomSkillBuilder:
     skill_builder.skill_id = "amzn1.ask.skill.789c381d-5f2c-469e-a888-ee60e260c9de"
     logger.info("Adding skill request handlers...")
     skill_builder.add_request_handler(LaunchRequestHandler())
+    skill_builder.add_request_handler(SaveTripPreferencesHandler())
+    skill_builder.add_request_handler(GetArrivalTimesNoPrefsIntentHandler())
     skill_builder.add_request_handler(GetArrivalTimesIntentHandler(service))
     skill_builder.add_request_handler(StartedInProgressFavoriteStopHandler())
     skill_builder.add_request_handler(CompletedFavoriteStopHandler())
@@ -56,6 +61,8 @@ def setup_skill_builder(service: OpenDataService) -> CustomSkillBuilder:
     # skill_builder.add_request_handler(HasLineIdCommutePreferencesHandler(service))
     # skill_builder.add_request_handler(StartedInProgressCommutePreferencesHandler())
     # skill_builder.add_request_handler(CompletedCommutePreferencesHandler())
+    skill_builder.add_request_handler(YesIntentHandler())
+    skill_builder.add_request_handler(NoIntentHandler())
     skill_builder.add_request_handler(HelpIntentHandler())
     skill_builder.add_request_handler(CancelOrStopIntentHandler())
     skill_builder.add_request_handler(FallBackHandler())
