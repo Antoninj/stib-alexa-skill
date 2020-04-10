@@ -9,6 +9,41 @@ from ..data import data
 logger = logging.getLogger("Lambda")
 
 
+class YesIntentHandler(AbstractRequestHandler):
+    """Single handler for Yes Intent."""
+
+    def can_handle(self, handler_input):
+        # type: (HandlerInput) -> bool
+        return is_intent_name("AMAZON.YesIntent")(handler_input)
+
+    def handle(self, handler_input):
+        # type: (HandlerInput) -> Response
+        logger.debug("In YesIntentHandler")
+        _ = handler_input.attributes_manager.request_attributes["_"]
+        speech = _(data.ELLICIT_LINE_PREFERENCES)
+        reprompt = _(data.ELLICIT_LINE_PREFERENCES_REPROMPT)
+
+        handler_input.response_builder.speak(speech)
+        handler_input.response_builder.ask(reprompt)
+        return handler_input.response_builder.response
+
+
+class NoIntentHandler(AbstractRequestHandler):
+    """Single handler for No Intent."""
+
+    def can_handle(self, handler_input):
+        # type: (HandlerInput) -> bool
+        return is_intent_name("AMAZON.NoIntent")(handler_input)
+
+    def handle(self, handler_input):
+        # type: (HandlerInput) -> Response
+        logger.debug("In NoIntentHandler")
+        _ = handler_input.attributes_manager.request_attributes["_"]
+
+        handler_input.response_builder.speak(_(data.STOP)).set_should_end_session(True)
+        return handler_input.response_builder.response
+
+
 class HelpIntentHandler(AbstractRequestHandler):
     """Handler for Help Intent."""
 
@@ -21,7 +56,7 @@ class HelpIntentHandler(AbstractRequestHandler):
         logger.debug("In HelpIntentHandler")
         _ = handler_input.attributes_manager.request_attributes["_"]
 
-        handler_input.response_builder.speak(_(data.HELP)).ask(_(data.HELP))
+        handler_input.response_builder.speak(_(data.HELP)).ask(_(data.HELP_REPROMPT))
         return handler_input.response_builder.response
 
 
