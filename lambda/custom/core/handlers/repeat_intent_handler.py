@@ -13,6 +13,7 @@ class RepeatHandler(AbstractRequestHandler):
 
     def can_handle(self, handler_input):
         # type: (HandlerInput) -> bool
+
         return is_intent_name("AMAZON.RepeatIntent")(handler_input)
 
     def handle(self, handler_input):
@@ -22,5 +23,6 @@ class RepeatHandler(AbstractRequestHandler):
         session_attributes = handler_input.attributes_manager.session_attributes
         # Get last prompt from session attributes
 
-        handler_input.response_builder.speak("Répète la dernière phrase ici")
+        repeat_text = session_attributes["repeat_prompt"]
+        handler_input.response_builder.speak(repeat_text)
         return handler_input.response_builder.response

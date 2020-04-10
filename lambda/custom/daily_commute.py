@@ -17,6 +17,7 @@ from core.handlers.save_trip_preferences_intent_handler import (
 
 from core.handlers.launch_handler import LaunchRequestHandler
 from core.handlers.common_intents_handlers import *
+from core.handlers.repeat_intent_handler import RepeatHandler
 from core.handlers.fallback_intent_handler import FallBackHandler
 from core.handlers.intent_reflector_handler import IntentReflectorHandler
 from core.handlers.error_handler import ErrorHandler
@@ -62,6 +63,7 @@ def setup_skill_builder(service: OpenDataService) -> CustomSkillBuilder:
     skill_builder.add_request_handler(NoIntentHandler())
     skill_builder.add_request_handler(HelpIntentHandler())
     skill_builder.add_request_handler(CancelOrStopIntentHandler())
+    skill_builder.add_request_handler(RepeatHandler())
     skill_builder.add_request_handler(FallBackHandler())
     skill_builder.add_request_handler(SessionEndedRequestHandler())
     skill_builder.add_request_handler(IntentReflectorHandler())

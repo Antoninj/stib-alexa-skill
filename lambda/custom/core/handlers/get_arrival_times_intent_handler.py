@@ -28,6 +28,7 @@ class GetArrivalTimesNoPrefsIntentHandler(AbstractRequestHandler):
 
     def handle(self, handler_input):
         # type: (HandlerInput) -> Response
+
         logger.debug("In GetArrivalTimesNoPrefsIntentHandler")
         _ = handler_input.attributes_manager.request_attributes["_"]
 
@@ -62,10 +63,12 @@ class GetArrivalTimesIntentHandler(AbstractRequestHandler):
 
     def handle(self, handler_input):
         # type: (HandlerInput) -> Response
+
         logger.debug("In GetArrivalTimesIntentHandler")
         _ = handler_input.attributes_manager.request_attributes["_"]
-        logger.debug("Slots: %s", handler_input.request_envelope.request.intent.slots)
         persistent_attributes = handler_input.attributes_manager.persistent_attributes
+        session_attributes = handler_input.attributes_manager.session_attributes
+        logger.debug("Slots: %s", handler_input.request_envelope.request.intent.slots)
         logger.debug("Persistent attributes: %s", persistent_attributes)
         favorite_stop_id = persistent_attributes["favorite_stop_id"]
         favorite_line_id = persistent_attributes["favorite_line_id"]
@@ -89,7 +92,7 @@ class GetArrivalTimesIntentHandler(AbstractRequestHandler):
             speech_text = (
                 "Désolé, je n'ai pas trouvé d'informations pour le trajet demandé"
             )
-
+        session_attributes["repeat_prompt"] = speech_text
         handler_input.response_builder.speak(speech_text).set_should_end_session(True)
         return handler_input.response_builder.response
 

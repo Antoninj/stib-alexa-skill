@@ -19,6 +19,5 @@ class ErrorHandler(AbstractExceptionHandler):
         # type: (HandlerInput, Exception) -> Response
         logger.error(exception, exc_info=True)
         _ = handler_input.attributes_manager.request_attributes["_"]
-
         handler_input.response_builder.speak(_(data.ERROR)).ask(_(data.ERROR_REPROMPT))
         return handler_input.response_builder.response

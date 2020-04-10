@@ -59,10 +59,10 @@ class CompletedFavoriteStopHandler(AbstractRequestHandler):
 
     def handle(self, handler_input):
         # type: (HandlerInput) -> Response
+
         logger.debug("In CompletedFavoriteStopHandler")
         persistent_attributes = handler_input.attributes_manager.persistent_attributes
         session_attributes = handler_input.attributes_manager.session_attributes
-
         logger.debug("Slots %s", handler_input.request_envelope.request.intent.slots)
 
         # Todo: retrieve this properly via entity resolution results
@@ -77,23 +77,19 @@ class CompletedFavoriteStopHandler(AbstractRequestHandler):
             success_slot_er_results, session_line_details, destination_name
         )
         logger.debug("Correct stop name slot value: %s", correct_slot_value)
-
         stop_id = correct_slot_value["id"]
         stop_name = correct_slot_value["stopName"]
-
         persistent_attributes["favorite_stop_id"] = stop_id
         line_id = persistent_attributes["favorite_line_id"]
         stib_transportation_type = persistent_attributes["favorite_transportation_type"]
-
         handler_input.attributes_manager.save_persistent_attributes()
-
         intent_complete_speech = (
             "Merci, vos préférences ont été correctement sauvegardées. Vous prenez donc le {} {} direction {}"
             " à l'arret {}".format(
                 stib_transportation_type, line_id, destination_name, stop_name,
             )
         )
-
+        session_attributes["repeat_prompt"] = intent_complete_speech
         return handler_input.response_builder.speak(intent_complete_speech).response
 
     @staticmethod
