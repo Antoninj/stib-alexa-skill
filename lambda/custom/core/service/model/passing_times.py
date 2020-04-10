@@ -34,7 +34,6 @@ class PassingTime:
     line_id: str = ""
     expected_arrival_time: str = ""
     arriving_in_dict: dict = field(init=False, repr=False)
-    formatted_waiting_time: str = field(init=False)
 
     def __post_init__(self):
         self.expected_arrival_time = datetime.fromisoformat(self.expected_arrival_time)
@@ -42,22 +41,19 @@ class PassingTime:
         self.arriving_in_dict = TimeUtils.compute_time_diff(
             current_localized_time, self.expected_arrival_time
         )
-        self.formatted_waiting_time = self._format_waiting_time()
+        # self.formatted_waiting_time = self._format_waiting_time()
 
     def __str__(self):
-        return f"{self.arriving_in_dict}"
+        return self._format_waiting_time()
 
     def _format_waiting_time(self) -> str:
-        """Define method here."""
+        """Format waiting time in human readable form."""
 
-        formatted_waiting_time = (
-            "Le prochain tram {} en direction de {} passe dans {} minutes et {} secondes,"
-            " dépechez vous!".format(
-                self.line_id,
-                self.destination.fr,
-                self.arriving_in_dict["minutes"],
-                self.arriving_in_dict["seconds"],
-            )
+        formatted_waiting_time = "Le prochain tram {} en direction de {} passe dans {} minutes et {} secondes.".format(
+            self.line_id,
+            self.destination.fr,
+            self.arriving_in_dict["minutes"],
+            self.arriving_in_dict["seconds"],
         )
         return formatted_waiting_time
 

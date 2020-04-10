@@ -58,9 +58,6 @@ def setup_skill_builder(service: OpenDataService) -> CustomSkillBuilder:
     skill_builder.add_request_handler(CompletedFavoriteStopHandler())
     skill_builder.add_request_handler(StartedInProgressFavoriteLineHandler())
     skill_builder.add_request_handler(CompletedFavoriteLineHandler(service))
-    # skill_builder.add_request_handler(HasLineIdCommutePreferencesHandler(service))
-    # skill_builder.add_request_handler(StartedInProgressCommutePreferencesHandler())
-    # skill_builder.add_request_handler(CompletedCommutePreferencesHandler())
     skill_builder.add_request_handler(YesIntentHandler())
     skill_builder.add_request_handler(NoIntentHandler())
     skill_builder.add_request_handler(HelpIntentHandler())
@@ -78,28 +75,10 @@ def setup_skill_builder(service: OpenDataService) -> CustomSkillBuilder:
     return skill_builder
 
 
-def local_test():
-    """Perform some tests locally by bypassing lambda invocation."""
-
-    # Test STIB API integration
-    passing_times = stib_service.get_passing_times_for_stop_id_and_line_id()
-    logger.info(passing_times[0].formatted_waiting_time)
-
-    # Test i18n
-    i18n = gettext.translation(
-        "base", localedir="locales", languages=["fr-FR"], fallback=True
-    )
-    _ = i18n.gettext
-    logger.info(_(data.STOP))
-
-
 # Create new Open Data API client and service instances
 logger.info("Setting up Open Data API service")
 stib_service = OpenDataService(stib_api_client=OpenDataAPIClient())
 
-# Set up the skill builder
+# Set up the skill builder and lambda handler
 sb = setup_skill_builder(service=stib_service)
-
-# local_test()
-
 handler = sb.lambda_handler()

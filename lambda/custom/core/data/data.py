@@ -6,7 +6,7 @@ from gettext import gettext as _
 SKILL_NAME = "Horaires STIB"
 
 # Launch request intent
-WELCOME_NEW_USER = _("Bienvenue dans la skill horaires STIB!")
+WELCOME_NEW_USER = _("Bienvenue dans la skill Horaires STIB!")
 WELCOME_RETURNING_USER = _("Bonjour.")
 SKILL_DESCRIPTION_WITHOUT_PREFERENCES = _(
     "Je ne connais pas encore votre trajet favori."
@@ -31,15 +31,21 @@ ELLICIT_LINE_PREFERENCES_REPROMPT = _("Quel est le numéro de votre ligne favori
 
 
 # Help intent
-HELP = _("Quelle ligne du réseau STIB utilisez vous lors de votre trajet quotidien?")
-HELP_REPROMPT = _("Quel est le numéro de votre ligne favorite?")
+HELP = _(
+    "Demandez par exemple 'Quand passe le prochain bus' pour obtenir des informations en temps réél du réseau STIB."
+    "Vous pouvez également dire 'Modifie mes préférences' pour enregistrer votre trajet favori. Que souhaitez-vous faire?"
+)
+HELP_REPROMPT = _(
+    "Demandez par exemple 'Quand passe le prochain bus' pour obtenir des informations en temps réél du réseau STIB."
+    "Vous pouvez également dire 'Modifie mes préférences' pour enregistrer votre trajet favori. Que souhaitez-vous faire?"
+)
 
 # Cancel & Stop intents
 STOP = _("D'accord. A bientôt!")
 
 # Fallback intent
 FALLBACK = _(
-    "La skill horaires STIB n'est pas en mesure de vous aider pour cela. Comment puis-je vous aider?"
+    "La skill Horaires STIB n'est pas en mesure de vous aider pour cela. Comment puis-je vous aider?"
 )
 FALLBACK_REPROMPT = _("Comment puis-je vous aider?")
 
@@ -48,3 +54,6 @@ ERROR = _(
     "Désolé, je n'ai pas compris votre requête. Pouvez vous répeter s'il vous plait."
 )
 ERROR_REPROMPT = _("Désolé, je n'ai pas compris. Pouvez vous répeter s'il vous plait.")
+
+# Get arrival times intent
+FAREWELL = "Bonne journée!"

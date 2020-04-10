@@ -2,10 +2,10 @@
 from ask_sdk_core.dispatch_components import AbstractRequestHandler
 from ask_sdk_core.handler_input import HandlerInput
 from ask_sdk_core.utils import is_intent_name
+from ask_sdk_model import Response
+
 import logging
 from ..data import data
-
-from ask_sdk_model import Response
 
 logger = logging.getLogger("Lambda")
 
@@ -63,17 +63,28 @@ class GetArrivalTimesIntentHandler(AbstractRequestHandler):
     def handle(self, handler_input):
         # type: (HandlerInput) -> Response
         logger.debug("In GetArrivalTimesIntentHandler")
-
+        _ = handler_input.attributes_manager.request_attributes["_"]
         logger.debug("Slots: %s", handler_input.request_envelope.request.intent.slots)
         persistent_attributes = handler_input.attributes_manager.persistent_attributes
         logger.debug("Persistent attributes: %s", persistent_attributes)
         favorite_stop_id = persistent_attributes["favorite_stop_id"]
         favorite_line_id = persistent_attributes["favorite_line_id"]
+        favorite_transportation_type = persistent_attributes[
+            "favorite_transportation_type"
+        ]
         passing_times = self.stib_service.get_passing_times_for_stop_id_and_line_id(
             stop_id=favorite_stop_id, line_id=favorite_line_id
         )
-        if passing_times:
-            speech_text = passing_times[0].formatted_waiting_time
+        if len(passing_times) == 2:
+            speech_text = self._format_waiting_times(
+                passing_times, favorite_transportation_type
+            )
+            speech_text += " " + _(data.FAREWELL)
+        elif len(passing_times) == 1:
+            speech_text = self._format_first_waiting_time(
+                passing_times, favorite_transportation_type
+            )
+            speech_text += " " + _(data.FAREWELL)
         else:
             speech_text = (
                 "Désolé, je n'ai pas trouvé d'informations pour le trajet demandé"
@@ -81,3 +92,38 @@ class GetArrivalTimesIntentHandler(AbstractRequestHandler):
 
         handler_input.response_builder.speak(speech_text).set_should_end_session(True)
         return handler_input.response_builder.response
+
+    @staticmethod
+    def _format_waiting_times(passing_times, transportation_type: str) -> str:
+        """Define method here."""
+
+        formatted_waiting_times = GetArrivalTimesIntentHandler._format_first_waiting_time(
+            passing_times[0], transportation_type
+        ) + GetArrivalTimesIntentHandler._format_second_waiting_time(
+            passing_times[1]
+        )
+
+        return formatted_waiting_times
+
+    @staticmethod
+    def _format_first_waiting_time(passing_time, transportation_type: str) -> str:
+        """Define method here."""
+
+        formatted_waiting_time = "Le prochain {} {} en direction de {} passe dans {} minutes et {} secondes.".format(
+            transportation_type,
+            passing_time.line_id,
+            passing_time.destination.fr,
+            passing_time.arriving_in_dict["minutes"],
+            passing_time.arriving_in_dict["seconds"],
+        )
+        return formatted_waiting_time
+
+    @staticmethod
+    def _format_second_waiting_time(passing_time) -> str:
+        """Define method here."""
+
+        formatted_waiting_time = " Le suivant passe dans {} minutes et {} secondes.".format(
+            passing_time.arriving_in_dict["minutes"],
+            passing_time.arriving_in_dict["seconds"],
+        )
+        return formatted_waiting_time
