@@ -41,7 +41,6 @@ class PassingTime:
         self.arriving_in_dict = TimeUtils.compute_time_diff(
             current_localized_time, self.expected_arrival_time
         )
-        # self.formatted_waiting_time = self._format_waiting_time()
 
     def __str__(self):
         return self._format_waiting_time()

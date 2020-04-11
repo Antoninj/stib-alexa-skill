@@ -119,7 +119,7 @@ class CompletedFavoriteLineHandler(AbstractRequestHandler):
         points = line_details[0].points + line_details[1].points
         destinations = [line.destination for line in line_details]
         stop_entities = [
-            Entity(id=point.id, name=EntityValueAndSynonyms(value=point.stop_name))
+            Entity(id=point.id, name=EntityValueAndSynonyms(value=point.stop_name_fr))
             for point in points
         ]
         # Todo: use destination stop id instead of generated ID
