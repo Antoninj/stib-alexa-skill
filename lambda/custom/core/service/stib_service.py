@@ -17,36 +17,6 @@ class OpenDataService:
     def __init__(self, stib_api_client: ApiClient):
         self.api_client = stib_api_client
 
-    @staticmethod
-    def _get_max_line_passing_times(
-        line_passing_times: List[PassingTime], max_passing_times: int = 2
-    ) -> List[PassingTime]:
-        """Define method here."""
-
-        if line_passing_times and (len(line_passing_times) >= max_passing_times):
-            return line_passing_times[:max_passing_times]
-        else:
-            return line_passing_times
-
-    def _get_passing_times_for_line_id(
-        self, point_passing_times: List[PointPassingTimes], line_id: str
-    ) -> Optional[List[PassingTime]]:
-        """Define method here."""
-
-        if point_passing_times:
-            passing_times = point_passing_times[0].passing_times
-            line_passing_times = [
-                passing_time
-                for passing_time in passing_times
-                if passing_time.line_id == line_id
-            ]
-            max_line_id_passing_times = self._get_max_line_passing_times(
-                line_passing_times
-            )
-            return max_line_id_passing_times
-        else:
-            return point_passing_times
-
     def get_passing_times_for_stop_id_and_line_id(
         self, stop_id: str, line_id: str
     ) -> Optional[List[PassingTime]]:
@@ -78,3 +48,34 @@ class OpenDataService:
         line_details = LineDetails.schema().load(raw_lines_info["lines"], many=True)
 
         return line_details
+
+    @staticmethod
+    def _get_passing_times_for_line_id(
+        point_passing_times: List[PointPassingTimes], line_id: str
+    ) -> Optional[List[PassingTime]]:
+        """Define method here."""
+
+        if point_passing_times:
+            passing_times = point_passing_times[0].passing_times
+            line_passing_times = [
+                passing_time
+                for passing_time in passing_times
+                if passing_time.line_id == line_id
+            ]
+            max_line_id_passing_times = OpenDataService._get_max_line_passing_times(
+                line_passing_times
+            )
+            return max_line_id_passing_times
+        else:
+            return point_passing_times
+
+    @staticmethod
+    def _get_max_line_passing_times(
+        line_passing_times: List[PassingTime], max_passing_times: int = 2
+    ) -> List[PassingTime]:
+        """Define method here."""
+
+        if line_passing_times and (len(line_passing_times) >= max_passing_times):
+            return line_passing_times[:max_passing_times]
+        else:
+            return line_passing_times

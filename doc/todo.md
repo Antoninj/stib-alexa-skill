@@ -1,6 +1,7 @@
 ### Optimization:
 - Get rid of Pandas/Numpy or use a lambda layer for it
 - Add local caching of STIB API data
+- Move hardcoded runtime intent handlers strings to data module
 
 ### Functionality:
 - Format correctly arrival times (handle all scenarios) 

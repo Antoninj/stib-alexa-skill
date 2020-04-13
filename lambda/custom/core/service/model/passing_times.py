@@ -48,11 +48,8 @@ class PassingTime:
     def _format_waiting_time(self) -> str:
         """Format waiting time in human readable form."""
 
-        formatted_waiting_time = "Le prochain tram {} en direction de {} passe dans {} minutes et {} secondes.".format(
-            self.line_id,
-            self.destination.fr,
-            self.arriving_in_dict["minutes"],
-            self.arriving_in_dict["seconds"],
+        formatted_waiting_time = "{} minutes et {} secondes.".format(
+            self.arriving_in_dict["minutes"], self.arriving_in_dict["seconds"],
         )
         return formatted_waiting_time
 
