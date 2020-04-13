@@ -89,9 +89,13 @@ class CompletedFavoriteStopHandler(AbstractRequestHandler):
         handler_input.attributes_manager.save_persistent_attributes()
         intent_complete_speech = (
             "Merci, vos préférences ont été correctement sauvegardées. Vous prenez donc le {} {} à l'arret {} "
-            " direction {} ".format(
+            " direction {}.".format(
                 stib_transportation_type, line_id, stop_name_fr, destination_name
             )
+        )
+        intent_complete_speech += (
+            " Demandez par exemple 'Quand passe le prochain bus' pour obtenir des informations en "
+            "temps réél sur les prochains horaires de passage."
         )
         session_attributes["repeat_prompt"] = intent_complete_speech
         return handler_input.response_builder.speak(intent_complete_speech).response

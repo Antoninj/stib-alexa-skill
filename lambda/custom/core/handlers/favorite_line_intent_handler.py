@@ -96,7 +96,7 @@ class CompletedFavoriteLineHandler(AbstractRequestHandler):
         reprompt_speech = "Dans quelle direction allez vous, {} ou {}?".format(
             *destinations
         )
-        session_attributes["repeat_prompt"] = destination_elicitation_speech
+        session_attributes["repeat_prompt"] = reprompt_speech
         return (
             handler_input.response_builder.add_directive(
                 DynamicEntitiesDirective(

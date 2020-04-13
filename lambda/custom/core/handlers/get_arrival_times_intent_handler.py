@@ -111,11 +111,12 @@ class GetArrivalTimesIntentHandler(AbstractRequestHandler):
     @staticmethod
     def _format_first_waiting_time(passing_time, transportation_type: str) -> str:
         """Define method here."""
-
+        logger.debug(passing_time.arriving_in_dict)
+        lower_case_destination = passing_time.destination.fr.lower()
         formatted_waiting_time = "Le prochain {} {} en direction de {} passe dans {} minutes et {} secondes.".format(
             transportation_type,
             passing_time.line_id,
-            passing_time.destination.fr,
+            lower_case_destination,
             passing_time.arriving_in_dict["minutes"],
             passing_time.arriving_in_dict["seconds"],
         )

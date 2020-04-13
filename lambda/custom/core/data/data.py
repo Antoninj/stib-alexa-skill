@@ -22,22 +22,22 @@ ASK_FOR_PREFERENCES_REPROMPT = "Voulez-vous configurer votre trajet favori maint
 
 # Yes intent
 ELLICIT_LINE_PREFERENCES = _(
-    "Allons-y. Quelle ligne du réseau STIB utilisez vous lors de votre trajet quotidien?"
+    "D'accord. Quelle ligne du réseau STIB utilisez vous d'habitude?"
 )
 
-ELLICIT_LINE_PREFERENCES_REPROMPT = _("Quel est le numéro de votre ligne favorite?")
+ELLICIT_LINE_PREFERENCES_REPROMPT = _("Quel est votre ligne STIB habituelle?")
 
 # Save trip preferences intent
 
 
 # Help intent
 HELP = _(
-    "Demandez par exemple 'Quand passe le prochain bus' pour obtenir des informations en temps réél du réseau STIB."
+    "Demandez par exemple 'Quand passe le prochain bus' pour obtenir des informations en temps réél sur les prochains horaires de passage."
     "Vous pouvez également dire 'Modifie mes préférences' pour enregistrer votre trajet favori. Que souhaitez-vous faire?"
 )
 HELP_REPROMPT = _(
-    "Demandez par exemple 'Quand passe le prochain bus' pour obtenir des informations en temps réél du réseau STIB."
-    "Vous pouvez également dire 'Modifie mes préférences' pour enregistrer votre trajet favori. Que souhaitez-vous faire?"
+    "Demandez par exemple 'Quand passe le prochain bus' pour obtenir des informations en temps réél sur les prochains horaires de passage."
+    "Vous pouvez également dire 'Modifie mes préférences' pour modifier votre trajet favori. Que souhaitez-vous faire?"
 )
 
 # Cancel & Stop intents
