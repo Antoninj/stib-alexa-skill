@@ -5,13 +5,13 @@ from ask_sdk_core.utils import is_intent_name
 from ask_sdk_model import Response
 
 import logging
-from ..data import data
+from ...data import data
 
 logger = logging.getLogger("Lambda")
 
 
 class GetArrivalTimesNoPrefsIntentHandler(AbstractRequestHandler):
-    """Handler for get arrival time Intent."""
+    """Handler for get arrival time Intent: no available preferences scenario."""
 
     def can_handle(self, handler_input):
         # type: (HandlerInput) -> bool
@@ -21,7 +21,6 @@ class GetArrivalTimesNoPrefsIntentHandler(AbstractRequestHandler):
         attributes_are_present = (
             "favorite_stop_id" in attr and "favorite_line_id" in attr
         )
-
         return not attributes_are_present and is_intent_name("GetArrivalTimesIntent")(
             handler_input
         )
@@ -31,11 +30,13 @@ class GetArrivalTimesNoPrefsIntentHandler(AbstractRequestHandler):
 
         logger.debug("In GetArrivalTimesNoPrefsIntentHandler")
         _ = handler_input.attributes_manager.request_attributes["_"]
+        session_attributes = handler_input.attributes_manager.session_attributes
 
         speech = _(data.WELCOME_NEW_USER)
         speech += " " + _(data.SKILL_DESCRIPTION_WITHOUT_PREFERENCES)
         speech += " " + _(data.ASK_FOR_PREFERENCES)
         reprompt = _(data.ASK_FOR_PREFERENCES_REPROMPT)
+        session_attributes["repeat_prompt"] = reprompt
 
         handler_input.response_builder.speak(speech)
         handler_input.response_builder.ask(reprompt)
@@ -43,7 +44,7 @@ class GetArrivalTimesNoPrefsIntentHandler(AbstractRequestHandler):
 
 
 class GetArrivalTimesIntentHandler(AbstractRequestHandler):
-    """Handler for get arrival time Intent."""
+    """Handler for get arrival time Intent: happy flow scenario."""
 
     def __init__(self, service):
         self.stib_service = service
@@ -51,12 +52,11 @@ class GetArrivalTimesIntentHandler(AbstractRequestHandler):
     def can_handle(self, handler_input):
         # type: (HandlerInput) -> bool
 
-        # Extract persistent attributes and check if they are all present
+        # Extract required persistent attributes and check if they are all defined
         attr = handler_input.attributes_manager.persistent_attributes
         attributes_are_present = (
             "favorite_stop_id" in attr and "favorite_line_id" in attr
         )
-
         return attributes_are_present and is_intent_name("GetArrivalTimesIntent")(
             handler_input
         )
@@ -83,7 +83,6 @@ class GetArrivalTimesIntentHandler(AbstractRequestHandler):
             transportation_type=favorite_transportation_type,
         )
         speech_text += " " + _(data.FAREWELL)
-
         session_attributes["repeat_prompt"] = speech_text
         handler_input.response_builder.speak(speech_text).set_should_end_session(True)
         return handler_input.response_builder.response
@@ -111,11 +110,10 @@ class GetArrivalTimesIntentHandler(AbstractRequestHandler):
     def _format_first_waiting_time(passing_time, transportation_type: str) -> str:
         """Define method here."""
         logger.debug(passing_time.arriving_in_dict)
-        lower_case_destination = passing_time.destination.fr.lower()
         formatted_waiting_time = "Le prochain {} {} en direction de {} passe dans {}".format(
             transportation_type,
             passing_time.line_id,
-            lower_case_destination,
+            passing_time.destination.fr.lower(),
             passing_time,
         )
         return formatted_waiting_time

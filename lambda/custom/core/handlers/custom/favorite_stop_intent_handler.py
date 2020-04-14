@@ -83,7 +83,6 @@ class CompletedFavoriteStopHandler(AbstractRequestHandler):
         persistent_attributes["favorite_stop_id"] = stop_id
         persistent_attributes["favorite_stop_name"] = stop_name_fr
         persistent_attributes["favorite_line_destination"] = destination_name
-
         handler_input.attributes_manager.save_persistent_attributes()
         intent_complete_speech = (
             "Merci, vos préférences ont été correctement sauvegardées. Vous prenez donc le {} {} à l'arret {} "

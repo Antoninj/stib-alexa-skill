@@ -7,22 +7,25 @@ import boto3
 from ask_sdk_dynamodb.adapter import DynamoDbAdapter
 from ask_sdk_core.skill_builder import CustomSkillBuilder
 
-from core.handlers.get_arrival_times_intent_handler import *
-from core.handlers.commute_preferences_intent_handler import *
-from core.handlers.favorite_line_intent_handler import *
-from core.handlers.favorite_stop_intent_handler import *
-from core.handlers.save_trip_preferences_intent_handler import (
+from core.handlers.custom.get_arrival_times_intent_handler import *
+from core.handlers.custom.commute_preferences_intent_handler import *
+from core.handlers.custom.favorite_line_intent_handler import *
+from core.handlers.custom.favorite_stop_intent_handler import *
+from core.handlers.custom.save_trip_preferences_intent_handler import (
     SaveTripPreferencesHandler,
 )
 
 from core.handlers.launch_handler import LaunchRequestHandler
-from core.handlers.common_intents_handlers import *
-from core.handlers.repeat_intent_handler import RepeatHandler
-from core.handlers.fallback_intent_handler import FallBackHandler
-from core.handlers.intent_reflector_handler import IntentReflectorHandler
-from core.handlers.error_handler import ErrorHandler
+from core.handlers.amazon.common_intents_handlers import *
+from core.handlers.amazon.repeat_intent_handler import RepeatHandler
+from core.handlers.amazon.fallback_intent_handler import FallBackHandler
+from core.handlers.amazon.intent_reflector_handler import IntentReflectorHandler
+from core.handlers.exception.error_handler import ErrorHandler
 from core.interceptors.i18_interceptor import LocalizationInterceptor
-from core.interceptors.logger_interceptors import *
+from core.interceptors.logger_interceptors import (
+    RequestLoggerInterceptor,
+    ResponseLoggerInterceptor,
+)
 from core.client.stib_api_client import OpenDataAPIClient
 from core.service.stib_service import OpenDataService
 from core.data import data
@@ -71,9 +74,9 @@ def setup_skill_builder(service: OpenDataService) -> CustomSkillBuilder:
     skill_builder.add_exception_handler(ErrorHandler())
     logger.info("Adding skill request interceptors...")
     skill_builder.add_global_request_interceptor(LocalizationInterceptor())
-    skill_builder.add_global_request_interceptor(RequestLogger())
+    skill_builder.add_global_request_interceptor(RequestLoggerInterceptor())
     logger.info("Adding skill response interceptors...")
-    skill_builder.add_global_response_interceptor(ResponseLogger())
+    skill_builder.add_global_response_interceptor(ResponseLoggerInterceptor())
     return skill_builder
 
 

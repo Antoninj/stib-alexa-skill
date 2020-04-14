@@ -47,7 +47,7 @@ class PassingTime:
 
     def _format_waiting_time(self) -> str:
         """Format waiting time in human readable form."""
-
+        # Todo : Improve this to handle all cases
         formatted_waiting_time = "{} minutes et {} secondes.".format(
             self.arriving_in_dict["minutes"], self.arriving_in_dict["seconds"],
         )
