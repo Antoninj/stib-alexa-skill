@@ -14,7 +14,7 @@ from ask_sdk_model.er.dynamic import (
 )
 import uuid
 from typing import List
-from ..service.model.line_stops import LineDetails
+from ...service.model.line_stops import LineDetails
 import logging
 
 logger = logging.getLogger("Lambda")
@@ -41,7 +41,6 @@ class StartedInProgressFavoriteLineHandler(AbstractRequestHandler):
             "Dialog state %s", handler_input.request_envelope.request.dialog_state
         )
         logger.debug("Slots %s", handler_input.request_envelope.request.intent.slots)
-
         return handler_input.response_builder.add_directive(
             DelegateDirective()
         ).response
@@ -69,42 +68,37 @@ class CompletedFavoriteLineHandler(AbstractRequestHandler):
         logger.debug("In CompletedFavoriteLineHandler")
         persistent_attributes = handler_input.attributes_manager.persistent_attributes
         session_attributes = handler_input.attributes_manager.session_attributes
-
         logger.debug("Slots %s", handler_input.request_envelope.request.intent.slots)
-
         # Get list of valid stops for given line
         # Todo: Add try/catch statements for error handling
         line_id = get_slot_value(handler_input, "line_id")
         line_details = self.stib_service.get_stops_by_line_id(line_id)
         logger.debug(line_details)
-
-        entity_list_items = self._build_entity_list_items_from_line_details(
-            line_details
-        )
-
+        # Retrieve destinations
+        destinations = [line_detail.destination.fr for line_detail in line_details]
+        logger.debug("Destinations", destinations)
         # Retrieve transportation_type
         stib_transportation_type = line_details[0].route_type.name.lower()
         logger.debug("Transportation type: %s", stib_transportation_type)
-
-        # save some attributes as persistent attributes
-        persistent_attributes["favorite_line_id"] = line_id
-        persistent_attributes["favorite_transportation_type"] = stib_transportation_type
-        handler_input.attributes_manager.save_persistent_attributes()
-
-        # save line details into session attributes for later use
+        # Save line details into session attributes for later use
         session_attributes["session_line_details"] = [
             line_detail.to_dict() for line_detail in line_details
         ]
-
-        destinations = [line_detail.destination.fr for line_detail in line_details]
-
+        # Build entity list items
+        entity_list_items = self._build_entity_list_items_from_line_details(
+            line_details
+        )
+        # Save attributes as persistent attributes
+        persistent_attributes["favorite_line_id"] = line_id
+        persistent_attributes["favorite_transportation_type"] = stib_transportation_type
+        handler_input.attributes_manager.save_persistent_attributes()
         destination_elicitation_speech = "C'est noté. Dans quelle direction prenez vous le {} {}, {} ou {}?".format(
             stib_transportation_type, line_id, *destinations
         )
         reprompt_speech = "Dans quelle direction allez vous, {} ou {}?".format(
             *destinations
         )
-
+        session_attributes["repeat_prompt"] = reprompt_speech
         return (
             handler_input.response_builder.add_directive(
                 DynamicEntitiesDirective(
@@ -123,13 +117,11 @@ class CompletedFavoriteLineHandler(AbstractRequestHandler):
         """
         Create list of dynamic entity items from line details
         """
-
         # todo: refine this to add try/catch statements and validations
         points = line_details[0].points + line_details[1].points
         destinations = [line.destination for line in line_details]
-
         stop_entities = [
-            Entity(id=point.id, name=EntityValueAndSynonyms(value=point.stop_name))
+            Entity(id=point.id, name=EntityValueAndSynonyms(value=point.stop_name_fr))
             for point in points
         ]
         # Todo: use destination stop id instead of generated ID

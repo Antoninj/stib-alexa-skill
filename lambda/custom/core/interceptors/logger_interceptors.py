@@ -11,7 +11,7 @@ logger = logging.getLogger("Lambda")
 
 
 # Request and Response Loggers
-class RequestLogger(AbstractRequestInterceptor):
+class RequestLoggerInterceptor(AbstractRequestInterceptor):
     """Log the request envelope."""
 
     def process(self, handler_input):
@@ -19,7 +19,7 @@ class RequestLogger(AbstractRequestInterceptor):
         logger.debug("Request Envelope: {}".format(handler_input.request_envelope))
 
 
-class ResponseLogger(AbstractResponseInterceptor):
+class ResponseLoggerInterceptor(AbstractResponseInterceptor):
     """Log the response envelope."""
 
     def process(self, handler_input, response):

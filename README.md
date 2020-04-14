@@ -1,1 +1,1 @@
-This product/service/application uses data provided by STIB/MIVB. The data was last updated on the 22nd March 2020.
+Ce produit/service/application se base sur des données fournies à l’origine par la STIB qui ont été mises à jour le 22 Mars 2020 et qui en totalité ou partiellement ont été modifiées par Antonin Jousson. 

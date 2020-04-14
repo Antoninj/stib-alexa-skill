@@ -3,25 +3,26 @@ from ask_sdk_core.handler_input import HandlerInput
 from ask_sdk_core.utils import is_intent_name
 from requests import Response
 import logging
-from ..data import data
 
 
 logger = logging.getLogger("Lambda")
 
 
-class FallBackHandler(AbstractRequestHandler):
-    """Handler for Fallback Intent."""
+class RepeatHandler(AbstractRequestHandler):
+    """Handler for Repeat Intent."""
 
     def can_handle(self, handler_input):
         # type: (HandlerInput) -> bool
-        return is_intent_name("AMAZON.FallbackIntent")(handler_input)
+
+        return is_intent_name("AMAZON.RepeatIntent")(handler_input)
 
     def handle(self, handler_input):
         # type: (HandlerInput) -> Response
 
-        logger.debug("In FallbackIntentHandler")
-        _ = handler_input.attributes_manager.request_attributes["_"]
+        logger.debug("In RepeatIntentHandler")
+        session_attributes = handler_input.attributes_manager.session_attributes
+        # Get last prompt from session attributes
 
-        handler_input.response_builder.speak(_(data.FALLBACK))
-        handler_input.response_builder.ask(_(data.FALLBACK_REPROMPT))
+        repeat_text = session_attributes["repeat_prompt"]
+        handler_input.response_builder.speak(repeat_text)
         return handler_input.response_builder.response

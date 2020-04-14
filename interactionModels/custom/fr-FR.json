@@ -353,6 +353,10 @@
         "variations": [
           {
             "type": "PlainText",
+            "value": "Parfait! Quel est le nom de votre arrêt?"
+          },
+          {
+            "type": "PlainText",
             "value": "Top! Quel est le nom de l'arrêt auquel vous montez?"
           },
           {
@@ -361,11 +365,7 @@
           },
           {
             "type": "PlainText",
-            "value": "Parfait! Quel est le nom de votre arrêt?"
-          },
-          {
-            "type": "PlainText",
-            "value": "Ok! Quel est votre arrêt?"
+            "value": "Ca roule. Quel est votre arrêt?"
           },
           {
             "type": "PlainText",
@@ -382,15 +382,15 @@
         "variations": [
           {
             "type": "PlainText",
-            "value": "La ligne {line_id} ne fait pas partie des lignes du réseau de la STIB. Quel est votre numéro de ligne?"
+            "value": "La ligne {line_id} ne fait pas partie des lignes du réseau de la STIB. Donnez moi une ligne dont le numéro est compris entre 1 et 98"
           },
           {
             "type": "PlainText",
-            "value": "Vous vous êtes surement trompé, la ligne {line_id} n'est pas un numéro de ligne valable. Quel est votre numéro de ligne?"
+            "value": "Vous vous êtes surement trompé, la ligne {line_id} n'est pas un numéro de ligne valable. Donnez moi une ligne dont le numéro est compris entre 1 et 98"
           },
           {
             "type": "PlainText",
-            "value": "La ligne {line_id} n'existe pas. Donnez moi une ligne dont le numéro est entre 1 et 98."
+            "value": "La ligne {line_id} n'existe pas. Donnez moi une ligne dont le numéro est compris entre 1 et 98"
           }
         ]
       },
