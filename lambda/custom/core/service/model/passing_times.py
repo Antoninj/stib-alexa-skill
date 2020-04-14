@@ -48,9 +48,28 @@ class PassingTime:
     def _format_waiting_time(self) -> str:
         """Format waiting time in human readable form."""
         # Todo : Improve this to handle all cases
-        formatted_waiting_time = "{} minutes et {} secondes.".format(
-            self.arriving_in_dict["minutes"], self.arriving_in_dict["seconds"],
-        )
+
+        if self.arriving_in_dict["days"] > 0:
+            formatted_waiting_time = "{} jours, {} heures, {} minutes et {} secondes.".format(
+                self.arriving_in_dict["days"],
+                self.arriving_in_dict["hours"],
+                self.arriving_in_dict["minutes"],
+                self.arriving_in_dict["seconds"],
+            )
+        elif self.arriving_in_dict["hours"] > 0:
+            formatted_waiting_time = "{} heures, {} minutes et {} secondes.".format(
+                self.arriving_in_dict["hours"],
+                self.arriving_in_dict["minutes"],
+                self.arriving_in_dict["seconds"],
+            )
+        elif self.arriving_in_dict["minutes"] > 0:
+            formatted_waiting_time = "{} minutes et {} secondes.".format(
+                self.arriving_in_dict["minutes"], self.arriving_in_dict["seconds"]
+            )
+        else:
+            formatted_waiting_time = "{} secondes.".format(
+                self.arriving_in_dict["seconds"]
+            )
         return formatted_waiting_time
 
 

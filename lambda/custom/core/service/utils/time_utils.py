@@ -6,7 +6,7 @@ import pytz
 
 
 class TimeUtils:
-    """Define class here"""
+    """Utility class for time manipulation methods (anti-pythonic I know)."""
 
     @staticmethod
     def get_current_localized_time():
@@ -17,7 +17,7 @@ class TimeUtils:
 
     @staticmethod
     def compute_time_diff(start, end) -> Dict:
-        """Define method here."""
+        """I need to implement this differently."""
 
         if isinstance(start, datetime_time):  # convert to datetime
             assert isinstance(end, datetime_time)

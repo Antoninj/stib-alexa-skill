@@ -1,6 +1,6 @@
 ### Optimization:
 - Cache STIB API data locally
-- Get rid of Pandas/Numpy dependency or use a lambda layer for it
+- Get rid of Pandas/Numpy dependencies or use a lambda layer for it
 
 ### I18N :
 - Move hardcoded runtime intent handlers strings to data module
@@ -9,9 +9,11 @@
 - Add support for nl-NL locale (not available yet)
     
 ### Functionality:
-- Correctly format arrival times (handle all scenarios) 
+- Correctly format waiting time when bus/tram/metro is leaving 
+ in less than one minute and when bus/tram/metro leaves after midnight
 - Implement error handling for API calls
-- Implement slots confirmation in dialog model(perhaps not)
+- Add safety nets in dialog flow to avoid triggering wrong intents 
+- Implement slots confirmation in dialog model (perhaps not)
 
 ### Publishing
 - Get STIB logos
