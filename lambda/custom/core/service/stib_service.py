@@ -36,7 +36,7 @@ class OpenDataService:
 
         return self._get_passing_times_for_line_id(point_passing_times, line_id)
 
-    def get_stops_by_line_id(self, line_id: str) -> List[LineDetails]:
+    def get_stops_by_line_id(self, line_id: str) -> Optional[List[LineDetails]]:
         """Retrieve line information based on a line ID of the STIB networks."""
 
         logger.debug("Getting line details for line [%s]", line_id)

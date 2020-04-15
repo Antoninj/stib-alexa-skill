@@ -9,7 +9,7 @@
 - Add support for nl-NL locale (not available yet)
     
 ### Functionality:
-- Correctly format waiting time when bus/tram/metro is leaving 
+- Correctly compute waiting time when bus/tram/metro is leaving 
  in less than one minute and when bus/tram/metro leaves after midnight
 - Implement error handling for API calls
 - Add safety nets in dialog flow to avoid triggering wrong intents 
@@ -19,6 +19,9 @@
 - Get STIB logos
 - Add detailed testing instructions
 - Add detailed skill description
+- Prepare app for production 
+    - Setup correct logging config 
+    - Use STIB API production environment
 
 ### CICD
 - Add unit tests to build process

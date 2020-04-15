@@ -20,9 +20,10 @@ class RepeatHandler(AbstractRequestHandler):
         # type: (HandlerInput) -> Response
 
         logger.debug("In RepeatIntentHandler")
+
         session_attributes = handler_input.attributes_manager.session_attributes
         # Get last prompt from session attributes
-
         repeat_text = session_attributes["repeat_prompt"]
+
         handler_input.response_builder.speak(repeat_text)
         return handler_input.response_builder.response
