@@ -14,8 +14,12 @@ class YesIntentHandler(AbstractRequestHandler):
 
     def can_handle(self, handler_input):
         # type: (HandlerInput) -> bool
+        _ = handler_input.attributes_manager.request_attributes["_"]
+        session_attributes = handler_input.attributes_manager.session_attributes
 
-        return is_intent_name("AMAZON.YesIntent")(handler_input)
+        return session_attributes["repeat_prompt"] == _(
+            data.ASK_FOR_PREFERENCES_REPROMPT
+        ) & is_intent_name("AMAZON.YesIntent")(handler_input)
 
     def handle(self, handler_input):
         # type: (HandlerInput) -> Response

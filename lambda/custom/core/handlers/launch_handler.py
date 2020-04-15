@@ -39,7 +39,7 @@ class LaunchRequestHandler(AbstractRequestHandler):
             speech += " " + _(data.SKILL_DESCRIPTION_WITH_PREFERENCES)
             reprompt = _(data.SKILL_DESCRIPTION_WITH_PREFERENCES_REPROMPT)
 
-        session_attributes["repeat_prompt"] = speech
+        session_attributes["repeat_prompt"] = reprompt
 
         handler_input.response_builder.speak(speech)
         handler_input.response_builder.ask(reprompt)

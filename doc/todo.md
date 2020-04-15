@@ -1,9 +1,8 @@
 ### Optimization:
-- Cache STIB API data locally
+- Add caching layer for STIB API data
 - Get rid of Pandas/Numpy dependencies or use a lambda layer for it
 
 ### I18N :
-- Move hardcoded runtime intent handlers strings to data module
 - Add support for English locale(s)
 - Add support for fr-BE locale (not available yet)
 - Add support for nl-NL locale (not available yet)
