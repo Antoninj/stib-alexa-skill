@@ -1,4 +1,7 @@
 # -*- coding: utf-8 -*-
+import uuid
+from typing import List, Optional
+
 from ask_sdk_core.dispatch_components import AbstractRequestHandler
 from ask_sdk_core.handler_input import HandlerInput
 from ask_sdk_core.utils import is_intent_name, get_dialog_state, get_slot_value
@@ -12,9 +15,8 @@ from ask_sdk_model.er.dynamic import (
     EntityListItem,
     UpdateBehavior,
 )
-import uuid
-from typing import List
 from ...service.model.line_stops import LineDetails
+from ...data import data
 import logging
 
 logger = logging.getLogger("Lambda")
@@ -66,46 +68,61 @@ class CompletedFavoriteLineHandler(AbstractRequestHandler):
         # type: (HandlerInput) -> Response
 
         logger.debug("In CompletedFavoriteLineHandler")
+
+        # Boilerplate
+        _ = handler_input.attributes_manager.request_attributes["_"]
         persistent_attributes = handler_input.attributes_manager.persistent_attributes
         session_attributes = handler_input.attributes_manager.session_attributes
+
+        # Retrieve slot values
         logger.debug("Slots %s", handler_input.request_envelope.request.intent.slots)
-        # Get list of valid stops for given line
-        # Todo: Add try/catch statements for error handling
         line_id = get_slot_value(handler_input, "line_id")
-        line_details = self.stib_service.get_stops_by_line_id(line_id)
+
+        # Call STIB API to retrieve line details
+        # Todo: Add caching / error handling
+        line_details: Optional[
+            List[LineDetails]
+        ] = self.stib_service.get_stops_by_line_id(line_id)
         logger.debug(line_details)
-        # Retrieve destinations
-        destinations = [line_detail.destination.fr for line_detail in line_details]
-        logger.debug("Destinations", destinations)
-        # Retrieve transportation_type
-        stib_transportation_type = line_details[0].route_type.name.lower()
-        logger.debug("Transportation type: %s", stib_transportation_type)
+
         # Save line details into session attributes for later use
         session_attributes["session_line_details"] = [
             line_detail.to_dict() for line_detail in line_details
         ]
-        # Build entity list items
-        entity_list_items = self._build_entity_list_items_from_line_details(
-            line_details
-        )
+
+        # Retrieve destinations from line details
+        destinations = [line_detail.destination.fr for line_detail in line_details]
+        logger.debug("Destinations", destinations)
+        # Retrieve transportation_type from line details
+        stib_transportation_type = line_details[0].route_type.name.lower()
+        logger.debug("Transportation type: %s", stib_transportation_type)
+
         # Save attributes as persistent attributes
         persistent_attributes["favorite_line_id"] = line_id
         persistent_attributes["favorite_transportation_type"] = stib_transportation_type
         handler_input.attributes_manager.save_persistent_attributes()
-        destination_elicitation_speech = "C'est noté. Dans quelle direction prenez vous le {} {}, {} ou {}?".format(
+
+        # Prepare skill response
+        speech = _(data.ELLICIT_DESTINATION_PREFERENCES).format(
             stib_transportation_type, line_id, *destinations
         )
-        reprompt_speech = "Dans quelle direction allez vous, {} ou {}?".format(
+        reprompt_speech = _(data.ELLICIT_DESTINATION_PREFERENCES_REPROMPT).format(
             *destinations
         )
+        # Update repeat prompt
         session_attributes["repeat_prompt"] = reprompt_speech
+
+        # Build entity list items to update model using dynamic entities
+        entity_list_items = self._build_entity_list_items_from_line_details(
+            line_details
+        )
         return (
             handler_input.response_builder.add_directive(
                 DynamicEntitiesDirective(
                     update_behavior=UpdateBehavior.REPLACE, types=entity_list_items
                 )
             )
-            .speak(destination_elicitation_speech)
+            .speak(speech)
             .ask(reprompt_speech)
             .response
         )

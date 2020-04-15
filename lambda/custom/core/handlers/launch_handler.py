@@ -12,6 +12,8 @@ logger = logging.getLogger("Lambda")
 class LaunchRequestHandler(AbstractRequestHandler):
     """Handler for Skill Launch."""
 
+    # Todo: Make this two different launch handlers
+
     def can_handle(self, handler_input):
         # type: (HandlerInput) -> bool
 
@@ -37,7 +39,7 @@ class LaunchRequestHandler(AbstractRequestHandler):
             speech += " " + _(data.SKILL_DESCRIPTION_WITH_PREFERENCES)
             reprompt = _(data.SKILL_DESCRIPTION_WITH_PREFERENCES_REPROMPT)
 
-        session_attributes["repeat_prompt"] = speech
+        session_attributes["repeat_prompt"] = reprompt
 
         handler_input.response_builder.speak(speech)
         handler_input.response_builder.ask(reprompt)

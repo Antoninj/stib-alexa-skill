@@ -12,6 +12,8 @@ from ask_sdk_core.utils import (
 from ask_sdk_model import Response, Slot
 from ask_sdk_model.dialog_state import DialogState
 from ask_sdk_model.dialog.delegate_directive import DelegateDirective
+
+from ...data import data
 import logging
 
 logger = logging.getLogger("Lambda")
@@ -61,8 +63,13 @@ class CompletedFavoriteStopHandler(AbstractRequestHandler):
         # type: (HandlerInput) -> Response
 
         logger.debug("In CompletedFavoriteStopHandler")
+
+        # Boilerplate
+        _ = handler_input.attributes_manager.request_attributes["_"]
         persistent_attributes = handler_input.attributes_manager.persistent_attributes
         session_attributes = handler_input.attributes_manager.session_attributes
+
+        # Retrieve slot values
         logger.debug("Slots %s", handler_input.request_envelope.request.intent.slots)
         # Todo: retrieve this properly via entity resolution results
         destination_name = get_slot_value(handler_input, "destination_name")
@@ -80,22 +87,26 @@ class CompletedFavoriteStopHandler(AbstractRequestHandler):
         stop_name_fr = correct_slot_value["stopNameFr"]
         line_id = persistent_attributes["favorite_line_id"]
         stib_transportation_type = persistent_attributes["favorite_transportation_type"]
+
+        # Update persistent attributes
         persistent_attributes["favorite_stop_id"] = stop_id
         persistent_attributes["favorite_stop_name"] = stop_name_fr
         persistent_attributes["favorite_line_destination"] = destination_name
         handler_input.attributes_manager.save_persistent_attributes()
-        intent_complete_speech = (
-            "Merci, vos préférences ont été correctement sauvegardées. Vous prenez donc le {} {} à l'arret {} "
-            " direction {}.".format(
-                stib_transportation_type, line_id, stop_name_fr, destination_name
-            )
+
+        # Prepare skill response
+        speech = _(data.PREFERENCES_SAVED).format(
+            stib_transportation_type, line_id, stop_name_fr, destination_name
         )
-        intent_complete_speech += (
-            " Demandez par exemple 'Quand passe le prochain bus' pour obtenir des informations en "
-            "temps réél sur les prochains horaires de passage."
+        reprompt_speech = _(data.SKILL_DESCRIPTION_WITH_PREFERENCES)
+        speech += reprompt_speech
+
+        # Update repeat prompt
+        session_attributes["repeat_prompt"] = reprompt_speech
+
+        return (
+            handler_input.response_builder.speak(speech).ask(reprompt_speech).response
         )
-        session_attributes["repeat_prompt"] = intent_complete_speech
-        return handler_input.response_builder.speak(intent_complete_speech).response
 
     @staticmethod
     def _parse_successful_entity_resolution_results_for_slot(

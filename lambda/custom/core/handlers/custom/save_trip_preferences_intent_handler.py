@@ -21,11 +21,18 @@ class SaveTripPreferencesHandler(AbstractRequestHandler):
         # type: (HandlerInput) -> Response
 
         logger.debug("In SaveTripPreferencesHandler")
+
+        # Boilerplate
         _ = handler_input.attributes_manager.request_attributes["_"]
         session_attributes = handler_input.attributes_manager.session_attributes
+
+        # Prepare skill response
         speech = _(data.ELLICIT_LINE_PREFERENCES)
         reprompt = _(data.ELLICIT_LINE_PREFERENCES_REPROMPT)
+
+        # Update repeat prompt
         session_attributes["repeat_prompt"] = speech
+
         handler_input.response_builder.speak(speech)
         handler_input.response_builder.ask(reprompt)
         return handler_input.response_builder.response
