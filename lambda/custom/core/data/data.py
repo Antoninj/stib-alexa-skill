@@ -35,7 +35,7 @@ ASK_FOR_PREFERENCES_REPROMPT = "Voulez-vous configurer votre trajet favori maint
 """ """""" """""" """"""
 ELLICIT_LINE_PREFERENCES = _(
     "D'accord, c'est parti. Les lignes du réseau STIB sont numérotées de 1 à 98."
-    "Quelle ligne utilisez vous d'habitude?"
+    " Quelle ligne utilisez vous d'habitude?"
 )
 ELLICIT_LINE_PREFERENCES_REPROMPT = _("Quel est votre ligne STIB habituelle?")
 

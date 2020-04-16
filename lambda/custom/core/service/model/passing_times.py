@@ -63,11 +63,11 @@ class PassingTime:
                 self.arriving_in_dict["seconds"],
             )
         elif self.arriving_in_dict["minutes"] > 0:
-            formatted_waiting_time = "{} minutes et {} secondes.".format(
+            formatted_waiting_time = "{} minutes et {} secondes".format(
                 self.arriving_in_dict["minutes"], self.arriving_in_dict["seconds"]
             )
         else:
-            formatted_waiting_time = "{} secondes.".format(
+            formatted_waiting_time = "{} secondes".format(
                 self.arriving_in_dict["seconds"]
             )
         return formatted_waiting_time
