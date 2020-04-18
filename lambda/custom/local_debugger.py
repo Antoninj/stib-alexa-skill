@@ -72,7 +72,7 @@ def _validate_port(port_number):
             "should be in the range [0, 65535]".format(port_number)
         )
     if port_number == 0:
-        print(
+        logger.info(
             "The TCP server will listen on a port that is free. Check logs "
             "to find out what port number is being used"
         )
@@ -156,7 +156,7 @@ def _get_request_envelope(data):
     :rtype: Dict[str, str]
     """
     request_body = _combine_received_data(data).decode("utf-8")
-    print("Request envelope: {0}".format(request_body))
+    logger.debug("Request envelope: {0}".format(request_body))
     return json.loads(request_body)
 
 
@@ -172,7 +172,7 @@ def _setup_socket():
     local_debugger_socket.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR, 1)
     server_address = ("localhost", args.portNumber)
     local_debugger_socket.bind(server_address)
-    print("Starting server on: {0}".format(local_debugger_socket.getsockname()))
+    logger.info("Starting server on: {0}".format(local_debugger_socket.getsockname()))
     return local_debugger_socket
 
 
@@ -205,7 +205,7 @@ def _send_response(response, socket_connection):
     :type socket_connection: socket.socket
     :return: None
     """
-    print("Response envelope: {0}".format(response))
+    logger.debug("Response envelope: {0}".format(response))
     socket_connection.send(
         "HTTP/1.1 200 OK{0}Content-Type: application/json;"
         "charset=UTF-8{0}Content-Length: {1}{2}{3}".format(
@@ -278,7 +278,7 @@ def _handle_skill_request(client_address, socket_connection, skill_invoker):
     :type skill_invoker: Object
     :return: None
     """
-    print("Connection from {0}".format(client_address))
+    logger.info("Connection from {0}".format(client_address))
     content_length_unidentified = True
     content_length = -1
     data = []
@@ -312,7 +312,7 @@ def main():
         skill_invoker = _initialize_skill_invoker()
 
         while True:
-            print("Waiting for a socket connection")
+            logger.info("Waiting for a socket connection")
             socket_connection, client_address = local_debugger_socket.accept()
             try:
                 _handle_skill_request(client_address, socket_connection, skill_invoker)

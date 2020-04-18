@@ -70,7 +70,7 @@ Outputs:
             "apis": {
               "custom": {
                 "endpoint": {
-                  "uri": "https://09ac1600.ngrok.io",
+                  "uri": "https://77642e8c.ngrok.io",
                   "sslCertificateType": "Wildcard"
                 }
               }

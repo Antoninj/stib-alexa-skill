@@ -99,7 +99,7 @@ class CompletedFavoriteStopHandler(AbstractRequestHandler):
             stib_transportation_type, line_id, stop_name_fr, destination_name
         )
         reprompt_speech = _(data.SKILL_DESCRIPTION_WITH_PREFERENCES)
-        speech += reprompt_speech
+        speech += " " + reprompt_speech
 
         # Update repeat prompt
         session_attributes["repeat_prompt"] = reprompt_speech

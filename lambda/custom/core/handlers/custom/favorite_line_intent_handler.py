@@ -79,7 +79,7 @@ class CompletedFavoriteLineHandler(AbstractRequestHandler):
         line_id = get_slot_value(handler_input, "line_id")
 
         # Call STIB API to retrieve line details
-        # Todo: Add caching / error handling
+        # Todo: add error handling
         line_details: Optional[
             List[LineDetails]
         ] = self.stib_service.get_stops_by_line_id(line_id)
@@ -92,7 +92,6 @@ class CompletedFavoriteLineHandler(AbstractRequestHandler):
 
         # Retrieve destinations from line details
         destinations = [line_detail.destination.fr for line_detail in line_details]
-        logger.debug("Destinations", destinations)
         # Retrieve transportation_type from line details
         stib_transportation_type = line_details[0].route_type.name.lower()
         logger.debug("Transportation type: %s", stib_transportation_type)

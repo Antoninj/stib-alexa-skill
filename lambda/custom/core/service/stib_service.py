@@ -1,11 +1,16 @@
 # -*- coding: utf-8 -*-
 import logging
+import hermes.backend.dict
+
 from ask_sdk_model.services import ApiClientRequest, ApiClient
+
 from .model.passing_times import PointPassingTimes, PassingTime
 from .model.line_stops import LineDetails
 from typing import List, Optional
 
 logger = logging.getLogger("Lambda")
+
+cache = hermes.Hermes(backendClass=hermes.backend.dict.Backend)
 
 
 class OpenDataService:
@@ -36,6 +41,8 @@ class OpenDataService:
 
         return self._get_passing_times_for_line_id(point_passing_times, line_id)
 
+    # Cache STIB data for one day as they recommend
+    @cache(ttl=86400)
     def get_stops_by_line_id(self, line_id: str) -> Optional[List[LineDetails]]:
         """Retrieve line information based on a line ID of the STIB networks."""
 

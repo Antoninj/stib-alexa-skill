@@ -30,7 +30,7 @@
 
 ### Nice to have:
 - Implement personalisation 
-- Try out SSML tags
+- Try out SSML tags to add custom sound samples
 - Support name free interaction
 - Redesign preferences intent as a single intent
 - Implement context switching 
