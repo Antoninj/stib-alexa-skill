@@ -37,6 +37,7 @@ Resources:
           secret_name: OpenDataSandboxSecret
           open_data_api_endpoint: https://opendata-api.stib-mivb.be
           open_data_api_token_validity: 3600
+          elasticache_config_endpoint: localhost
           
       Handler: daily_commute.handler
       Runtime: python3.7
@@ -70,7 +71,7 @@ Outputs:
             "apis": {
               "custom": {
                 "endpoint": {
-                  "uri": "https://09ac1600.ngrok.io",
+                  "uri": "https://561e3ae3.ngrok.io",
                   "sslCertificateType": "Wildcard"
                 }
               }

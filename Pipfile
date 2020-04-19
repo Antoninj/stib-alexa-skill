@@ -6,10 +6,9 @@ verify_ssl = true
 [dev-packages]
 boto3 = "*"
 babel = "*"
-pystibmvib = "*"
-pandas = "*"
 black = "*"
 lex-bot-tester = "*"
+pipenv-to-requirements = "*"
 
 [packages]
 ask-sdk-core = "==1.13.0"
@@ -18,6 +17,9 @@ pytz = "*"
 ask-sdk = "*"
 dataclasses-json = "*"
 pandas = "*"
+hermescache = "*"
+pylibmc = "*"
+elasticache-auto-discovery = "*"
 
 [requires]
 python_version = "3.7"

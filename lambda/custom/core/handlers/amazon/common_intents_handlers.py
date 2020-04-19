@@ -19,7 +19,7 @@ class YesIntentHandler(AbstractRequestHandler):
 
         return session_attributes["repeat_prompt"] == _(
             data.ASK_FOR_PREFERENCES_REPROMPT
-        ) & is_intent_name("AMAZON.YesIntent")(handler_input)
+        ) and is_intent_name("AMAZON.YesIntent")(handler_input)
 
     def handle(self, handler_input):
         # type: (HandlerInput) -> Response
@@ -27,9 +27,11 @@ class YesIntentHandler(AbstractRequestHandler):
         logger.debug("In YesIntentHandler")
         _ = handler_input.attributes_manager.request_attributes["_"]
         session_attributes = handler_input.attributes_manager.session_attributes
+
         speech = _(data.ELLICIT_LINE_PREFERENCES)
         reprompt = _(data.ELLICIT_LINE_PREFERENCES_REPROMPT)
-        session_attributes["repeat_prompt"] = speech
+        session_attributes["repeat_prompt"] = reprompt
+
         handler_input.response_builder.speak(speech)
         handler_input.response_builder.ask(reprompt)
         return handler_input.response_builder.response
@@ -65,9 +67,11 @@ class HelpIntentHandler(AbstractRequestHandler):
 
         logger.debug("In HelpIntentHandler")
         _ = handler_input.attributes_manager.request_attributes["_"]
+
         session_attributes = handler_input.attributes_manager.session_attributes
         speech = _(data.HELP)
         session_attributes["repeat_prompt"] = speech
+
         handler_input.response_builder.speak(speech).ask(_(data.HELP_REPROMPT))
         return handler_input.response_builder.response
 
@@ -87,6 +91,7 @@ class CancelOrStopIntentHandler(AbstractRequestHandler):
 
         logger.debug("In CancelOrStopIntentHandler")
         _ = handler_input.attributes_manager.request_attributes["_"]
+
         handler_input.response_builder.speak(_(data.STOP)).set_should_end_session(True)
         return handler_input.response_builder.response
 

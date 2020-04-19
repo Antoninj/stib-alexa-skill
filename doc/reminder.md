@@ -1,3 +1,7 @@
+### local debugging with ngrok 
+./ngrok http 3001  
+
+
 ### Lambda endpoint
 `{
   "manifest": {
