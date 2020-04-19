@@ -1,6 +1,9 @@
 # -*- coding: utf-8 -*-
 import logging
-import hermes.backend.dict
+import os
+
+import hermes.backend.memcached
+import elasticache_auto_discovery
 
 from ask_sdk_model.services import ApiClientRequest, ApiClient
 
@@ -10,7 +13,14 @@ from typing import List, Optional
 
 logger = logging.getLogger("Lambda")
 
-cache = hermes.Hermes(backendClass=hermes.backend.dict.Backend)
+
+ELASTICACHE_CONFIG_ENDPOINT = os.environ["elasticache_config_endpoint"]
+cache = hermes.Hermes(
+    backendClass=hermes.backend.memcached.Backend,
+    servers=[ELASTICACHE_CONFIG_ENDPOINT],
+)
+cache.backend.client["some_key"] = "Some value"
+logger.debug(cache.backend.client["some_key"])
 
 
 class OpenDataService:
@@ -41,7 +51,7 @@ class OpenDataService:
 
         return self._get_passing_times_for_line_id(point_passing_times, line_id)
 
-    # Cache STIB data for one day as they recommend
+    # Cache STIB data for one day as per their recommendations
     @cache(ttl=86400)
     def get_stops_by_line_id(self, line_id: str) -> Optional[List[LineDetails]]:
         """Retrieve line information based on a line ID of the STIB networks."""

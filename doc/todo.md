@@ -1,5 +1,5 @@
 ### Optimization:
-- Add caching layer for STIB API data
+- Add caching layer for STIB API data : WIP
 - Get rid of Pandas/Numpy dependencies or use a lambda layer for it
 
 ### I18N :
@@ -8,9 +8,9 @@
 - Add support for nl-NL locale (not available yet)
     
 ### Functionality:
+- Implement error handling for API calls
 - Correctly compute waiting time when bus/tram/metro is leaving 
  in less than one minute and when bus/tram/metro leaves after midnight
-- Implement error handling for API calls
 - Add safety nets in dialog flow to avoid triggering wrong intents 
 - Implement slots confirmation in dialog model (perhaps not)
 
