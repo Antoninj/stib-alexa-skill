@@ -1,11 +1,9 @@
 # -*- coding: utf-8 -*-
-import os
 from typing import List, Optional
 from enum import Enum
 
 from dataclasses import dataclass, field
 from dataclasses_json import dataclass_json, LetterCase
-import pandas as pd
 
 from .passing_times import Destination
 

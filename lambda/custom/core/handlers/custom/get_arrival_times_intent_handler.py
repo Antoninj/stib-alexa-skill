@@ -85,7 +85,7 @@ class GetArrivalTimesIntentHandler(AbstractRequestHandler):
         ]
 
         # Call STIB API to retrieve arrival times
-        # Todo: add error handling
+        # Todo: Add try/except statements for error handling
         passing_times: Optional[
             List[PassingTime]
         ] = self.stib_service.get_passing_times_for_stop_id_and_line_id(

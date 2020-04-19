@@ -102,6 +102,7 @@ class TokenHelper:
         )
         client_auth = requests.auth.HTTPBasicAuth(client_id, client_secret)
         post_data = {"grant_type": "client_credentials"}
+        # Todo: Add try/except statements for error handling
         response = requests.post(request_url, auth=client_auth, data=post_data)
         token_json = response.json()
         return token_json["access_token"]

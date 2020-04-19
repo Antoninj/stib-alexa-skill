@@ -2,13 +2,13 @@
 - Get rid of Pandas/Numpy dependencies and use csv 
 from python standard library instead
 
-### I18N :
+### I18N:
 - Add support for English locale(s)
 - Add support for fr-BE locale (not available yet)
 - Add support for nl-NL locale (not available yet)
     
 ### Functionality:
-- Add caching layer for STIB API data : validate implementation
+- Add caching layer for STIB API data => validate implementation on AWS infra
 - Implement error handling for API calls
 - Correctly compute waiting time when bus/tram/metro is leaving 
  in less than one minute and when bus/tram/metro leaves after midnight
@@ -22,7 +22,7 @@ from python standard library instead
 - Prepare app for production 
     - Setup correct logging config 
     - Use STIB API production environment
-    - Use Memcached Elasticache cluster configuration endpoint
+    - Use memcached Elasticache cluster configuration endpoint
 
 ### CICD
 - Add unit tests to build process
