@@ -1,8 +1,10 @@
 # -*- coding: utf-8 -*-
-from dataclasses import dataclass, field
 from datetime import datetime
 from typing import List, Optional
+
+from dataclasses import dataclass, field
 from dataclasses_json import dataclass_json, LetterCase
+
 from ..utils.time_utils import TimeUtils
 
 

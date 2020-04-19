@@ -1,10 +1,11 @@
+import logging
+
 from ask_sdk_core.dispatch_components import AbstractRequestHandler
 from ask_sdk_core.handler_input import HandlerInput
 from ask_sdk_core.utils import is_intent_name
 from requests import Response
-import logging
-from ...data import data
 
+from ...data import data
 
 logger = logging.getLogger("Lambda")
 

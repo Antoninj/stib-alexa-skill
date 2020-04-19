@@ -1,6 +1,8 @@
+import logging
+
 from ask_sdk_core.dispatch_components import AbstractExceptionHandler
 from ask_sdk_core.handler_input import HandlerInput
-import logging
+
 from ...data import data
 
 logger = logging.getLogger("Lambda")

@@ -1,10 +1,10 @@
+import logging
+
 from ask_sdk_core.dispatch_components import (
     AbstractRequestInterceptor,
     AbstractResponseInterceptor,
 )
 from ask_sdk_core.handler_input import HandlerInput
-import logging
-
 from ask_sdk_model import Response
 
 logger = logging.getLogger("Lambda")

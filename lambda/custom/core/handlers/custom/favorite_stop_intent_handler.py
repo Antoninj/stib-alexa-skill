@@ -1,5 +1,6 @@
 # -*- coding: utf-8 -*-
 from typing import List, Optional
+import logging
 
 from ask_sdk_core.dispatch_components import AbstractRequestHandler
 from ask_sdk_core.handler_input import HandlerInput
@@ -14,7 +15,6 @@ from ask_sdk_model.dialog_state import DialogState
 from ask_sdk_model.dialog.delegate_directive import DelegateDirective
 
 from ...data import data
-import logging
 
 logger = logging.getLogger("Lambda")
 

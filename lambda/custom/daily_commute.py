@@ -14,7 +14,6 @@ from core.handlers.custom.favorite_stop_intent_handler import *
 from core.handlers.custom.save_trip_preferences_intent_handler import (
     SaveTripPreferencesHandler,
 )
-
 from core.handlers.launch_handler import LaunchRequestHandler
 from core.handlers.amazon.common_intents_handlers import *
 from core.handlers.amazon.repeat_intent_handler import RepeatHandler
@@ -83,6 +82,11 @@ def setup_skill_builder(service: OpenDataService) -> CustomSkillBuilder:
 # Create new Open Data API client and service instances
 logger.info("Setting up Open Data API service")
 stib_service = OpenDataService(stib_api_client=OpenDataAPIClient())
+
+route_data_file = stib_service.get_stops_by_line_id("93")
+logger.info(route_data_file)
+route_data_file = stib_service.get_stops_by_line_id("71")
+logger.info(route_data_file)
 
 # Set up the skill builder and lambda handler
 sb = setup_skill_builder(service=stib_service)

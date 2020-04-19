@@ -3,11 +3,11 @@ import logging
 import os
 import json
 import calendar
+import base64
 from datetime import datetime, timedelta
 
-import boto3
 from botocore.exceptions import ClientError
-import base64
+import boto3
 import requests
 
 logger = logging.getLogger("Lambda")

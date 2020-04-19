@@ -1,37 +1,41 @@
 # -*- coding: utf-8 -*-
+import io
 import logging
 import os
-
-import hermes.backend.memcached
-import elasticache_auto_discovery
+import zipfile
+from typing import List, Optional
 
 from ask_sdk_model.services import ApiClientRequest, ApiClient
+import hermes.backend.memcached
 
 from .model.passing_times import PointPassingTimes, PassingTime
 from .model.line_stops import LineDetails
-from typing import List, Optional
+
+import pandas as pd
+
+# Todo: get rid of pandas/numpy dependency in this class
 
 logger = logging.getLogger("Lambda")
-
 
 ELASTICACHE_CONFIG_ENDPOINT = os.environ["elasticache_config_endpoint"]
 cache = hermes.Hermes(
     backendClass=hermes.backend.memcached.Backend,
     servers=[ELASTICACHE_CONFIG_ENDPOINT],
 )
-cache.backend.client["some_key"] = "Some value"
-logger.debug(cache.backend.client["some_key"])
 
 
 class OpenDataService:
     """Service to handle custom OpenData API endpoints queries."""
 
+    GTFS_FILES_SUFFIX = "/Files/2.0/Gtfs"
     PASSING_TIME_BY_POINT_SUFFIX: str = "/OperationMonitoring/4.0/PassingTimeByPoint/"
     STOPS_BY_LINE_SUFFIX: str = "/NetworkDescription/1.0/PointByLine/"
 
     def __init__(self, stib_api_client: ApiClient):
         self.api_client = stib_api_client
 
+    # Cache STIB data for 20 seconds as per their recommendations
+    @cache(ttl=20)
     def get_passing_times_for_stop_id_and_line_id(
         self, stop_id: str, line_id: str
     ) -> Optional[List[PassingTime]]:
@@ -56,15 +60,48 @@ class OpenDataService:
     def get_stops_by_line_id(self, line_id: str) -> Optional[List[LineDetails]]:
         """Retrieve line information based on a line ID of the STIB networks."""
 
-        logger.debug("Getting line details for line [%s]", line_id)
+        logger.info("Getting line details for line [%s]", line_id)
         request_url = self.STOPS_BY_LINE_SUFFIX + line_id
         api_request = ApiClientRequest(url=request_url, method="GET")
         # Todo: Add try/catch statements for error handling
         response = self.api_client.invoke(api_request)
         raw_lines_info = response.body.json()
         line_details = LineDetails.schema().load(raw_lines_info["lines"], many=True)
+        self.enhance_line_details_with_gtfs_data(line_details)
 
         return line_details
+
+    # Cache STIB data for two weeks as per their recommendations
+    @cache(ttl=1209600)
+    def get_gtfs_data(self, gtfs_file_name: str):
+        """Retrieve GTFS files of the STIB network."""
+
+        logger.debug("Getting GTFS file [%s]", gtfs_file_name)
+        request_url = self.GTFS_FILES_SUFFIX
+        zip_file_header = ("Accept", "application/zip")
+        api_request = ApiClientRequest(
+            url=request_url, method="GET", headers=[zip_file_header]
+        )
+        # Todo: Add try/catch statements for error handling
+        response = self.api_client.invoke(api_request)
+        with zipfile.ZipFile(io.BytesIO(response.body.content)) as gtfs_zip_file:
+            logger.debug(gtfs_zip_file.namelist())
+            csv_file = io.BytesIO(gtfs_zip_file.read(name=gtfs_file_name))
+            return csv_file
+
+    def enhance_line_details_with_gtfs_data(self, line_details: List[LineDetails]):
+        logger.debug("Enhancing line details with route type")
+        routes_df = pd.read_csv(self.get_gtfs_data(gtfs_file_name="routes.txt"))
+        stops_df = pd.read_csv(self.get_gtfs_data(gtfs_file_name="stops.txt"))
+        stops_translations_df = pd.read_csv(
+            self.get_gtfs_data(gtfs_file_name="translations.txt")
+        )
+        for line_detail in line_details:
+            line_detail.set_route_type(routes_df)
+            [
+                line_point.set_stop_names(stops_df, stops_translations_df)
+                for line_point in line_detail.points
+            ]
 
     @staticmethod
     def _get_passing_times_for_line_id(

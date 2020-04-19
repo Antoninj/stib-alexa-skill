@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
 import uuid
 from typing import List, Optional
+import logging
 
 from ask_sdk_core.dispatch_components import AbstractRequestHandler
 from ask_sdk_core.handler_input import HandlerInput
@@ -17,7 +18,6 @@ from ask_sdk_model.er.dynamic import (
 )
 from ...service.model.line_stops import LineDetails
 from ...data import data
-import logging
 
 logger = logging.getLogger("Lambda")
 
