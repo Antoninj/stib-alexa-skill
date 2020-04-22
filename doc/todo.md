@@ -1,6 +1,6 @@
 ### Optimization:
 - Get rid of Pandas/Numpy dependencies and use csv 
-from python standard library instead !!!
+from python standard library instead !
 
 ### I18N:
 - Add support for English locale(s)
@@ -25,11 +25,9 @@ from python standard library instead !!!
     - Use memcached Elasticache cluster configuration endpoint
 
 ### CICD
-- Create new CF template to deploy custom VPC, 
-  elasticache cluster
+- Create new CF template to deploy custom VPC and elasticache cluster
 - Add unit tests to build process
-- Extend test suite
-- Add code coverage to build process
+- Improve test suite
 - Use Public GitHub as alternative source control system
 
 ### Nice to have:
