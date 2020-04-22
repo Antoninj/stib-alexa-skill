@@ -1,6 +1,6 @@
 ### Optimization:
 - Get rid of Pandas/Numpy dependencies and use csv 
-from python standard library instead
+from python standard library instead !!!
 
 ### I18N:
 - Add support for English locale(s)
@@ -13,9 +13,8 @@ from python standard library instead
 - Correctly compute waiting time when bus/tram/metro is leaving 
  in less than one minute and when bus/tram/metro leaves after midnight
 - Add safety nets in dialog flow to avoid triggering wrong intents 
-- Implement slots confirmation in dialog model (perhaps not)
 
-### Publishing
+### Certification & Publishing
 - Get STIB logos
 - Add detailed testing instructions
 - Add detailed skill description
@@ -25,6 +24,9 @@ from python standard library instead
     - Use memcached Elasticache cluster configuration endpoint
 
 ### CICD
+- Create new CF template to deploy custom VPC, 
+  elasticache cluster, dynamo DB table and parameter store
+  parameters
 - Add unit tests to build process
 - Extend test suite
 - Add code coverage to build process
@@ -34,7 +36,7 @@ from python standard library instead
 - Implement personalisation 
 - Try out SSML tags to add custom sound samples
 - Support name free interaction
-- Redesign preferences intent as a single intent
+- Redesign trip preferences intent as a single intent
 - Implement context switching 
     - use request interceptor checking dialog state
     - store intent state in session attributes

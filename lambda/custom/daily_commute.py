@@ -32,6 +32,7 @@ from core.data import data
 # Environment variables definitions
 ENVIRONMENT = os.environ["env"]
 LOGGING_LEVEL = os.environ["log_level"]
+DYNAMO_DB_TABLE_NAME = os.environ["dynamo_db_table_name"]
 
 # Logging configuration
 logger = logging.getLogger("Lambda")
@@ -43,7 +44,7 @@ def setup_skill_builder(service: OpenDataService) -> CustomSkillBuilder:
 
     logger.info("Setting up Custom Skill Builder with Dynamo DB persistence adapter...")
     dynamo_db_adapter = DynamoDbAdapter(
-        table_name="DailyCommuteFavorites",
+        table_name=DYNAMO_DB_TABLE_NAME,
         partition_key_name="id",
         attribute_name="attributes",
         create_table=True,

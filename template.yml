@@ -10,10 +10,22 @@ Parameters:
   CodeDeployRole:
     Type: String
     Description: IAM role to allow AWS CodeDeploy to manage deployment of AWS Lambda functions
-  Stage:
+  STAGE:
     Type: String
     Description: The name for a project pipeline stage, such as Staging or Prod, for which resources are provisioned and deployed.
     Default: ''
+  OPEN_DATA_API_ENDPOINT:
+    Description: Open Data API endpoint (SSM Parameter name)
+    Type: AWS::SSM::Parameter::Value<String>
+    Default: 'OpenDataAPIEndpoint'
+  OPEN_DATA_API_TOKEN_VALIDITY:
+    Description: Open Data API token validity time (SSM Parameter name)
+    Type: AWS::SSM::Parameter::Value<String>
+    Default: 'OpenDataAPITokenValidity'
+  DYNAMO_DB_TABLE_NAME:
+    Description: The name of the dynamo DB table used by the alexa skill for persistent storage of user data
+    Type: AWS::SSM::Parameter::Value<String>
+    Default: !Sub 'DynamoDBTableName'
 
 Globals:
   Function:
@@ -32,13 +44,14 @@ Resources:
       CodeUri: 'lambda/custom'
       Environment:
         Variables:
-          env: sandbox
+          env: !Ref STAGE
           log_level: DEBUG
-          secret_name: OpenDataSandboxSecret
-          open_data_api_endpoint: https://opendata-api.stib-mivb.be
-          open_data_api_token_validity: 3600
+          secret_name: !Sub 'OpenData${Stage}Secret'
+          open_data_api_endpoint: !Ref OPEN_DATA_API_ENDPOINT
+          open_data_api_token_validity: !Ref OPEN_DATA_API_TOKEN_VALIDITY
+          dynamo_db_table_name: !Ref DYNAMO_DB_TABLE_NAME
           elasticache_config_endpoint: localhost
-          
+
       Handler: daily_commute.handler
       Runtime: python3.7
       Role: !GetAtt LambdaExecutionRole.Arn
@@ -58,7 +71,7 @@ Resources:
           Action: sts:AssumeRole
       Path: /
       ManagedPolicyArns:
-        - !Sub 'arn:${AWS::Partition}:iam::aws:policy/SecretsManagerReadWrite'
+        - !Sub 'arn:${AWS::Partition}:iam::aws:policy/SystemsManagerGetParameters'
         - !Sub 'arn:${AWS::Partition}:iam::aws:policy/service-role/AWSLambdaBasicExecutionRole'
         - !Sub 'arn:${AWS::Partition}:iam::${AWS::AccountId}:policy/AmazonDynamoDBAlexaSkillAccess'
       PermissionsBoundary: !Sub 'arn:${AWS::Partition}:iam::${AWS::AccountId}:policy/CodeStar_${ProjectId}_PermissionsBoundary'
