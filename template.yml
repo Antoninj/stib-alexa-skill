@@ -62,7 +62,7 @@ Resources:
     Description: Creating service role in IAM for AWS Lambda
     Type: AWS::IAM::Role
     Properties:
-      RoleName: !Sub 'CodeStar-${ProjectId}-Execution${Stage}'
+      RoleName: !Sub '${ProjectId}-Execution-${Stage}'
       AssumeRolePolicyDocument:
         Statement:
         - Effect: Allow
@@ -74,7 +74,6 @@ Resources:
         - !Sub 'arn:${AWS::Partition}:iam::aws:policy/service-role/AWSLambdaBasicExecutionRole'
         - !Sub 'arn:${AWS::Partition}:iam::${AWS::AccountId}:policy/SystemsManagerGetParameters'
         - !Sub 'arn:${AWS::Partition}:iam::${AWS::AccountId}:policy/AmazonDynamoDBAlexaSkillAccess'
-      PermissionsBoundary: !Sub 'arn:${AWS::Partition}:iam::${AWS::AccountId}:policy/CodeStar_${ProjectId}_PermissionsBoundary'
 
 Outputs:
   overrides:

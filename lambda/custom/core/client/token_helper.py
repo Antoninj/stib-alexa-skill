@@ -85,14 +85,12 @@ class TokenHelper:
         """Retrieve OpenData api bearer token."""
 
         stib_api_credentials = self.api_credentials
-        logger.debug("STIB API credentials {}".format(stib_api_credentials))
-
+        # logger.debug("STIB API credentials {}".format(stib_api_credentials))
         api_credentials = json.loads(stib_api_credentials)
         client_id = api_credentials["key"]
         client_secret = api_credentials["secret"]
-
         access_token = self._get_access_token(client_id, client_secret)
-        logger.debug("STIB API access token [{}]".format(access_token))
+        # logger.debug("STIB API access token [{}]".format(access_token))
         return access_token
 
     def get_security_token(self) -> str:
