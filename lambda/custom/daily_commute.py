@@ -84,11 +84,6 @@ def setup_skill_builder(service: OpenDataService) -> CustomSkillBuilder:
 logger.info("Setting up Open Data API service")
 stib_service = OpenDataService(stib_api_client=OpenDataAPIClient())
 
-data = stib_service.get_stops_by_line_id("93")
-logger.info(data)
-data = stib_service.get_stops_by_line_id("71")
-logger.info(data)
-
 # Set up the skill builder and lambda handler
 sb = setup_skill_builder(service=stib_service)
 handler = sb.lambda_handler()
