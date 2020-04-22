@@ -4,6 +4,9 @@
 ### Generate requirements
 `pipenv run pipenv_to_requirements -f`     
 
+### Validate CF template
+`aws cloudformation validate-template --template-body file://template.yml`
+
 ### Lambda endpoint
 `{
   "manifest": {
