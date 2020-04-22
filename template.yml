@@ -14,18 +14,18 @@ Parameters:
     Type: String
     Description: The name for a project pipeline stage, such as Staging or Prod, for which resources are provisioned and deployed.
     Default: ''
-  OPEN_DATA_API_ENDPOINT:
+  OpenDataAPIEndpoint:
     Description: Open Data API endpoint (SSM Parameter name)
     Type: AWS::SSM::Parameter::Value<String>
     Default: 'OpenDataAPIEndpoint'
-  OPEN_DATA_API_TOKEN_VALIDITY:
+  OpenDataAPITokenValidity:
     Description: Open Data API token validity time (SSM Parameter name)
     Type: AWS::SSM::Parameter::Value<String>
     Default: 'OpenDataAPITokenValidity'
-  DYNAMO_DB_TABLE_NAME:
+  DynamoDBTableName:
     Description: The name of the dynamo DB table used by the alexa skill for persistent storage of user data
     Type: AWS::SSM::Parameter::Value<String>
-    Default: !Sub 'DynamoDBTableName'
+    Default: 'DynamoDBTableName'
 
 Globals:
   Function:
@@ -47,9 +47,9 @@ Resources:
           env: !Ref STAGE
           log_level: DEBUG
           secret_name: !Sub 'OpenData${Stage}Secret'
-          open_data_api_endpoint: !Ref OPEN_DATA_API_ENDPOINT
-          open_data_api_token_validity: !Ref OPEN_DATA_API_TOKEN_VALIDITY
-          dynamo_db_table_name: !Ref DYNAMO_DB_TABLE_NAME
+          open_data_api_endpoint: !Ref OpenDataAPIEndpoint
+          open_data_api_token_validity: !Ref OpenDataAPITokenValidity
+          dynamo_db_table_name: !Ref DynamoDBTableName
           elasticache_config_endpoint: localhost
 
       Handler: daily_commute.handler
