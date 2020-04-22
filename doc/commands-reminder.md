@@ -1,6 +1,8 @@
-### local debugging with ngrok 
-./ngrok http 3001  
+### Local debugging with ngrok
+`./ngrok http 3001`
 
+### Generate requirements
+`pipenv run pipenv_to_requirements -f`     
 
 ### Lambda endpoint
 `{

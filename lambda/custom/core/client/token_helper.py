@@ -5,9 +5,8 @@ import json
 import calendar
 from datetime import datetime, timedelta
 
-import boto3
 from botocore.exceptions import ClientError
-import base64
+import boto3
 import requests
 
 logger = logging.getLogger("Lambda")
@@ -20,7 +19,7 @@ class TokenHelper:
         self.SECRET_NAME: str = os.environ["secret_name"]
         self.OPEN_DATA_API_ENDPOINT: str = os.environ["open_data_api_endpoint"]
         self.TOKEN_VALIDITY_TIME: str = os.environ["open_data_api_token_validity"]
-        self.api_credentials: str = self._get_api_credentials()
+        self.api_credentials: str = self._get_api_credentials_from_ssm()
         self.security_token: str = self._retrieve_api_access_token()
         self._set_token_expiration_date()
 
@@ -38,56 +37,31 @@ class TokenHelper:
         unix_timestamp = current_time.timestamp()
         return unix_timestamp > self.token_expiration_date
 
-    def _get_api_credentials(self) -> str:
-        """Get OpenData api credentials from AWS secrets manager."""
+    def _get_api_credentials_from_ssm(self) -> str:
+        """Get OpenData api credentials from AWS SSM Parameter Store (free stuff gooood)."""
 
         secret = None
         secret_name = self.SECRET_NAME
         region_name = "eu-west-1"
 
-        # Create a Secrets Manager client
+        # Create a SSM Parameter Store client
         session = boto3.session.Session()
-        client = session.client(service_name="secretsmanager", region_name=region_name)
-
-        # In this sample we only handle the specific exceptions for the 'GetSecretValue' API.
-        # See https://docs.aws.amazon.com/secretsmanager/latest/apireference/API_GetSecretValue.html
-        # We rethrow the exception by default.
+        client = session.client(service_name="ssm", region_name=region_name)
 
         try:
             logger.info(
-                "Getting secret value for secret '{}' from secret manager".format(
+                "Getting secret value for secret [{}] from SSM parameter store".format(
                     secret_name
                 )
             )
-            get_secret_value_response = client.get_secret_value(SecretId=secret_name)
+            get_secret_value_response = client.get_parameter(
+                Name=secret_name, WithDecryption=True
+            )
         except ClientError as e:
-            if e.response["Error"]["Code"] == "DecryptionFailureException":
-                # Secrets Manager can't decrypt the protected secret text using the provided KMS key.
-                # Deal with the exception here, and/or rethrow at your discretion.
-                raise e
-            elif e.response["Error"]["Code"] == "InternalServiceErrorException":
-                # An error occurred on the server side.
-                # Deal with the exception here, and/or rethrow at your discretion.
-                raise e
-            elif e.response["Error"]["Code"] == "InvalidParameterException":
-                # You provided an invalid value for a parameter.
-                # Deal with the exception here, and/or rethrow at your discretion.
-                raise e
-            elif e.response["Error"]["Code"] == "InvalidRequestException":
-                # You provided a parameter value that is not valid for the current state of the resource.
-                # Deal with the exception here, and/or rethrow at your discretion.
-                raise e
-            elif e.response["Error"]["Code"] == "ResourceNotFoundException":
-                # We can't find the resource that you asked for.
-                # Deal with the exception here, and/or rethrow at your discretion.
-                raise e
+            raise e
         else:
             # Decrypts secret using the associated KMS CMK.
-            # Depending on whether the secret is a string or binary, one of these fields will be populated.
-            if "SecretString" in get_secret_value_response:
-                secret = get_secret_value_response["SecretString"]
-            else:
-                secret = base64.b64decode(get_secret_value_response["SecretBinary"])
+            secret = get_secret_value_response.get("Parameter").get("Value")
 
         return secret
 
@@ -102,6 +76,7 @@ class TokenHelper:
         )
         client_auth = requests.auth.HTTPBasicAuth(client_id, client_secret)
         post_data = {"grant_type": "client_credentials"}
+        # Todo: Add try/except statements for error handling
         response = requests.post(request_url, auth=client_auth, data=post_data)
         token_json = response.json()
         return token_json["access_token"]

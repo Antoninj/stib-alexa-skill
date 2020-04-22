@@ -1,6 +1,11 @@
 {
+  "Parameters" : {
+    "STAGE" : "Sandbox"
+  },
   "Tags":
   {
-    "awscodestar:projectArn":"arn:$PARTITION$:codestar:$AWS_REGION$:$ACCOUNT_ID$:project/$PROJECT_ID$"
+    "awscodestar:projectArn":"arn:$PARTITION$:codestar:$AWS_REGION$:$ACCOUNT_ID$:project/$PROJECT_ID$",
+    "project:type" : "Custom Alexa Skill",
+    "project:name" : "STIB Schedule"
   }
 }

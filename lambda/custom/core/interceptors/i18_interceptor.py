@@ -1,9 +1,9 @@
+import logging
+import gettext
+
 from ask_sdk_core.dispatch_components import AbstractRequestInterceptor
 from ask_sdk_core.handler_input import HandlerInput
 from ask_sdk_core.utils import get_locale
-
-import logging
-import gettext
 
 logger = logging.getLogger("Lambda")
 

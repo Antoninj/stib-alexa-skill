@@ -1,13 +1,15 @@
 # -*- coding: utf-8 -*-
 import json
-import requests
 import os
 import logging
+from typing import Optional
+
 import six
 
 from ask_sdk_core.exceptions import ApiClientException
 from ask_sdk_model.services import ApiClient, ApiClientResponse, ApiClientRequest
 from urllib3.util import parse_url
+import requests
 
 from .token_helper import TokenHelper
 

@@ -14,7 +14,6 @@ from core.handlers.custom.favorite_stop_intent_handler import *
 from core.handlers.custom.save_trip_preferences_intent_handler import (
     SaveTripPreferencesHandler,
 )
-
 from core.handlers.launch_handler import LaunchRequestHandler
 from core.handlers.amazon.common_intents_handlers import *
 from core.handlers.amazon.repeat_intent_handler import RepeatHandler
@@ -33,6 +32,7 @@ from core.data import data
 # Environment variables definitions
 ENVIRONMENT = os.environ["env"]
 LOGGING_LEVEL = os.environ["log_level"]
+DYNAMO_DB_TABLE_NAME = os.environ["dynamo_db_table_name"]
 
 # Logging configuration
 logger = logging.getLogger("Lambda")
@@ -44,7 +44,7 @@ def setup_skill_builder(service: OpenDataService) -> CustomSkillBuilder:
 
     logger.info("Setting up Custom Skill Builder with Dynamo DB persistence adapter...")
     dynamo_db_adapter = DynamoDbAdapter(
-        table_name="DailyCommuteFavorites",
+        table_name=DYNAMO_DB_TABLE_NAME,
         partition_key_name="id",
         attribute_name="attributes",
         create_table=True,
@@ -83,6 +83,11 @@ def setup_skill_builder(service: OpenDataService) -> CustomSkillBuilder:
 # Create new Open Data API client and service instances
 logger.info("Setting up Open Data API service")
 stib_service = OpenDataService(stib_api_client=OpenDataAPIClient())
+
+data = stib_service.get_stops_by_line_id("93")
+logger.info(data)
+data = stib_service.get_stops_by_line_id("71")
+logger.info(data)
 
 # Set up the skill builder and lambda handler
 sb = setup_skill_builder(service=stib_service)

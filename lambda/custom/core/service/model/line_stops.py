@@ -1,22 +1,11 @@
 # -*- coding: utf-8 -*-
-from dataclasses import dataclass, field
 from typing import List, Optional
-from dataclasses_json import dataclass_json, LetterCase
-from .passing_times import Destination
 from enum import Enum
-import pandas as pd
-import os
 
-ROUTE_DATAPATH = os.path.dirname(os.path.abspath(__file__)) + "/routes.txt"
-STOP_DATAPATH = os.path.dirname(os.path.abspath(__file__)) + "/stops.txt"
-STOP_TRANSLATONS_DATAPATH = (
-    os.path.dirname(os.path.abspath(__file__)) + "/translations.txt"
-)
+from dataclasses import dataclass, field
+from dataclasses_json import dataclass_json, LetterCase
 
-routes_df = pd.read_csv(ROUTE_DATAPATH)
-stops_df = pd.read_csv(STOP_DATAPATH)
-stops_translations_df = pd.read_csv(STOP_TRANSLATONS_DATAPATH)
-# Todo: get rid of pandas/numpy dependency in this class
+from .passing_times import Destination
 
 
 class RouteType(Enum):
@@ -38,7 +27,7 @@ class LinePoint:
     stop_name_fr: str = ""
     stop_name_nl: str = ""
 
-    def __post_init__(self):
+    def set_stop_names(self, stops_df, stops_translations_df):
         # todo: fix this... why the hell is there missing data in the first place?
         try:
             self.stop_name = stops_df[stops_df["stop_id"] == self.id].iloc[0][
@@ -69,7 +58,7 @@ class LineDetails:
     points: List[LinePoint] = field(default_factory=list)
     route_type: Optional[RouteType] = None
 
-    def __post_init__(self):
+    def set_route_type(self, routes_df):
         try:
             self.route_type = RouteType(
                 routes_df[routes_df["route_short_name"] == self.line_id].iloc[0][
@@ -78,4 +67,4 @@ class LineDetails:
             )
         except:
             # Hardcode the route type if not defined... need to change this later
-            self.route_type = RouteType(0)
+            self.route_type = RouteType(1)
