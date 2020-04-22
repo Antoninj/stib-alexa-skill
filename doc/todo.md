@@ -26,8 +26,7 @@ from python standard library instead !!!
 
 ### CICD
 - Create new CF template to deploy custom VPC, 
-  elasticache cluster, dynamo DB table and parameter store
-  parameters
+  elasticache cluster
 - Add unit tests to build process
 - Extend test suite
 - Add code coverage to build process
