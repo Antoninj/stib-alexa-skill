@@ -46,7 +46,7 @@ Resources:
         Variables:
           env: !Ref STAGE
           log_level: DEBUG
-          secret_name: !Sub 'OpenData${Stage}Secret'
+          secret_name: !Sub 'OpenData${STAGE}Secret'
           open_data_api_endpoint: !Ref OpenDataAPIEndpoint
           open_data_api_token_validity: !Ref OpenDataAPITokenValidity
           dynamo_db_table_name: !Ref DynamoDBTableName
