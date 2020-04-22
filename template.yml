@@ -10,7 +10,7 @@ Parameters:
   CodeDeployRole:
     Type: String
     Description: IAM role to allow AWS CodeDeploy to manage deployment of AWS Lambda functions
-  STAGE:
+  Stage:
     Type: String
     Description: The name for a project pipeline stage, such as Staging or Prod, for which resources are provisioned and deployed.
     Default: ''
@@ -44,9 +44,9 @@ Resources:
       CodeUri: 'lambda/custom'
       Environment:
         Variables:
-          env: !Ref STAGE
+          env: !Ref Stage
           log_level: DEBUG
-          secret_name: !Sub 'OpenData${STAGE}Secret'
+          secret_name: !Sub 'OpenData${Stage}Secret'
           open_data_api_endpoint: !Ref OpenDataAPIEndpoint
           open_data_api_token_validity: !Ref OpenDataAPITokenValidity
           dynamo_db_table_name: !Ref DynamoDBTableName

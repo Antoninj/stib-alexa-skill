@@ -20,7 +20,8 @@ from python standard library instead !!!
 - Add detailed skill description
 - Prepare app for production 
     - Setup correct logging config 
-    - Use STIB API production environment
+    - Use STIB API production environment 
+      in template configuration file
     - Use memcached Elasticache cluster configuration endpoint
 
 ### CICD
