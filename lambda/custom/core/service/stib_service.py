@@ -6,7 +6,7 @@ import zipfile
 from typing import List, Optional
 
 from ask_sdk_model.services import ApiClientRequest, ApiClient
-import hermes.backend.memcached
+import hermes.backend.dict
 
 from .model.passing_times import PointPassingTimes, PassingTime
 from .model.line_stops import LineDetails
@@ -17,11 +17,8 @@ import pandas as pd
 
 logger = logging.getLogger("Lambda")
 
-ELASTICACHE_CONFIG_ENDPOINT = os.environ["elasticache_config_endpoint"]
-cache = hermes.Hermes(
-    backendClass=hermes.backend.memcached.Backend,
-    servers=[ELASTICACHE_CONFIG_ENDPOINT],
-)
+# ELASTICACHE_CONFIG_ENDPOINT = os.environ["elasticache_config_endpoint"]
+cache = hermes.Hermes(backendClass=hermes.backend.dict.Backend)
 
 
 class OpenDataService:
@@ -81,6 +78,8 @@ class OpenDataService:
         )
         # Todo: Add try/except statements for error handling
         response = self.api_client.invoke(api_request)
+        logger.debug(response.body.content)
+        logger.debug(zipfile.is_zipfile(io.BytesIO(response.body.content)))
         with zipfile.ZipFile(io.BytesIO(response.body.content)) as gtfs_zip_file:
             logger.debug("GTFS data zip file content: %s", gtfs_zip_file.namelist())
             csv_file = io.BytesIO(gtfs_zip_file.read(name=gtfs_file_name))

@@ -8,7 +8,7 @@ from python standard library instead !
 - Add support for nl-NL locale (not available yet)
     
 ### Functionality:
-- Add caching layer for STIB API data => validate implementation on AWS infra
+- Add caching layer for STIB API data => validate implementation on AWS infra using elasticache (memcached) 
 - Implement error handling for API calls
 - Correctly compute waiting time when bus/tram/metro is leaving 
  in less than one minute and when bus/tram/metro leaves after midnight
@@ -28,7 +28,6 @@ from python standard library instead !
 - Create new CF template to deploy custom VPC and elasticache cluster
 - Add unit tests to build process
 - Improve test suite
-- Use Public GitHub as alternative source control system
 
 ### Nice to have:
 - Implement personalisation 
