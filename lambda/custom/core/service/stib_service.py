@@ -11,8 +11,6 @@ import hermes.backend.memcached
 from .model.passing_times import PointPassingTimes, PassingTime
 from .model.line_stops import LineDetails
 
-import pandas as pd
-
 # Todo: get rid of pandas/numpy dependency
 
 logger = logging.getLogger("Lambda")
@@ -95,13 +93,12 @@ class OpenDataService:
         logger.debug("Enhancing line details with STIB network GTFS data")
         filenames = ["routes.txt", "stops.txt", "translations.txt"]
         csv_files = self.get_gtfs_data(csv_filenames=filenames)
-        routes_df = pd.read_csv(csv_files["routes.txt"])
-        stops_df = pd.read_csv(csv_files["stops.txt"])
-        stops_translations_df = pd.read_csv(csv_files["translations.txt"])
         for line_detail in line_details:
-            line_detail.set_route_type(routes_df)
+            line_detail.set_route_type(csv_files["routes.txt"])
             [
-                line_point.set_stop_names(stops_df, stops_translations_df)
+                line_point.set_stop_names(
+                    csv_files["stops.txt"], csv_files["translations.txt"]
+                )
                 for line_point in line_detail.points
             ]
 

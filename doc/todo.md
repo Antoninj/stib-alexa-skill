@@ -1,14 +1,14 @@
 ### Optimization:
 - Get rid of Pandas/Numpy dependencies and use csv 
 from python standard library instead !
+- Add caching layer for STIB API data => validate implementation on AWS infra using elasticache (memcached) 
 
 ### I18N:
 - Add support for English locale(s)
 - Add support for fr-BE locale (not available yet)
 - Add support for nl-NL locale (not available yet)
     
-### Functionality:
-- Add caching layer for STIB API data => validate implementation on AWS infra using elasticache (memcached) 
+### Functionality/UX:
 - Implement error handling for API calls
 - Correctly compute waiting time when bus/tram/metro is leaving 
  in less than one minute and when bus/tram/metro leaves after midnight
