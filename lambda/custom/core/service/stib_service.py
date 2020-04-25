@@ -3,15 +3,13 @@ import io
 import logging
 import os
 import zipfile
-from typing import List, Optional
+from typing import List, Optional, Dict
 
 from ask_sdk_model.services import ApiClientRequest, ApiClient
 import hermes.backend.memcached
 
 from .model.passing_times import PointPassingTimes, PassingTime
 from .model.line_stops import LineDetails
-
-import pandas as pd
 
 # Todo: get rid of pandas/numpy dependency
 
@@ -70,10 +68,10 @@ class OpenDataService:
         return line_details
 
     @cache(ttl=1209600)  # Cache STIB data for two weeks as per their recommendations
-    def get_gtfs_data(self, gtfs_file_name: str) -> io.BytesIO:
+    def get_gtfs_data(self, csv_filenames: List[str]) -> Dict[str, io.BytesIO]:
         """Retrieve GTFS files of the STIB network."""
 
-        logger.debug("Getting GTFS file [%s]", gtfs_file_name)
+        logger.debug("Getting GTFS files %s", csv_filenames)
         api_request = ApiClientRequest(
             url=self.GTFS_FILES_SUFFIX,
             method="GET",
@@ -81,22 +79,26 @@ class OpenDataService:
         )
         # Todo: Add try/except statements for error handling
         response = self.api_client.invoke(api_request)
-        with zipfile.ZipFile(io.BytesIO(response.body.content)) as gtfs_zip_file:
-            logger.debug("GTFS data zip file content: %s", gtfs_zip_file.namelist())
-            csv_file = io.BytesIO(gtfs_zip_file.read(name=gtfs_file_name))
-            return csv_file
+        file = io.BytesIO(response.body.content)
+        if zipfile.is_zipfile(file):
+            with zipfile.ZipFile(file) as gtfs_zip_file:
+                logger.debug("GTFS data zip file content: %s", gtfs_zip_file.namelist())
+                csv_files = {
+                    csv_filename: io.BytesIO(gtfs_zip_file.read(name=csv_filename))
+                    for csv_filename in csv_filenames
+                }
+                return csv_files
 
     def enhance_line_details_with_gtfs_data(self, line_details: List[LineDetails]):
         logger.debug("Enhancing line details with STIB network GTFS data")
-        routes_df = pd.read_csv(self.get_gtfs_data(gtfs_file_name="routes.txt"))
-        stops_df = pd.read_csv(self.get_gtfs_data(gtfs_file_name="stops.txt"))
-        stops_translations_df = pd.read_csv(
-            self.get_gtfs_data(gtfs_file_name="translations.txt")
-        )
+        filenames = ["routes.txt", "stops.txt", "translations.txt"]
+        csv_files = self.get_gtfs_data(csv_filenames=filenames)
         for line_detail in line_details:
-            line_detail.set_route_type(routes_df)
+            line_detail.set_route_type(csv_files["routes.txt"])
             [
-                line_point.set_stop_names(stops_df, stops_translations_df)
+                line_point.set_stop_names(
+                    csv_files["stops.txt"], csv_files["translations.txt"]
+                )
                 for line_point in line_detail.points
             ]
 
