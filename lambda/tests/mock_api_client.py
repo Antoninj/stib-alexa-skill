@@ -1,3 +1,5 @@
+import os
+
 from ask_sdk_model.services import ApiClient, ApiClientResponse
 import json
 
@@ -86,7 +88,15 @@ STOPS_BY_LINE_SUCCESS_API_RESPONSE = (
 )
 
 
-class MockResponse:
+class BinaryMockResponse:
+    def __init__(self, binary_content):
+        self.content = binary_content
+
+    def content(self):
+        return self.content
+
+
+class JsonMockResponse:
     def __init__(self, json_data, status_code):
         self.json_data = json_data
         self.status_code = status_code
@@ -104,13 +114,19 @@ class MockAPIClient(ApiClient):
     def invoke(self, request):
         url = request.url
         if PASSING_TIME_BY_POINT_SUFFIX in url:
-            mock_api_response = MockResponse(
+            mock_api_response = JsonMockResponse(
                 json.loads(PASSING_TIME_BY_POINT_SUCCESS_API_RESPONSE), "200"
             )
-        else:
-            mock_api_response = MockResponse(
+        elif STOPS_BY_LINE_SUFFIX in url:
+            mock_api_response = JsonMockResponse(
                 json.loads(STOPS_BY_LINE_SUCCESS_API_RESPONSE), "200"
             )
+        else:
+            with open(
+                os.path.dirname(os.path.dirname(__file__)) + "/tests/gtfs.zip", "rb"
+            ) as gtfs_zip_file:
+                data = gtfs_zip_file.read()
+            mock_api_response = BinaryMockResponse(binary_content=data)
 
         api_client_response = ApiClientResponse(body=mock_api_response)
         return api_client_response

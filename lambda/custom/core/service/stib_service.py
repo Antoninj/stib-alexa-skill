@@ -11,8 +11,6 @@ import hermes.backend.memcached
 from .model.passing_times import PointPassingTimes, PassingTime
 from .model.line_stops import LineDetails
 
-# Todo: get rid of pandas/numpy dependency
-
 logger = logging.getLogger("Lambda")
 
 ELASTICACHE_CONFIG_ENDPOINT = os.environ["elasticache_config_endpoint"]
@@ -25,7 +23,7 @@ cache = hermes.Hermes(
 class OpenDataService:
     """Service to handle custom OpenData API endpoints queries."""
 
-    GTFS_FILES_SUFFIX = "/Files/2.0/Gtfs"
+    GTFS_FILES_SUFFIX: str = "/Files/2.0/Gtfs"
     PASSING_TIME_BY_POINT_SUFFIX: str = "/OperationMonitoring/4.0/PassingTimeByPoint/"
     STOPS_BY_LINE_SUFFIX: str = "/NetworkDescription/1.0/PointByLine/"
 

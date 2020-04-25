@@ -1,6 +1,4 @@
 ### Optimization:
-- Get rid of Pandas/Numpy dependencies and use csv 
-from python standard library instead !
 - Add caching layer for STIB API data => validate implementation on AWS infra using elasticache (memcached) 
 
 ### I18N:

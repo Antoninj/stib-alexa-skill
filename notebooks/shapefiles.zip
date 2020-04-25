@@ -1,1 +1,0 @@
-<ams:fault xmlns:ams="http://wso2.org/apimanager/security"><ams:code>900908</ams:code><ams:message>Resource forbidden </ams:message><ams:description>Access failure for API: /Files/2.0, version: 2.0</ams:description></ams:fault>
