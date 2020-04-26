@@ -23,7 +23,8 @@
     - Use memcached Elasticache cluster configuration endpoint
 
 ### CICD
-- Create new CF template to deploy custom VPC and elasticache cluster
+- Add Elasticache cluster to infra template
+- Update codepipeline project to deploy infra template
 - Add unit tests to build process
 - Improve test suite
 

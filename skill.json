@@ -10,7 +10,9 @@
 					],
 					"keywords": ["STIB", "STIB-MIVB", "bruxelles", "transports en commun", "horaires", "temps réel"],
 					"name": "Réseau STIB-MIVB",
-					"description": "Informations sur le réseau STIB-MIVB en temps réel"
+					"description": "Informations sur le réseau STIB-MIVB en temps réel",
+					"smallIconUri": "file://assets/images/fr-FR_smallIcon.png",
+					"largeIconUri": "file://assets/images/fr-FR_largeIcon.png"
 				}
 			},
 			"isAvailableWorldwide": false,
