@@ -136,6 +136,36 @@ Resources:
         - !Ref privateRouteTable
       ServiceName: !Sub com.amazonaws.${AWS::Region}.dynamodb
       VpcId: !Ref pubPrivateVPC
+  ElastiCacheSubnetGroup:
+    Type: 'AWS::ElastiCache::SubnetGroup'
+    Properties:
+      CacheSubnetGroupName: "commute-skill-cache-subnet"
+      Description: Cache Subnet Group
+      SubnetIds:
+        - !Ref privateSubnet1
+        - !Ref privateSubnet2
+  ElasticacheSecurityGroup:
+    Type: 'AWS::EC2::SecurityGroup'
+    Properties:
+      GroupDescription: Elasticache Security Group
+      SecurityGroupIngress:
+        - IpProtocol: tcp
+          FromPort: '11211'
+          ToPort: '11211'
+          SourceSecurityGroupName: !GetAtt pubPrivateVPC.DefaultSecurityGroup
+  ElasticacheCluster:
+    Type: 'AWS::ElastiCache::CacheCluster'
+    Properties:
+      AutoMinorVersionUpgrade: 'true'
+      Engine: memcached
+      CacheNodeType: cache.t3.micro
+      NumCacheNodes: '1'
+      CacheSubnetGroupName: "commute-skill-cache-subnet"
+      VpcSecurityGroupIds:
+        - !GetAtt
+          - ElasticacheSecurityGroup
+          - GroupId
+
 Outputs:
   pubPrivateVPCID:
     Description: VPC ID
@@ -162,3 +192,7 @@ Outputs:
     Value: !GetAtt pubPrivateVPC.DefaultSecurityGroup
     Export:
       Name: !Join ["-", [!Ref "AWS::StackName","vpc-sg"]]
+  elasticacheConfigurationEndpoint:
+    Description: Elasticache cluster configuration endpoint
+    Value:  !Join  [":",[!GetAtt ElasticacheCluster.ConfigurationEndpoint.Address,
+                         !GetAtt ElasticacheCluster.ConfigurationEndpoint.Port ]]

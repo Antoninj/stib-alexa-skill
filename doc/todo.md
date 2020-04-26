@@ -1,5 +1,5 @@
 ### Optimization:
-- Add caching layer for STIB API data => validate implementation on AWS infra using elasticache (memcached) 
+- 
 
 ### I18N:
 - Add support for English locale(s)
@@ -16,6 +16,7 @@
 - Get official STIB logos/icons
 - Add detailed testing instructions
 - Add detailed skill description
+- Add skill privacy policy
 - Prepare app for production
     - Setup correct logging config
     - Use STIB API production environment
@@ -26,7 +27,8 @@
 - Add Elasticache cluster to infra template
 - Update codepipeline project to deploy infra template
 - Add unit tests to build process
-- Improve test suite
+- Add code coverage
+- Extend test suite
 
 ### Nice to have:
 - Implement personalisation
