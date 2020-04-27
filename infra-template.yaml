@@ -196,3 +196,5 @@ Outputs:
     Description: Elasticache cluster configuration endpoint
     Value:  !Join  [":",[!GetAtt ElasticacheCluster.ConfigurationEndpoint.Address,
                          !GetAtt ElasticacheCluster.ConfigurationEndpoint.Port ]]
+    Export:
+      Name: !Join ["-", [!Ref "AWS::StackName","elasticache-configuration-endpoint"]]

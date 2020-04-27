@@ -24,7 +24,6 @@
     - Use memcached Elasticache cluster configuration endpoint
 
 ### CICD
-- Add Elasticache cluster to infra template
 - Update codepipeline project to deploy infra template
 - Add unit tests to build process
 - Add code coverage

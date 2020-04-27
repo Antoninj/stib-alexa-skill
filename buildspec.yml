@@ -15,5 +15,6 @@ phases:
 
 artifacts:
   files:
+    - infra-template.yaml
     - template-export.yml
     - template-configuration.json

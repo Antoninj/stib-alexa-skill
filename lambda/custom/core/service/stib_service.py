@@ -30,7 +30,7 @@ class OpenDataService:
     def __init__(self, stib_api_client: ApiClient):
         self.api_client = stib_api_client
 
-    @cache(ttl=20)  # Cache STIB data for 20 seconds as per their recommendations
+    @cache(ttl=20)  # Cache arrival times data for 20 seconds
     def get_passing_times_for_stop_id_and_line_id(
         self, stop_id: str, line_id: str
     ) -> Optional[List[PassingTime]]:
@@ -50,9 +50,9 @@ class OpenDataService:
 
         return self._filter_passing_times_by_line_id(point_passing_times, line_id)
 
-    @cache(ttl=86400)  # Cache STIB data for one day as per their recommendations
+    @cache(ttl=86400)  # Cache STIB line data for one day
     def get_stops_by_line_id(self, line_id: str) -> Optional[List[LineDetails]]:
-        """Retrieve line information based on a line ID of the STIB networks."""
+        """Retrieve line information based on a line ID of the STIB network."""
 
         logger.info("Getting line details for line [%s]", line_id)
         request_url = self.STOPS_BY_LINE_SUFFIX + line_id
@@ -65,7 +65,7 @@ class OpenDataService:
 
         return line_details
 
-    @cache(ttl=1209600)  # Cache STIB data for two weeks as per their recommendations
+    @cache(ttl=1209600)  # Cache GTFS data for two weeks
     def get_gtfs_data(self, csv_filenames: List[str]) -> Dict[str, io.BytesIO]:
         """Retrieve GTFS files of the STIB network."""
 
@@ -124,7 +124,7 @@ class OpenDataService:
     def _get_max_line_passing_times(
         line_passing_times: List[PassingTime], max_passing_times: int = 2
     ) -> List[PassingTime]:
-        """Define method here."""
+        """Limit maximum amount of passing times returned."""
 
         if line_passing_times and (len(line_passing_times) >= max_passing_times):
             return line_passing_times[:max_passing_times]
