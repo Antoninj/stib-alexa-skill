@@ -1,5 +1,6 @@
 ### Optimization:
-- 
+- remove notebooks and dev doc from source control
+- update readme file with exhaustive description of the skill purpose/usage/technologies/architecture
 
 ### I18N:
 - Add support for English locale(s)
@@ -25,8 +26,8 @@
 
 ### CICD
 - Update codepipeline project to deploy infra template
-- Add unit tests to build process
-- Add code coverage
+- Add unit tests to build process?
+- Add code coverage?
 - Extend test suite
 
 ### Nice to have:

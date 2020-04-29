@@ -1,36 +1,58 @@
 {
-	"manifest": {
-		"publishingInformation": {
-			"locales": {
-				"fr-FR": {
-					"summary": "Informations sur le réseau STIB-MIVB en temps réel",
-					"examplePhrases": [
-						"Alexa ouvre horaires stib",
-						"Alexa demande à horaires stib quand passe le prochain tram"
-					],
-					"keywords": ["STIB", "STIB-MIVB", "bruxelles", "transports en commun", "horaires", "temps réel"],
-					"name": "Réseau STIB-MIVB",
-					"description": "Informations sur le réseau STIB-MIVB en temps réel",
-					"smallIconUri": "file://assets/images/fr-FR_smallIcon.png",
-					"largeIconUri": "file://assets/images/fr-FR_largeIcon.png"
-				}
-			},
-			"isAvailableWorldwide": false,
-			"testingInstructions": "Sample Testing Instructions.",
-			"category": "PUBLIC_TRANSPORTATION",
-			"distributionCountries": ["FR", "BE"],
-			"distributionMode": "PUBLIC"
-		},
-		"apis": {
-			"custom": {}
-		},
-		"manifestVersion": "1.0",
-		"privacyAndCompliance": {
-		  "allowsPurchases": false,
-		  "usesPersonalInfo": false,
-		  "isChildDirected": false,
-		  "isExportCompliant": true,
-		  "containsAds": false
-		}
-	}
+  "manifest": {
+    "publishingInformation": {
+      "locales": {
+        "fr-FR": {
+          "summary": "Informations sur le réseau STIB-MIVB en temps réel",
+          "examplePhrases": [
+            "Alexa ouvre horaires stib",
+            "Alexa demande à horaires stib quand passe le prochain tram",
+            "Alexa demande à horaires stib dans combien de temps passe mon bus",
+            "Alexa ouvre horaires stib et configure mon trajet favori",
+            "Alexa ouvre horaires stib et modifie mon trajet favori"
+          ],
+          "keywords": [
+            "STIB",
+            "STIB-MIVB",
+            "bruxelles",
+            "transports en commun",
+            "horaires",
+            "temps réel",
+            "bus",
+            "métro",
+            "tram"
+          ],
+          "name": "Réseau STIB-MIVB",
+          "description": "Informations sur le réseau STIB-MIVB en temps réel",
+          "smallIconUri": "file://assets/images/fr-FR_smallIcon.png",
+          "largeIconUri": "file://assets/images/fr-FR_largeIcon.png"
+        }
+      },
+      "isAvailableWorldwide": false,
+      "testingInstructions": "Sample Testing Instructions.",
+      "category": "PUBLIC_TRANSPORTATION",
+      "distributionCountries": [
+        "FR",
+        "BE"
+      ],
+      "distributionMode": "PUBLIC"
+    },
+    "apis": {
+      "custom": {}
+    },
+    "manifestVersion": "1.0",
+    "privacyAndCompliance": {
+      "allowsPurchases": false,
+      "usesPersonalInfo": false,
+      "isChildDirected": false,
+      "isExportCompliant": true,
+      "containsAds": false,
+      "locales": {
+        "fr-FR": {
+          "privacyPolicyUrl": "http://www.myprivacypolicy.sampleskill.com",
+          "termsOfUseUrl": "http://www.termsofuse.sampleskill.com"
+        }
+      }
+    }
+  }
 }

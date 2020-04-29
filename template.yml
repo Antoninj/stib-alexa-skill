@@ -29,6 +29,7 @@ Parameters:
 
 Globals:
   Function:
+    MemorySize: 256
     Timeout: 20
     AutoPublishAlias: live
     DeploymentPreference:
