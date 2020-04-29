@@ -23,10 +23,8 @@
           "description": "Informations sur le réseau STIB-MIVB en temps réel. Ce produit/service/application se base sur des données fournies à l’origine par la STIB qui ont été mises à jour le 22 Mars 2020 et qui en totalité ou partiellement ont été modifiées par Antonin Jousson.",
           "examplePhrases": [
             "Alexa ouvre horaires stib",
-            "Alexa demande à horaires stib quand passe le prochain tram",
-            "Alexa demande à horaires stib dans combien de temps passe mon bus",
             "Alexa ouvre horaires stib et configure mon trajet favori",
-            "Alexa ouvre horaires stib et modifie mon trajet favori"
+            "Alexa demande à horaires stib quand passe le prochain tram"
           ],
           "keywords": [
             "STIB",
