@@ -1,9 +1,26 @@
 {
   "manifest": {
+    "apis": {
+      "custom": {}
+    },
+    "manifestVersion": "1.0",
+    "privacyAndCompliance": {
+      "allowsPurchases": false,
+      "usesPersonalInfo": false,
+      "isChildDirected": false,
+      "isExportCompliant": true,
+      "containsAds": false,
+      "locales": {
+        "fr-FR": {
+          "privacyPolicyUrl": "http://www.myprivacypolicy.sampleskill.com",
+          "termsOfUseUrl": "http://www.termsofuse.sampleskill.com"
+        }
+      }
+    },
     "publishingInformation": {
       "locales": {
         "fr-FR": {
-          "summary": "Informations sur le réseau STIB-MIVB en temps réel",
+          "description": "Informations sur le réseau STIB-MIVB en temps réel. Ce produit/service/application se base sur des données fournies à l’origine par la STIB qui ont été mises à jour le 22 Mars 2020 et qui en totalité ou partiellement ont été modifiées par Antonin Jousson.",
           "examplePhrases": [
             "Alexa ouvre horaires stib",
             "Alexa demande à horaires stib quand passe le prochain tram",
@@ -22,10 +39,10 @@
             "métro",
             "tram"
           ],
+          "largeIconUri": "file://assets/images/fr-FR_largeIcon.png",
           "name": "Réseau STIB-MIVB",
-          "description": "Informations sur le réseau STIB-MIVB en temps réel",
           "smallIconUri": "file://assets/images/fr-FR_smallIcon.png",
-          "largeIconUri": "file://assets/images/fr-FR_largeIcon.png"
+          "summary": "Informations sur le réseau STIB-MIVB en temps réel"
         }
       },
       "isAvailableWorldwide": false,
@@ -36,23 +53,6 @@
         "BE"
       ],
       "distributionMode": "PUBLIC"
-    },
-    "apis": {
-      "custom": {}
-    },
-    "manifestVersion": "1.0",
-    "privacyAndCompliance": {
-      "allowsPurchases": false,
-      "usesPersonalInfo": false,
-      "isChildDirected": false,
-      "isExportCompliant": true,
-      "containsAds": false,
-      "locales": {
-        "fr-FR": {
-          "privacyPolicyUrl": "http://www.myprivacypolicy.sampleskill.com",
-          "termsOfUseUrl": "http://www.termsofuse.sampleskill.com"
-        }
-      }
     }
   }
 }
