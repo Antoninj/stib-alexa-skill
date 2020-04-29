@@ -1,4 +1,6 @@
-# Documentation
+### Documentation ###
+
+doc
 
 # Created by https://www.gitignore.io/api/python,pycharm,jupyternotebooks
 # Edit at https://www.gitignore.io/?templates=python,pycharm,jupyternotebooks
@@ -6,6 +8,8 @@
 ### JupyterNotebooks ###
 # gitignore template for Jupyter Notebooks
 # website: http://jupyter.org/
+
+notebooks
 
 .ipynb_checkpoints
 */.ipynb_checkpoints/*
@@ -213,3 +217,4 @@ dmypy.json
 .pyre/
 
 # End of https://www.gitignore.io/api/python,pycharm,jupyternotebooks
+
