@@ -21,18 +21,15 @@ import zipfile
 from typing import List, Optional, Dict
 
 from ask_sdk_model.services import ApiClientRequest, ApiClient
-import hermes.backend.memcached
+import hermes.backend.dict
 
 from .model.passing_times import PointPassingTimes, PassingTime
 from .model.line_stops import LineDetails
 
 logger = logging.getLogger("Lambda")
 
-ELASTICACHE_CONFIG_ENDPOINT = os.environ["elasticache_config_endpoint"]
-cache = hermes.Hermes(
-    backendClass=hermes.backend.memcached.Backend,
-    servers=[ELASTICACHE_CONFIG_ENDPOINT],
-)
+# ELASTICACHE_CONFIG_ENDPOINT = os.environ["elasticache_config_endpoint"]
+cache = hermes.Hermes(backendClass=hermes.backend.dict.Backend)
 
 
 class OpenDataService:
