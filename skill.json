@@ -9,13 +9,7 @@
       "usesPersonalInfo": false,
       "isChildDirected": false,
       "isExportCompliant": true,
-      "containsAds": false,
-      "locales": {
-        "fr-FR": {
-          "privacyPolicyUrl": "http://www.myprivacypolicy.sampleskill.com",
-          "termsOfUseUrl": "http://www.termsofuse.sampleskill.com"
-        }
-      }
+      "containsAds": false
     },
     "publishingInformation": {
       "locales": {
