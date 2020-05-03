@@ -9,13 +9,7 @@
       "usesPersonalInfo": false,
       "isChildDirected": false,
       "isExportCompliant": true,
-      "containsAds": false,
-      "locales": {
-        "fr-FR": {
-          "privacyPolicyUrl": "http://www.myprivacypolicy.sampleskill.com",
-          "termsOfUseUrl": "http://www.termsofuse.sampleskill.com"
-        }
-      }
+      "containsAds": false
     },
     "publishingInformation": {
       "locales": {
@@ -44,11 +38,13 @@
         }
       },
       "isAvailableWorldwide": false,
-      "testingInstructions": "Sample Testing Instructions.",
+      "testingInstructions": "Francais: La skill commence par demander les préférences de voyage de l'utilisateur sur le réseau STIB-MIVB. Le détail des numéros de ligne et les noms d'arrêts correspondants sont disponibles sur le site de la STIB-MVIB à l'adresse suivante: http://www.stib-mivb.be/horaires-dienstregeling2.html?l=fr. English: The skill first by asking for users trip preferences on the STIB-MIVB network. STIB-MIVB network details and schedules are available here: http://www.stib-mivb.be/horaires-dienstregeling2.html?l=en",
       "category": "PUBLIC_TRANSPORTATION",
       "distributionCountries": [
         "FR",
-        "BE"
+        "BE",
+        "CH",
+        "UK"
       ],
       "distributionMode": "PUBLIC"
     }

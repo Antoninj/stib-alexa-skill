@@ -160,7 +160,7 @@ Resources:
       Engine: memcached
       CacheNodeType: cache.t3.micro
       NumCacheNodes: '1'
-      CacheSubnetGroupName: "commute-skill-cache-subnet"
+      CacheSubnetGroupName: !Ref ElastiCacheSubnetGroup
       VpcSecurityGroupIds:
         - !GetAtt
           - ElasticacheSecurityGroup
