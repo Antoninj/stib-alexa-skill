@@ -9,12 +9,12 @@ Unofficial Alexa skill for retrieving live data from the STIB-MIVB network.
 ------------------------------------------------------------------------
 ## Overview
 
-The brussels public transports company, also known as the STIB-MVIB, has created a 
+The brussels public transports company, also known as the STIB-MIVB, has created a 
 [platform](https://opendata.stib-mivb.be/store/) to make some of its data including timetables, stop names, locations 
 of the stops, line routes and real-time network information publicly available.
 
 This Alexa skill uses the platform to allow users to ask real-time information regarding their usual trips on the
- STIB-MVIB network. The skill currently allows users to configure their favorite trip (favorite STIB-MIVB line and stop name) 
+ STIB-MIVB network. The skill currently allows users to configure their favorite trip (favorite STIB-MIVB line and stop name) 
  and ask for buses, metro and trams arrival times based on their favorite trip. Additional features will be added in the future. 
 
 ## Usage

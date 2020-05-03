@@ -27,6 +27,8 @@ from .passing_times import Destination
 
 logger = logging.getLogger("Lambda")
 
+NOT_FOUND = "NOT FOUND"
+
 
 class RouteType(Enum):
     """STIB network route type enumeration."""
@@ -50,31 +52,34 @@ class LinePoint:
     def set_stop_names(
         self, stops_csv_file: io.BytesIO, translations_csv_file: io.BytesIO
     ):
-        # todo: fix this... why the hell is there missing data in the first place?
-        try:
-            reader = csv.reader(stops_csv_file.getvalue().decode("utf-8").splitlines())
-            for stop_info in reader:
-                if stop_info[0] == self.id:
-                    self.stop_name = stop_info[2]
+        self.stop_name = self.set_generic_stop_name(stops_csv_file)
+        self.stop_name_fr = self.set_stop_name_fr(translations_csv_file)
+        self.stop_name_nl = self.set_stop_name_nl(translations_csv_file)
 
-            reader = csv.reader(
-                translations_csv_file.getvalue().decode("utf-8").splitlines()
-            )
-            for translation_info in reader:
-                if (
-                    translation_info[0] == self.stop_name
-                    and translation_info[2] == "fr"
-                ):
-                    self.stop_name_fr = translation_info[1]
-                if (
-                    translation_info[0] == self.stop_name
-                    and translation_info[2] == "nl"
-                ):
-                    self.stop_name_nl = translation_info[1]
-        except:
-            self.stop_name = "NOT FOUND"
-            self.stop_name_fr = "NOT FOUND"
-            self.stop_name_nl = "NOT FOUND"
+    def set_generic_stop_name(self, stops_csv_file: io.BytesIO) -> str:
+        reader = csv.reader(stops_csv_file.getvalue().decode("utf-8").splitlines())
+        for stop_info in reader:
+            if stop_info[0] == self.id:
+                return stop_info[2]
+        return NOT_FOUND
+
+    def set_stop_name_fr(self, translations_csv_file: io.BytesIO) -> str:
+        reader = csv.reader(
+            translations_csv_file.getvalue().decode("utf-8").splitlines()
+        )
+        for translation_info in reader:
+            if translation_info[0] == self.stop_name and translation_info[2] == "fr":
+                return translation_info[1]
+        return NOT_FOUND
+
+    def set_stop_name_nl(self, translations_csv_file: io.BytesIO) -> str:
+        reader = csv.reader(
+            translations_csv_file.getvalue().decode("utf-8").splitlines()
+        )
+        for translation_info in reader:
+            if translation_info[0] == self.stop_name and translation_info[2] == "nl":
+                return translation_info[1]
+        return NOT_FOUND
 
 
 @dataclass_json(letter_case=LetterCase.CAMEL)
@@ -89,11 +94,11 @@ class LineDetails:
     route_type: Optional[RouteType] = None
 
     def set_route_type(self, routes_csv_file: io.BytesIO):
-        try:
-            reader = csv.reader(routes_csv_file.getvalue().decode("utf-8").splitlines())
-            for route_info in reader:
-                if route_info[1] == self.line_id:
-                    self.route_type = RouteType(int(route_info[4]))
-        except:
-            # Hardcode the route type if not defined... need to change this later
+        reader = csv.reader(routes_csv_file.getvalue().decode("utf-8").splitlines())
+        for route_info in reader:
+            if route_info[1] == self.line_id:
+                self.route_type = RouteType(int(route_info[4]))
+
+        # Hardcode the route type if not defined... need to change this later
+        if not self.route_type:
             self.route_type = RouteType(1)
