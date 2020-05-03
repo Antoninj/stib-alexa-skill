@@ -85,7 +85,7 @@ Outputs:
             "apis": {
               "custom": {
                 "endpoint": {
-                  "uri": "${DailyCommuteFunction.Alias}",
+                  "uri": "${DailyCommuteFunction.Alias}"
                 }
               }
             }

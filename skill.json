@@ -14,7 +14,7 @@
     "publishingInformation": {
       "locales": {
         "fr-FR": {
-          "description": "Informations sur le réseau STIB-MIVB en temps réel. Ce produit/service/application se base sur des données fournies à l’origine par la STIB qui ont été mises à jour le 22 Mars 2020 et qui en totalité ou partiellement ont été modifiées par Antonin Jousson.",
+          "description": "Informations sur le réseau STIB-MIVB en temps réel. Ce produit/service/application se base sur des données fournies à l’origine par la STIB qui ont été mises à jour le 3 Mai 2020 et qui en totalité ou partiellement ont été modifiées par Antonin Jousson.",
           "examplePhrases": [
             "Alexa ouvre horaires stib",
             "Alexa ouvre horaires stib et configure mon trajet favori",
