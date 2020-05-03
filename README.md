@@ -15,7 +15,7 @@ of the stops, line routes and real-time network information publicly available.
 
 This Alexa skill uses the platform to allow users to ask real-time information regarding their usual trips on the
  STIB-MIVB network. The skill currently allows users to configure their favorite trip (favorite STIB-MIVB line and stop name) 
- and ask for buses, metro and trams arrival times based on their favorite trip. Additional features will be added in the future. 
+ and ask for buses/metro/trams arrival times based on their trip preferences. Additional features will be added in the future. 
 
 ## Usage
 
@@ -43,7 +43,7 @@ This skill is built with:
 ![architecture diagram](assets/images/alexa-skill-architecture.svg)
 
 ## Disclaimer
-Ce produit/service/application se base sur des données fournies à l’origine par la STIB qui ont été mises à jour le 22 Mars 2020 et qui en totalité ou partiellement ont été modifiées par Antonin Jousson. 
+Ce produit/service/application se base sur des données fournies à l’origine par la STIB qui ont été mises à jour le 3 Mai 2020 et qui en totalité ou partiellement ont été modifiées par Antonin Jousson. 
 
 ## License
 [Apache v2.0](http://www.apache.org/licenses/LICENSE-2.0)
