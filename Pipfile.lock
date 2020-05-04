@@ -55,17 +55,17 @@
         },
         "boto3": {
             "hashes": [
-                "sha256:39ef75f1351d9dce9542c71602bbe4dbae001df1aa5c75bdacea933d60cc1e7f",
-                "sha256:d345f2ba820f022ab45627913cb427b1fa56d7c1f8e19312eee20874ba800007"
+                "sha256:6374e39ea66433250ac6e4726623fe59ec32bfd52e5c871140c883ab72b0375c",
+                "sha256:7a2474db6576d7d3f5c3336ec54450e34211d44e2342e501a67e2fae35916e63"
             ],
-            "version": "==1.12.48"
+            "version": "==1.13.1"
         },
         "botocore": {
             "hashes": [
-                "sha256:ef4fa3055421cb95a7bf559e715f8c5f656aca30fafef070eca21b13ca3f0f81",
-                "sha256:f3569216d2f0067a34608e26ae1d0035b84fa29ad68d6c5fd26124a4cc86e8c9"
+                "sha256:879cedb22baf9446323240f1cf57d4e0e7ba262ba6fde6d3540cf7fdd7ddad34",
+                "sha256:c6d3dd976c1462a4e0f2dabde09c38de2a641e6b6bb0af505ac8465735796367"
             ],
-            "version": "==1.15.48"
+            "version": "==1.16.1"
         },
         "certifi": {
             "hashes": [
@@ -128,10 +128,10 @@
         },
         "marshmallow": {
             "hashes": [
-                "sha256:90854221bbb1498d003a0c3cc9d8390259137551917961c8b5258c64026b2f85",
-                "sha256:ac2e13b30165501b7d41fc0371b8df35944f5849769d136f20e2c5f6cdc6e665"
+                "sha256:56663fa1d5385c14c6a1236badd166d6dee987a5f64d2b6cc099dadf96eb4f09",
+                "sha256:f12203bf8d94c410ab4b8d66edfde4f8a364892bde1f6747179765559f93d62a"
             ],
-            "version": "==3.5.1"
+            "version": "==3.5.2"
         },
         "marshmallow-enum": {
             "hashes": [
@@ -211,11 +211,11 @@
         },
         "typing-inspect": {
             "hashes": [
-                "sha256:75c97b7854426a129f3184c68588db29091ff58e6908ed520add1d52fc44df6e",
-                "sha256:811b44f92e780b90cfe7bac94249a4fae87cfaa9b40312765489255045231d9c",
-                "sha256:c6ed1cd34860857c53c146a6704a96da12e1661087828ce350f34addc6e5eee3"
+                "sha256:3b98390df4d999a28cf5b35d8b333425af5da2ece8a4ea9e98f71e7591347b4f",
+                "sha256:8f1b1dd25908dbfd81d3bebc218011531e7ab614ba6e5bf7826d887c834afab7",
+                "sha256:de08f50a22955ddec353876df7b2545994d6df08a2f45d54ac8c05e530372ca0"
             ],
-            "version": "==0.5.0"
+            "version": "==0.6.0"
         },
         "urllib3": {
             "hashes": [
@@ -259,17 +259,17 @@
         },
         "boto3": {
             "hashes": [
-                "sha256:39ef75f1351d9dce9542c71602bbe4dbae001df1aa5c75bdacea933d60cc1e7f",
-                "sha256:d345f2ba820f022ab45627913cb427b1fa56d7c1f8e19312eee20874ba800007"
+                "sha256:6374e39ea66433250ac6e4726623fe59ec32bfd52e5c871140c883ab72b0375c",
+                "sha256:7a2474db6576d7d3f5c3336ec54450e34211d44e2342e501a67e2fae35916e63"
             ],
-            "version": "==1.12.48"
+            "version": "==1.13.1"
         },
         "botocore": {
             "hashes": [
-                "sha256:ef4fa3055421cb95a7bf559e715f8c5f656aca30fafef070eca21b13ca3f0f81",
-                "sha256:f3569216d2f0067a34608e26ae1d0035b84fa29ad68d6c5fd26124a4cc86e8c9"
+                "sha256:879cedb22baf9446323240f1cf57d4e0e7ba262ba6fde6d3540cf7fdd7ddad34",
+                "sha256:c6d3dd976c1462a4e0f2dabde09c38de2a641e6b6bb0af505ac8465735796367"
             ],
-            "version": "==1.15.48"
+            "version": "==1.16.1"
         },
         "certifi": {
             "hashes": [
@@ -477,10 +477,10 @@
         },
         "virtualenv": {
             "hashes": [
-                "sha256:5021396e8f03d0d002a770da90e31e61159684db2859d0ba4850fbea752aa675",
-                "sha256:ac53ade75ca189bc97b6c1d9ec0f1a50efe33cbf178ae09452dcd9fd309013c1"
+                "sha256:8bb59b586fea2eb3bb5600f7ef53d11fd4a64806cdf1a7217b29e7d943dbd8dc",
+                "sha256:b86480fc1fe3908a85d7377eee8dc9644a58090b9d3a3701b347c69c308f3e72"
             ],
-            "version": "==20.0.18"
+            "version": "==20.0.19"
         },
         "virtualenv-clone": {
             "hashes": [
