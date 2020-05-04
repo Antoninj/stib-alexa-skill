@@ -21,6 +21,7 @@ from dataclasses import dataclass, field
 from dataclasses_json import dataclass_json, LetterCase
 
 from ..utils.time_utils import TimeUtils
+from ...data import data
 
 
 @dataclass_json(letter_case=LetterCase.CAMEL)
@@ -62,29 +63,33 @@ class PassingTime:
     def __str__(self):
         return self._format_waiting_time()
 
-    def _format_waiting_time(self) -> str:
+    def format_waiting_time(self, translate) -> str:
         """Format waiting time in human readable form."""
         # Todo : Improve this to handle all cases
 
         if self.arriving_in_dict["days"] > 0:
-            formatted_waiting_time = "{} jours, {} heures, {} minutes et {} secondes.".format(
+            formatted_waiting_time = translate(
+                data.ARRIVAL_TIME_DAYS_HOURS_MINUTES_SECONDS
+            ).format(
                 self.arriving_in_dict["days"],
                 self.arriving_in_dict["hours"],
                 self.arriving_in_dict["minutes"],
                 self.arriving_in_dict["seconds"],
             )
         elif self.arriving_in_dict["hours"] > 0:
-            formatted_waiting_time = "{} heures, {} minutes et {} secondes.".format(
+            formatted_waiting_time = translate(
+                data.ARRIVAL_TIME_HOURS_MINUTES_SECONDS
+            ).format(
                 self.arriving_in_dict["hours"],
                 self.arriving_in_dict["minutes"],
                 self.arriving_in_dict["seconds"],
             )
         elif self.arriving_in_dict["minutes"] > 0:
-            formatted_waiting_time = "{} minutes et {} secondes".format(
-                self.arriving_in_dict["minutes"], self.arriving_in_dict["seconds"]
-            )
+            formatted_waiting_time = translate(
+                data.ARRIVAL_TIME_MINUTES_SECONDS
+            ).format(self.arriving_in_dict["minutes"], self.arriving_in_dict["seconds"])
         else:
-            formatted_waiting_time = "{} secondes".format(
+            formatted_waiting_time = translate(data.ARRIVAL_TIME_SECONDS).format(
                 self.arriving_in_dict["seconds"]
             )
         return formatted_waiting_time

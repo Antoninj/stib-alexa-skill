@@ -120,3 +120,15 @@ FAREWELL = "Bonne journée!"
 """""" """""" """""" """""" """
 Save trip preferences intent
 """ """""" """""" """""" """"""
+
+
+###################################################
+#                MODEL                            #
+###################################################
+NOT_FOUND = "INFORMATION MANQUANTE"
+ARRIVAL_TIME_DAYS_HOURS_MINUTES_SECONDS = (
+    "{} jours, {} heures, {} minutes et {} secondes."
+)
+ARRIVAL_TIME_HOURS_MINUTES_SECONDS = "{} heures, {} minutes et {} secondes."
+ARRIVAL_TIME_MINUTES_SECONDS = "{} minutes et {} secondes."
+ARRIVAL_TIME_SECONDS = "{} secondes."
