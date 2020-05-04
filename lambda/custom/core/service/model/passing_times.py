@@ -51,7 +51,7 @@ class PassingTime:
     message: Optional[Message] = None
     line_id: str = ""
     expected_arrival_time: str = ""
-    arriving_in_dict: dict = field(init=False, repr=False)
+    arriving_in_dict: dict = field(init=False, repr=True)
 
     def __post_init__(self):
         self.expected_arrival_time = datetime.fromisoformat(self.expected_arrival_time)

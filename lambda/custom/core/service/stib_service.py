@@ -22,17 +22,37 @@ from typing import List, Optional, Dict
 
 from ask_sdk_model.services import ApiClientRequest, ApiClient
 import hermes.backend.memcached
+import hermes.backend.dict
+import elasticache_auto_discovery
 
 from .model.passing_times import PointPassingTimes, PassingTime
 from .model.line_stops import LineDetails
 
 logger = logging.getLogger("Lambda")
 
+ENVIRONMENT = os.environ["env"]
 ELASTICACHE_CONFIG_ENDPOINT = os.environ["elasticache_config_endpoint"]
-cache = hermes.Hermes(
-    backendClass=hermes.backend.memcached.Backend,
-    servers=[ELASTICACHE_CONFIG_ENDPOINT],
-)
+
+if ENVIRONMENT == "Sandbox":
+    logger.info("Using local dictionary as caching backend")
+    cache = hermes.Hermes(backendClass=hermes.backend.dict.Backend)
+
+elif ENVIRONMENT == "Production":
+    logger.info("Using elasticache memcached as caching backend")
+    nodes = elasticache_auto_discovery.discover(ELASTICACHE_CONFIG_ENDPOINT)
+    servers = list(
+        map(lambda x: x[1].decode("UTF-8") + ":" + x[2].decode("UTF-8"), nodes)
+    )
+    cache = hermes.Hermes(
+        backendClass=hermes.backend.memcached.Backend, servers=servers
+    )
+
+else:
+    logger.info("Using local memcached instance as caching backend")
+    cache = hermes.Hermes(
+        backendClass=hermes.backend.memcached.Backend,
+        servers=[ELASTICACHE_CONFIG_ENDPOINT],
+    )
 
 
 class OpenDataService:
