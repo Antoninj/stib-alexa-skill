@@ -20,48 +20,49 @@ msgstr ""
 
 #: lambda/custom/core/data/data.py:21
 msgid "Horaires STIB"
-msgstr ""
+msgstr "STIB Schedule"
 
 #: lambda/custom/core/data/data.py:30
 msgid "Bienvenue dans la skill Horaires STIB!"
-msgstr ""
+msgstr "Welcome to the STIB schedule skill!"
 
 #: lambda/custom/core/data/data.py:31
 msgid "Bonjour."
-msgstr ""
+msgstr "Hello."
 
 #: lambda/custom/core/data/data.py:32
 msgid "Je ne connais pas encore votre trajet favori."
-msgstr ""
+msgstr "It looks like you haven't configured any journey preferences yet."
 
 #: lambda/custom/core/data/data.py:35
 msgid ""
 "Vous pouvez demander des informations en temps réél concernant votre "
 "trajet favori ou modifier votre trajet favori à tout moment. Que "
 "souhaitez-vous faire?"
-msgstr ""
+msgstr "You can ask for real-time updates on your favorite journey or modify your preferences anytime you want."
+"What would you like to do"
 
 #: lambda/custom/core/data/data.py:39 lambda/custom/core/data/data.py:82
 msgid "Comment puis-je vous aider?"
-msgstr ""
+msgstr "How can I help you?"
 
 #: lambda/custom/core/data/data.py:40
 msgid "Souhaitez-vous enregistrer vos préférences maintenant?"
-msgstr ""
+msgstr "Would you like to save your journey preferences now?"
 
 #: lambda/custom/core/data/data.py:41
 msgid "Voulez-vous configurer votre trajet favori maintenant?"
-msgstr ""
+msgstr "Would you like to configure your favorite trip information?"
 
 #: lambda/custom/core/data/data.py:53
 msgid ""
 "D'accord, c'est parti. Les lignes du réseau STIB sont numérotées de 1 à "
 "98. Quelle ligne utilisez vous d'habitude?"
-msgstr ""
+msgstr "Ok, let's do it. STIB network routes are numbered from 1 to 98. Which route do you usually travel on?"
 
 #: lambda/custom/core/data/data.py:57
 msgid "Quel est votre ligne STIB habituelle?"
-msgstr ""
+msgstr "What STIB line do you usually use?"
 
 #: lambda/custom/core/data/data.py:62 lambda/custom/core/data/data.py:66
 msgid ""
@@ -73,71 +74,71 @@ msgstr ""
 
 #: lambda/custom/core/data/data.py:74
 msgid "D'accord. A bientôt!"
-msgstr ""
+msgstr "Bye bye!"
 
 #: lambda/custom/core/data/data.py:79
 msgid ""
 "La skill Horaires STIB n'est pas en mesure de vous aider pour cela. "
 "Comment puis-je vous aider?"
-msgstr ""
+msgstr "I'm affraid the STIB schedule skill can't help you with that. How can I help you?"
 
 #: lambda/custom/core/data/data.py:87
 msgid ""
 "Désolé, je n'ai pas compris votre requête. Pouvez vous répeter s'il vous "
 "plait."
-msgstr ""
+msgstr "I'm sorry but I didn't really catch that. Can you please repeat?"
 
 #: lambda/custom/core/data/data.py:90
 msgid "Désolé, je n'ai pas compris. Pouvez vous répeter s'il vous plait."
-msgstr ""
+msgstr "I didn't get that. Could you repeat please?"
 
 #: lambda/custom/core/data/data.py:99
 msgid "C'est noté. Dans quelle direction prenez vous le {} {}, {} ou {}?"
-msgstr ""
+msgstr "Very well. In which direction are you riding the {} {}, {} or {}?"
 
 #: lambda/custom/core/data/data.py:102
 msgid "Dans quelle direction allez vous, {} ou {}?"
-msgstr ""
+msgstr "Where are you headed to, {} or {}?"
 
 #: lambda/custom/core/data/data.py:109
 msgid ""
 "Merci, vos préférences ont été correctement sauvegardées. Vous prenez "
 "donc le {} {} à l'arret {} direction {}."
-msgstr ""
+msgstr "You're all set. I'll remember you like to travel on the {} {} from {} towards {}"
 
 #: lambda/custom/core/data/data.py:117
 msgid "Le prochain {} {} en direction de {} passe dans {}."
-msgstr ""
+msgstr "The next {} {} towards {} is leaving in {}. "
 
 #: lambda/custom/core/data/data.py:118
 msgid "Le suivant passe dans {}."
-msgstr ""
+msgstr "The next one is leaving in {}."
 
 #: lambda/custom/core/data/data.py:119
 msgid "Désolé, je n'ai pas trouvé d'informations pour le trajet demandé."
-msgstr ""
+msgstr "I'm sorry, I couldn't find any information for the requested journey."
 
 #: lambda/custom/core/data/data.py:122
 msgid "Bonne journée!"
-msgstr ""
+msgstr "Have a nice day!"
 
 #: lambda/custom/core/data/data.py:132
 msgid "INFORMATION MANQUANTE"
-msgstr ""
+msgstr "MISSING DATA"
 
 #: lambda/custom/core/data/data.py:133
 msgid "{} jours, {} heures, {} minutes et {} secondes."
-msgstr ""
+msgstr "{} days, {} hours, {} minutes et {} seconds."
 
 #: lambda/custom/core/data/data.py:136
 msgid "{} heures, {} minutes et {} secondes."
-msgstr ""
+msgstr "{} hours, {} minutes et {} seconds."
 
 #: lambda/custom/core/data/data.py:137
 msgid "{} minutes et {} secondes."
-msgstr ""
+msgstr "{} minutes et {} seconds."
 
 #: lambda/custom/core/data/data.py:138
 msgid "{} secondes."
-msgstr ""
+msgstr "{} seconds."
 

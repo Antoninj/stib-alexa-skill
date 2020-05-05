@@ -25,7 +25,7 @@ class TestI18n(unittest.TestCase):
 
     def setUp(self):
         i18n = gettext.translation(
-            "base", localedir=self.LOCALE_DIR, languages=["en-US"]
+            "base", localedir=self.LOCALE_DIR, languages=["en-GB"]
         )
         self._ = i18n.gettext
 
@@ -36,5 +36,5 @@ class TestI18n(unittest.TestCase):
     def test_translate_welcome_message(self):
         print(self._(data.WELCOME_NEW_USER))
         self.assertEqual(
-            self._(data.WELCOME_NEW_USER), "Bienvenue dans la skill Horaires STIB!"
+            self._(data.WELCOME_NEW_USER), "Welcome to the STIB schedule skill!"
         )
