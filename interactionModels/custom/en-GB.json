@@ -1,0 +1,566 @@
+{
+  "interactionModel": {
+    "languageModel": {
+      "invocationName": "stib schedule",
+      "intents": [
+        {
+          "name": "AMAZON.YesIntent",
+          "samples": []
+        },
+        {
+          "name": "AMAZON.NoIntent",
+          "samples": []
+        },
+        {
+          "name": "AMAZON.CancelIntent",
+          "samples": []
+        },
+        {
+          "name": "AMAZON.HelpIntent",
+          "samples": []
+        },
+        {
+          "name": "AMAZON.StopIntent",
+          "samples": []
+        },
+        {
+          "name": "AMAZON.RepeatIntent",
+          "samples": []
+        },
+        {
+          "name": "AMAZON.FallbackIntent",
+          "samples": []
+        },
+        {
+          "name": "SaveTripPreferencesIntent",
+          "samples": [
+            "favorite trip",
+            "favorite journey",
+            "daily trip",
+            "daily journey",
+            "daily commute",
+            "trip preferences",
+            "journey preferences",
+            "commute preferences",
+            "saved preferences",
+            "saved trip",
+            "saved commute",
+            "saved journey",
+            "save my preferences",
+            "modify my preferences",
+            "change my preferences",
+            "configure my preferences",
+            "save my trip",
+            "remember my trip",
+            "configure my trip",
+            "modify my trip",
+            "save my journey",
+            "remember my journey",
+            "configure my journey",
+            "modify my journey",
+            "save my commute",
+            "remember my commute",
+            "configure my commute",
+            "modify my commute",
+            "save my journey preferences",
+            "remember my journey preferences",
+            "configure my journey preferences",
+            "modify my journey preferences",
+            "save my trip preferences",
+            "remember my trip preferences",
+            "configure my trip preferences",
+            "modify my trip preferences",
+             "save my favorite journey",
+            "remember my favorite journey",
+            "modify my favorite journey",
+            "configure my favorite journey",
+            "save my favorite trip",
+            "remember my favorite trip",
+            "modify my favorite trip",
+            "configure my favorite trip",
+            "save my prefered journey",
+            "remember my prefered journey",
+            "modify my prefered journey",
+            "configure my prefered journey",
+            "save my prefered trip",
+            "remember my prefered trip",
+            "modify my prefered trip",
+            "configure my prefered trip",
+            "save my daily journey",
+            "remember my daily journey",
+            "modify my daily journey",
+            "configure my daily journey",
+            "save my daily trip",
+            "remember my daily trip",
+            "modify my daily trip",
+            "configure my daily trip",
+            "save my usual trip",
+            "remember my usual trip",
+            "modify my usual trip",
+            "configure my usual trip",
+            "save my daily commute preferences",
+            "remember my daily commute preferences",
+            "modify my daily commute preferences",
+            "configure my daily commute preferences",
+            "save my commute preferences",
+            "remember my commute preferences",
+            "modify my commute preferences",
+            "configure my commute preferences",
+            "save my commute info",
+            "remember my commute info",
+            "modify my commute info",
+            "configure my commute info",
+            "save my commute information",
+            "remember my commute information",
+            "modify my commute information",
+            "configure my commute information"
+          ]
+        },
+        {
+          "name": "SetFavoriteLineIntent",
+          "slots": [
+            {
+              "name": "line_id",
+              "type": "AMAZON.NUMBER",
+              "samples": [
+                "{line_id}",
+                "route {line_id}",
+                "the route {line_id}",
+                "route number {line_id}",
+                "line number {line_id}",
+                "line {line_id}",
+                "the line {line_id}",
+                "the line number {line_id}"
+              ]
+            },
+            {
+              "name": "transportation_type",
+              "type": "TRANSPORTATION_TYPES"
+            }
+          ],
+          "samples": [
+            "line {line_id}",
+            "route {line_id}",
+            "number {line_id}",
+            "the {line_id}",
+            "the number {line_id}",
+            "the line {line_id}",
+            "the line number {line_id}",
+            "the route {line_id}",
+            "the route number {line_id}",
+            "the {transportation_type} {line_id}",
+            "the {transportation_type} number {line_id}",
+            "the {transportation_type} line {line_id}",
+            "the {transportation_type} line number {line_id}",
+            "the {transportation_type} route {line_id}",
+            "the {transportation_type} route number {line_id}",
+            "I take the {line_id}",
+            "I take the number {line_id}",
+            "I take the route {line_id}",
+            "I take the route number {line_id}",
+            "I take the line {line_id}",
+            "I take the line number {line_id}",
+            "I take the {transportation_type} {line_id}",
+            "I take the {transportation_type} number {line_id}",
+            "I take the {transportation_type} line {line_id}",
+            "I take the {transportation_type} line number {line_id}",
+            "I take the {transportation_type} route {line_id}",
+            "I take the {transportation_type} route number {line_id}",
+            "I ride the {line_id}",
+            "I ride the number {line_id}",
+            "I ride the route {line_id}",
+            "I ride the route number {line_id}",
+            "I ride the line {line_id}",
+            "I ride the line number {line_id}",
+            "I ride the {transportation_type} {line_id}",
+            "I ride the {transportation_type} number {line_id}",
+            "I ride the {transportation_type} line {line_id}",
+            "I ride the {transportation_type} line number {line_id}",
+            "I ride the {transportation_type} route {line_id}",
+            "I ride the {transportation_type} route number {line_id}",
+            "I travel on the {line_id}",
+            "I travel on the number {line_id}",
+            "I travel on the route {line_id}",
+            "I travel on the route number {line_id}",
+            "I travel on the line {line_id}",
+            "I travel on the line number {line_id}",
+            "I travel on the {transportation_type} {line_id}",
+            "I travel on the {transportation_type} number {line_id}",
+            "I travel on the {transportation_type} line {line_id}",
+            "I travel on the {transportation_type} line number {line_id}",
+            "I travel on the {transportation_type} route {line_id}",
+            "I travel on the {transportation_type} route number {line_id}"
+          ]
+        },
+        {
+          "name": "SetFavoriteStopIntent",
+          "slots": [
+            {
+              "name": "destination_name",
+              "type": "DESTINATION_NAME",
+              "samples": [
+                "{destination_name}",
+                "towards {destination_name}",
+                "direction {destination_name}"
+              ]
+            },
+            {
+              "name": "stop_name",
+              "type": "STOP_NAME",
+              "samples": [
+                "{stop_id}",
+                "{stop_id} stop",
+                "stop {stop_id}",
+                "the {stop_id} stop",
+                "at {stop_id}",
+                "at the stop {stop_id}",
+                "at stop {stop_id}",
+                "from stop {stop_id}",
+                "from {stop_id}"
+              ]
+            }
+          ],
+          "samples": [
+            "{destination_name}",
+            "towards {destination_name}",
+            "in direction of {destination_name}",
+            "direction {destination_name}",
+            "I'm going towards {destination_name}",
+            "I am going towards {destination_name}",
+            "I'm going to {destination_name}",
+            "I go to {destination_name}",
+            "I go towards {destination_name}",
+            "I'm travelling towards {destination_name}",
+            "I am travelling towards {destination_name}",
+            "I'm travelling in direction of {destination_name}",
+            "I am travelling in direction of {destination_name}",
+            "I travel towards {destination_name}"
+          ]
+        },
+        {
+          "name": "GetArrivalTimesIntent",
+          "slots": [
+            {
+              "name": "transportation_type",
+              "type": "TRANSPORTATION_TYPES"
+            }
+          ],
+          "samples": [
+            "waiting time",
+            "arrival time",
+            "next {transportation_type}",
+            "my next {transportation_type}",
+            "the next {transportation_type}",
+            "the next {transportation_type}",
+            "the {transportation_type} waiting time",
+            "the {transportation_type} arrival time",
+            "my {transportation_type} waiting time",
+            "my {transportation_type} arrival time",
+            "the {transportation_type} schedule",
+            "my {transportation_type} schedule",
+            "the next {transportation_type} schedule",
+            "my next {transportation_type} schedule",
+            "when is the {transportation_type}",
+            "when is my {transportation_type}",
+            "when is the next {transportation_type}",
+            "when is my next {transportation_type}",
+            "when's the {transportation_type}",
+            "when's my {transportation_type}",
+            "when's the next {transportation_type}",
+            "when's my next {transportation_type}",
+            "when is the {transportation_type} leaving",
+            "when is my {transportation_type} leaving",
+            "when is the next {transportation_type} leaving",
+            "when is my next {transportation_type} leaving",
+            "when's the {transportation_type} leaving",
+            "when's my {transportation_type} leaving",
+            "when's the next {transportation_type} leaving",
+            "when's my next {transportation_type} leaving",
+            "when comes the {transportation_type}",
+            "when comes my {transportation_type}",
+            "when comes the next {transportation_type}",
+            "when comes my next {transportation_type}",
+            "when does the {transportation_type} arrive",
+            "when does my {transportation_type} arrive",
+            "when does the next {transportation_type} arrive",
+            "when does my next {transportation_type} arrive",
+            "when does the {transportation_type} come",
+            "when does my {transportation_type} come",
+            "when does the next {transportation_type} come",
+            "when does my next {transportation_type} come",
+            "tell me when comes the {transportation_type}",
+            "tell me when comes my {transportation_type}",
+            "tell me when comes the next {transportation_type}",
+            "tell me when comes my next {transportation_type}",
+            "tell me when does the {transportation_type} arrive",
+            "tell me when does my {transportation_type} arrive",
+            "tell me when does the next {transportation_type} arrive",
+            "tell me when does my next {transportation_type} arrive",
+            "in how long does my {transportation_type} arrive",
+            "in how long does the {transportation_type} arrive",
+            "in how long does the next {transportation_type} arrive",
+            "in how long does my next {transportation_type} arrive",
+            "in how long does my {transportation_type} come",
+            "in how long does the {transportation_type} come",
+            "in how long does the next {transportation_type} come",
+            "in how long does my next {transportation_type} come",
+            "when does the {transportation_type} leave",
+            "when does my {transportation_type} leave",
+            "when does the next {transportation_type} leave",
+            "when does my next {transportation_type} leave"
+          ]
+        }
+      ],
+      "types": [
+        {
+          "name": "DESTINATION_NAME",
+          "values": [
+            {
+              "id": "PLACEHOLDER",
+              "name": {
+                "value": "PLACEHOLDER"
+              }
+            }
+          ]
+        },
+        {
+          "name": "STOP_NAME",
+          "values": [
+            {
+              "id": "PLACEHOLDER",
+              "name": {
+                "value": "PLACEHOLDER"
+              }
+            }
+          ]
+        },
+        {
+          "name": "TRANSPORTATION_TYPES",
+          "values": [
+            {
+              "id": "bus",
+              "name": {
+                "value": "bus",
+                "synonyms": [
+                  "autobus",
+                  "coach"
+                ]
+              }
+            },
+            {
+              "id": "metro",
+              "name": {
+                "value": "metro",
+                "synonyms": [
+                  "subway",
+                  "metropolitan",
+                  "tube",
+                  "underground"
+                ]
+              }
+            },
+            {
+              "id": "tram",
+              "name": {
+                "value": "tram",
+                "synonyms": [
+                  "tramway"
+                ]
+              }
+            }
+          ]
+        }
+      ]
+    },
+    "dialog": {
+      "intents": [
+        {
+          "name": "SetFavoriteLineIntent",
+          "delegationStrategy": "SKILL_RESPONSE",
+          "confirmationRequired": false,
+          "prompts": {},
+          "slots": [
+            {
+              "name": "line_id",
+              "type": "AMAZON.NUMBER",
+              "confirmationRequired": false,
+              "elicitationRequired": true,
+              "prompts": {
+                "elicitation": "Elicit.Slot.LineId"
+              },
+              "validations": [
+                {
+                  "type": "isGreaterThanOrEqualTo",
+                  "prompt": "Slot.Validation.LineId",
+                  "value": 1
+                },
+                {
+                  "type": "isLessThanOrEqualTo",
+                  "prompt": "Slot.Validation.LineId",
+                  "value": 98
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "name": "SetFavoriteStopIntent",
+          "delegationStrategy": "SKILL_RESPONSE",
+          "confirmationRequired": false,
+          "prompts": {},
+          "slots": [
+            {
+              "name": "destination_name",
+              "type": "DESTINATION_NAME",
+              "confirmationRequired": false,
+              "elicitationRequired": true,
+              "prompts": {
+                "elicitation": "Elicit.Slot.DestinationName"
+              },
+              "validations": [
+                {
+                  "type": "hasEntityResolutionMatch",
+                  "prompt": "Slot.Validation.DestinationName"
+                }
+              ]
+            },
+            {
+              "name": "stop_name",
+              "type": "STOP_NAME",
+              "confirmationRequired": false,
+              "elicitationRequired": true,
+              "prompts": {
+                "elicitation": "Elicit.Slot.StopName"
+              },
+              "validations": [
+                {
+                  "type": "hasEntityResolutionMatch",
+                  "prompt": "Slot.Validation.StopName"
+                }
+              ]
+            }
+          ]
+        }
+      ],
+      "delegationStrategy": "ALWAYS"
+    },
+    "prompts": [
+      {
+        "id": "Elicit.Slot.LineId",
+        "variations": [
+          {
+            "type": "PlainText",
+            "value": "Which line do you usually travel on?"
+          },
+          {
+            "type": "PlainText",
+            "value": "Which route number do you usually take?"
+          },
+          {
+            "type": "PlainText",
+            "value": "What's your favorite route number?"
+          }
+        ]
+      },
+      {
+        "id": "Elicit.Slot.TransportationType",
+        "variations": [
+          {
+            "type": "PlainText",
+            "value": "What's your transportation mode?"
+          },
+          {
+            "type": "PlainText",
+            "value": "Are you more of a bus, tram or metro person?"
+          }
+        ]
+      },
+      {
+        "id": "Elicit.Slot.DestinationName",
+        "variations": [
+          {
+            "type": "PlainText",
+            "value": "In which direction are you travelling?"
+          }
+        ]
+      },
+      {
+        "id": "Elicit.Slot.StopName",
+        "variations": [
+          {
+            "type": "PlainText",
+            "value": "Great! What's your stop name?"
+          },
+          {
+            "type": "PlainText",
+            "value": "Perfect! I just need your stop name now."
+          },
+          {
+            "type": "PlainText",
+            "value": "Got it. What's your stop name?"
+          },
+          {
+            "type": "PlainText",
+            "value": "Alright. At which stop do you hop in?"
+          },
+          {
+            "type": "PlainText",
+            "value": "Gotcha. Where does your journey begins?"
+          }
+        ]
+      },
+      {
+        "id": "Slot.Validation.LineId",
+        "variations": [
+          {
+            "type": "PlainText",
+            "value": "Wait a minute there, I don't think the route {line_id} exists. Please give me a route number between 1 and 98."
+          },
+          {
+            "type": "PlainText",
+            "value": "Woops, the route {line_id} isn't a valid route number. Please give me a route number between 1 and 98."
+          },
+          {
+            "type": "PlainText",
+            "value": "I'm sorry but the route {line_id} doesn't exist. Please give me a route number between 1 and 98."
+          }
+        ]
+      },
+      {
+        "id": "Slot.Validation.TransportationType",
+        "variations": [
+          {
+            "type": "PlainText",
+            "value": "The {transportation_type} isn't a valid transportation mode on the STIB network. Choose between bus,tram or metro."
+          },
+          {
+            "type": "PlainText",
+            "value": "You can not travel by {transportation_type} on the STIB network. Choose between bus,tram or metro."
+          }
+        ]
+      },
+      {
+        "id": "Slot.Validation.DestinationName",
+        "variations": [
+          {
+            "type": "PlainText",
+            "value": "{destination_name} is not a valid destination."
+          }
+        ]
+      },
+      {
+        "id": "Slot.Validation.StopName",
+        "variations": [
+          {
+            "type": "PlainText",
+            "value": "{stop_name} is not a valid stop name."
+          },
+          {
+            "type": "PlainText",
+            "value": "I'm sorry but I don't know the stop {stop_name}."
+          }
+        ]
+      }
+    ]
+  }
+}

@@ -155,7 +155,7 @@ class GetArrivalTimesIntentHandler(AbstractRequestHandler):
             transportation_type,
             passing_time.line_id,
             passing_time.destination.fr.lower(),
-            passing_time,
+            passing_time.format_waiting_time(translate=translate),
         )
         return formatted_waiting_time
 
@@ -163,6 +163,6 @@ class GetArrivalTimesIntentHandler(AbstractRequestHandler):
     def _format_second_waiting_time(passing_time: PassingTime, translate) -> str:
         """Define method here."""
         formatted_waiting_time = translate(data.SECOND_ARRIVAL_TIME_INFO).format(
-            passing_time
+            passing_time.format_waiting_time(translate=translate)
         )
         return formatted_waiting_time

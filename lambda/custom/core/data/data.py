@@ -18,7 +18,7 @@
 
 from gettext import gettext as _
 
-SKILL_NAME = "Horaires STIB"
+SKILL_NAME = _("Horaires STIB")
 
 ###################################################
 #                Launch Request                   #
@@ -38,7 +38,9 @@ SKILL_DESCRIPTION_WITH_PREFERENCES = _(
 )
 SKILL_DESCRIPTION_WITH_PREFERENCES_REPROMPT = _("Comment puis-je vous aider?")
 ASK_FOR_PREFERENCES = _("Souhaitez-vous enregistrer vos préférences maintenant?")
-ASK_FOR_PREFERENCES_REPROMPT = "Voulez-vous configurer votre trajet favori maintenant?"
+ASK_FOR_PREFERENCES_REPROMPT = _(
+    "Voulez-vous configurer votre trajet favori maintenant?"
+)
 
 
 ###################################################
@@ -94,15 +96,17 @@ ERROR_REPROMPT = _("Désolé, je n'ai pas compris. Pouvez vous répeter s'il vou
 """""" """""" """""
 favorite line intent
 """ """""" """""" ""
-ELLICIT_DESTINATION_PREFERENCES = (
+ELLICIT_DESTINATION_PREFERENCES = _(
     "C'est noté. Dans quelle direction prenez vous le {} {}, {} ou {}?"
 )
-ELLICIT_DESTINATION_PREFERENCES_REPROMPT = "Dans quelle direction allez vous, {} ou {}?"
+ELLICIT_DESTINATION_PREFERENCES_REPROMPT = _(
+    "Dans quelle direction allez vous, {} ou {}?"
+)
 
 """""" """""" """""
 favorite stop intent
 """ """""" """""" ""
-PREFERENCES_SAVED = (
+PREFERENCES_SAVED = _(
     "Merci, vos préférences ont été correctement sauvegardées."
     " Vous prenez donc le {} {} à l'arret {} direction {}."
 )
@@ -110,13 +114,25 @@ PREFERENCES_SAVED = (
 """""" """""" """""" """""" """"
 Get arrival times intent
 """ """""" """""" """""" """"""
-FIRST_ARRIVAL_TIME_INFO = "Le prochain {} {} en direction de {} passe dans {}."
-SECOND_ARRIVAL_TIME_INFO = "Le suivant passe dans {}."
-NO_INFORMATION_FOUND = (
+FIRST_ARRIVAL_TIME_INFO = _("Le prochain {} {} en direction de {} passe dans {}.")
+SECOND_ARRIVAL_TIME_INFO = _("Le suivant passe dans {}.")
+NO_INFORMATION_FOUND = _(
     "Désolé, je n'ai pas trouvé d'informations pour le trajet demandé."
 )
-FAREWELL = "Bonne journée!"
+FAREWELL = _("Bonne journée!")
 
 """""" """""" """""" """""" """
 Save trip preferences intent
 """ """""" """""" """""" """"""
+
+
+###################################################
+#                MODEL                            #
+###################################################
+NOT_FOUND = _("INFORMATION MANQUANTE")
+ARRIVAL_TIME_DAYS_HOURS_MINUTES_SECONDS = _(
+    "{} jours, {} heures, {} minutes et {} secondes."
+)
+ARRIVAL_TIME_HOURS_MINUTES_SECONDS = _("{} heures, {} minutes et {} secondes.")
+ARRIVAL_TIME_MINUTES_SECONDS = _("{} minutes et {} secondes.")
+ARRIVAL_TIME_SECONDS = _("{} secondes.")

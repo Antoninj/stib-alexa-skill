@@ -84,8 +84,6 @@
             }
           ],
           "samples": [
-            "ma ligne préférée",
-            "ma ligne favorite",
             "je prends la {line_id}",
             "je prends la ligne {line_id}",
             "je prends la ligne de {transportation_type} {line_id}",

@@ -25,10 +25,16 @@ class TestI18n(unittest.TestCase):
 
     def setUp(self):
         i18n = gettext.translation(
-            "base", localedir=self.LOCALE_DIR, languages=["en-US"]
+            "base", localedir=self.LOCALE_DIR, languages=["en-GB"]
         )
         self._ = i18n.gettext
 
-    def test_translate_data(self):
+    def test_translate_stop_message(self):
         print(self._(data.STOP))
         self.assertEqual(self._(data.STOP), "Bye bye!")
+
+    def test_translate_welcome_message(self):
+        print(self._(data.WELCOME_NEW_USER))
+        self.assertEqual(
+            self._(data.WELCOME_NEW_USER), "Welcome to the STIB schedule skill!"
+        )

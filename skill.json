@@ -35,6 +35,30 @@
           "name": "Réseau STIB-MIVB",
           "smallIconUri": "file://assets/images/fr-FR_smallIcon.png",
           "summary": "Informations sur le réseau STIB-MIVB en temps réel"
+        },
+        "en-GB": {
+          "description": "Real-time information on the STIB-MIVB network. Ce produit/service/application se base sur des données fournies à l’origine par la STIB qui ont été mises à jour le 3 Mai 2020 et qui en totalité ou partiellement ont été modifiées par Antonin Jousson.",
+          "examplePhrases": [
+            "Alexa open stib schedule",
+            "Alexa open stib schedule and configure my journey preferences",
+            "Alexa ask stib schedule when's my next bus leaving"
+          ],
+          "keywords": [
+            "STIB",
+            "STIB-MIVB",
+            "brussels",
+            "public transportation",
+            "schedule",
+            "timetables",
+            "real-time",
+            "bus",
+            "metro",
+            "tram"
+          ],
+          "largeIconUri": "file://assets/images/fr-FR_largeIcon.png",
+          "name": "STIB-MIVB network",
+          "smallIconUri": "file://assets/images/fr-FR_smallIcon.png",
+          "summary": "Real-time information on the STIB-MIVB network."
         }
       },
       "isAvailableWorldwide": false,
