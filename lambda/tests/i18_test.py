@@ -29,6 +29,12 @@ class TestI18n(unittest.TestCase):
         )
         self._ = i18n.gettext
 
-    def test_translate_data(self):
+    def test_translate_stop_message(self):
         print(self._(data.STOP))
         self.assertEqual(self._(data.STOP), "Bye bye!")
+
+    def test_translate_welcome_message(self):
+        print(self._(data.WELCOME_NEW_USER))
+        self.assertEqual(
+            self._(data.WELCOME_NEW_USER), "Bienvenue dans la skill Horaires STIB!"
+        )

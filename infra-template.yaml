@@ -188,7 +188,7 @@ Outputs:
     Export:
       Name: !Join ["-", [!Ref "AWS::StackName","private-subnet-b"]]
   privateVPCSecurityGroup:
-    Description: Default security for Lambda VPC
+    Description: Default security group for Lambda VPC
     Value: !GetAtt pubPrivateVPC.DefaultSecurityGroup
     Export:
       Name: !Join ["-", [!Ref "AWS::StackName","vpc-sg"]]
