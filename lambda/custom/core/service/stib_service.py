@@ -96,7 +96,7 @@ class OpenDataService:
         response = self.api_client.invoke(api_request)
         raw_lines_info = response.body.json()
         line_details = LineDetails.schema().load(raw_lines_info["lines"], many=True)
-        self.enhance_line_details_with_gtfs_data(line_details)
+        self.enrich_line_details_with_gtfs_data(line_details)
 
         return line_details
 
@@ -122,8 +122,12 @@ class OpenDataService:
                 }
                 return csv_files
 
-    def enhance_line_details_with_gtfs_data(self, line_details: List[LineDetails]):
-        logger.debug("Enhancing line details with STIB network GTFS data")
+    def enrich_line_details_with_gtfs_data(
+        self, line_details: List[LineDetails]
+    ) -> None:
+        """Enrich line details dynamically using GTFS data"""
+
+        logger.debug("Enriching line details with STIB network GTFS data")
         filenames = ["routes.txt", "stops.txt", "translations.txt"]
         csv_files = self.get_gtfs_data(csv_filenames=filenames)
         for line_detail in line_details:
