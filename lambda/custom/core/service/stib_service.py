@@ -38,7 +38,7 @@ if ENVIRONMENT == "Sandbox":
     cache = hermes.Hermes(backendClass=hermes.backend.dict.Backend)
 
 elif ENVIRONMENT == "Production":
-    logger.info("Using elasticache memcached as caching backend")
+    logger.info("Using ElastiCache memcached as caching backend")
     nodes = elasticache_auto_discovery.discover(ELASTICACHE_CONFIG_ENDPOINT)
     servers = list(
         map(lambda x: x[1].decode("UTF-8") + ":" + x[2].decode("UTF-8"), nodes)

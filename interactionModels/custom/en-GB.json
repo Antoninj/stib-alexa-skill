@@ -1,7 +1,7 @@
 {
   "interactionModel": {
     "languageModel": {
-      "invocationName": "horaires stib",
+      "invocationName": "stib schedule",
       "intents": [
         {
           "name": "AMAZON.YesIntent",
@@ -34,33 +34,86 @@
         {
           "name": "SaveTripPreferencesIntent",
           "samples": [
-            "trajet favori",
-            "trajet préféré",
-            "trajet enregistré",
-            "enregistre mes préférences",
-            "sauvegarde mes préférences",
-            "modifie mes préférences",
-            "configure mes préférences",
-            "enregistre mon trajet",
-            "sauvegarde mon trajet",
-            "modifie mon trajet",
-            "configure mon trajet",
-            "enregistre mon trajet favori",
-            "sauvegarde mon trajet favori",
-            "modifie mon trajet favori",
-            "configure mon trajet favori",
-            "enregistre mon trajet préféré",
-            "sauvegarde mon trajet préféré",
-            "modifie mon trajet préféré",
-            "configure mon trajet préféré",
-            "enregistre mon trajet quotidien",
-            "sauvegarde mon trajet quotidien",
-            "modifie mon trajet quotidien",
-            "configure mon trajet quotidien",
-            "enregistre mon trajet habituel",
-            "sauvegarde mon trajet habituel",
-            "modifie mon trajet habituel",
-            "configure mon trajet habituel"
+            "favorite trip",
+            "favorite journey",
+            "daily trip",
+            "daily journey",
+            "daily commute",
+            "trip preferences",
+            "journey preferences",
+            "commute preferences",
+            "saved preferences",
+            "saved trip",
+            "saved commute",
+            "saved journey",
+            "save my preferences",
+            "modify my preferences",
+            "change my preferences",
+            "configure my preferences",
+            "save my trip",
+            "remember my trip",
+            "configure my trip",
+            "modify my trip",
+            "save my journey",
+            "remember my journey",
+            "configure my journey",
+            "modify my journey",
+            "save my commute",
+            "remember my commute",
+            "configure my commute",
+            "modify my commute",
+            "save my journey preferences",
+            "remember my journey preferences",
+            "configure my journey preferences",
+            "modify my journey preferences",
+            "save my trip preferences",
+            "remember my trip preferences",
+            "configure my trip preferences",
+            "modify my trip preferences",
+             "save my favorite journey",
+            "remember my favorite journey",
+            "modify my favorite journey",
+            "configure my favorite journey",
+            "save my favorite trip",
+            "remember my favorite trip",
+            "modify my favorite trip",
+            "configure my favorite trip",
+            "save my prefered journey",
+            "remember my prefered journey",
+            "modify my prefered journey",
+            "configure my prefered journey",
+            "save my prefered trip",
+            "remember my prefered trip",
+            "modify my prefered trip",
+            "configure my prefered trip",
+            "save my daily journey",
+            "remember my daily journey",
+            "modify my daily journey",
+            "configure my daily journey",
+            "save my daily trip",
+            "remember my daily trip",
+            "modify my daily trip",
+            "configure my daily trip",
+            "save my usual trip",
+            "remember my usual trip",
+            "modify my usual trip",
+            "configure my usual trip",
+            "save my daily commute preferences",
+            "remember my daily commute preferences",
+            "modify my daily commute preferences",
+            "configure my daily commute preferences",
+            "save my commute preferences",
+            "remember my commute preferences",
+            "modify my commute preferences",
+            "configure my commute preferences",
+            "save my commute info",
+            "remember my commute info",
+            "modify my commute info",
+            "configure my commute info",
+            "save my commute information",
+            "remember my commute information",
+            "modify my commute information",
+            "configure my commute information"
           ]
         },
         {
@@ -71,11 +124,13 @@
               "type": "AMAZON.NUMBER",
               "samples": [
                 "{line_id}",
-                "numéro {line_id}",
-                "ligne {line_id}",
-                "le numéro {line_id}",
-                "la ligne {line_id}",
-                "le {line_id}"
+                "route {line_id}",
+                "the route {line_id}",
+                "route number {line_id}",
+                "line number {line_id}",
+                "line {line_id}",
+                "the line {line_id}",
+                "the line number {line_id}"
               ]
             },
             {
@@ -109,32 +164,40 @@
               "type": "DESTINATION_NAME",
               "samples": [
                 "{destination_name}",
-                "vers {destination_name}",
-                "en direction de {destination_name}",
-                "direction {destination_name}"
+                "towards {destination_name}",
+                "direction {destination_name}",
+                "in the direction {destination_name}"
               ]
             },
             {
               "name": "stop_name",
               "type": "STOP_NAME",
               "samples": [
-                "{stop_name}",
-                "à l'arrêt {stop_name}",
-                "à {stop_name}",
-                "depuis l'arrêt {stop_name}",
-                "depuis {stop_name}"
+                "{stop_id}",
+                "{stop_id} stop",
+                "stop {stop_id}",
+                "the {stop_id} stop",
+                "at {stop_id}",
+                "at the stop {stop_id}",
+                "at stop {stop_id}"
               ]
             }
           ],
           "samples": [
             "{destination_name}",
-            "vers {destination_name}",
-            "en direction de {destination_name}",
+            "towards {destination_name}",
+            "in direction of {destination_name}",
             "direction {destination_name}",
-            "je vais en direction de {destination_name}",
-            "je vais direction {destination_name}",
-            "je vais vers {destination_name}",
-            "je voyage en direction de {destination_name}"
+            "I'm going towards {destination_name}",
+            "I am going towards {destination_name}",
+            "I'm going to {destination_name}",
+            "I go to {destination_name}",
+            "I go towards {destination_name}",
+            "I'm travelling towards {destination_name}",
+            "I am travelling towards {destination_name}",
+            "I'm travelling in direction of {destination_name}",
+            "I am travelling in direction of {destination_name}",
+            "I travel towards {destination_name}"
           ]
         },
         {
@@ -225,7 +288,7 @@
                 "value": "bus",
                 "synonyms": [
                   "autobus",
-                  "car"
+                  "coach"
                 ]
               }
             },
@@ -234,8 +297,10 @@
               "name": {
                 "value": "metro",
                 "synonyms": [
-                  "métro",
-                  "métropolitain"
+                  "subway",
+                  "metropolitan",
+                  "tube",
+                  "underground"
                 ]
               }
             },
@@ -330,15 +395,15 @@
         "variations": [
           {
             "type": "PlainText",
-            "value": "Quelle ligne prenez vous habituellement?"
+            "value": "Which line do you usually travel on?"
           },
           {
             "type": "PlainText",
-            "value": "Quel numéro de ligne prenez vous habituellement?"
+            "value": "Which route number do you usually take?"
           },
           {
             "type": "PlainText",
-            "value": "Quel est votre ligne favorite?"
+            "value": "What's your favorite route number?"
           }
         ]
       },
@@ -347,11 +412,11 @@
         "variations": [
           {
             "type": "PlainText",
-            "value": "Quel mode de transport en commun utilisez vous?"
+            "value": "What's your transportation mode?"
           },
           {
             "type": "PlainText",
-            "value": "Vous êtes plutot bus, métro ou bien tram?"
+            "value": "Are you more of a bus, tram or metro person?"
           }
         ]
       },
@@ -360,7 +425,7 @@
         "variations": [
           {
             "type": "PlainText",
-            "value": "Dans quelle direction allez vous?"
+            "value": "In which direction are you travelling?"
           }
         ]
       },
@@ -369,27 +434,23 @@
         "variations": [
           {
             "type": "PlainText",
-            "value": "Parfait! Quel est le nom de votre arrêt?"
+            "value": "Great! What's your stop name?"
           },
           {
             "type": "PlainText",
-            "value": "Top! Quel est le nom de l'arrêt auquel vous montez?"
+            "value": "Perfect! I just need your stop name now."
           },
           {
             "type": "PlainText",
-            "value": "Super! A quel arrêt montez vous?"
+            "value": "Got it. What's your stop name?"
           },
           {
             "type": "PlainText",
-            "value": "Ca roule. Quel est votre arrêt?"
+            "value": "Alright. At which stop do you hop in?"
           },
           {
             "type": "PlainText",
-            "value": "Très bien. D'ou partez vous?"
-          },
-          {
-            "type": "PlainText",
-            "value": "D'accord. A quel arrêt commence votre voyage?"
+            "value": "Gotcha. Where does your journey begins?"
           }
         ]
       },
@@ -398,15 +459,15 @@
         "variations": [
           {
             "type": "PlainText",
-            "value": "La ligne {line_id} ne fait pas partie des lignes du réseau de la STIB. Donnez moi une ligne dont le numéro est compris entre 1 et 98"
+            "value": "Wait a minute there, I don't think the route {line_id} exists. Please give me a route number between 1 and 98."
           },
           {
             "type": "PlainText",
-            "value": "Vous vous êtes surement trompé, la ligne {line_id} n'est pas un numéro de ligne valable. Donnez moi une ligne dont le numéro est compris entre 1 et 98"
+            "value": "Woops, the route {line_id} isn't a valid route number. Please give me a route number between 1 and 98."
           },
           {
             "type": "PlainText",
-            "value": "La ligne {line_id} n'existe pas. Donnez moi une ligne dont le numéro est compris entre 1 et 98"
+            "value": "I'm sorry but the route {line_id} doesn't exist. Please give me a route number between 1 and 98."
           }
         ]
       },
@@ -415,11 +476,11 @@
         "variations": [
           {
             "type": "PlainText",
-            "value": "Le {transportation_type} n'est pas un mode de transport valable. Choisissez entre le bus, le métro et le tram"
+            "value": "The {transportation_type} isn't a valid transportation mode on the STIB network. Choose between bus,tram or metro."
           },
           {
             "type": "PlainText",
-            "value": "Vous ne pouvez pas voyager en {transportation_type} sur les lignes de la STIB. Choisissez entre le bus, le métro et le tram"
+            "value": "You can not travel by {transportation_type} on the STIB network. Choose between bus,tram or metro."
           }
         ]
       },
@@ -428,7 +489,7 @@
         "variations": [
           {
             "type": "PlainText",
-            "value": "La destination {destination_name} n'est pas une destination valable."
+            "value": "{destination_name} is not a valid destination."
           }
         ]
       },
@@ -437,11 +498,11 @@
         "variations": [
           {
             "type": "PlainText",
-            "value": "L'arrêt {stop_name} n'est pas un arrêt valable."
+            "value": "{stop_name} is not a valid stop name."
           },
           {
             "type": "PlainText",
-            "value": "Désolé, je ne connais pas l'arret {stop_name}."
+            "value": "I'm sorry but I don't know the stop {stop_name}."
           }
         ]
       }

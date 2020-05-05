@@ -29,7 +29,7 @@ logger = logging.getLogger("Lambda")
 class LaunchRequestHandler(AbstractRequestHandler):
     """Handler for Skill Launch."""
 
-    # Todo: Make this two different launch handlers
+    # Todo: Make this two different launch handlers ?
 
     def can_handle(self, handler_input):
         # type: (HandlerInput) -> bool
