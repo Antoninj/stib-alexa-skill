@@ -39,7 +39,7 @@ msgid ""
 "Vous pouvez demander des informations en temps réél concernant votre "
 "trajet favori ou modifier votre trajet favori à tout moment. Que "
 "souhaitez-vous faire?"
-msgstr "You can ask for real-time updates on your favorite journey or modify your preferences anytime you want."
+msgstr "You can ask for real-time updates on your favorite journey or modify your preferences anytime you want. "
 "What would you like to do"
 
 #: lambda/custom/core/data/data.py:39 lambda/custom/core/data/data.py:82
