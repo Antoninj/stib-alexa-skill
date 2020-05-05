@@ -1,6 +1,6 @@
 {
   "Parameters" : {
-    "Stage" : "Production"
+    "Stage" : "Sandbox"
   },
   "Tags":
   {
