@@ -208,15 +208,15 @@
               "name": "stop_name",
               "type": "STOP_NAME",
               "samples": [
-                "{stop_id}",
-                "{stop_id} stop",
-                "stop {stop_id}",
-                "the {stop_id} stop",
-                "at {stop_id}",
-                "at the stop {stop_id}",
-                "at stop {stop_id}",
-                "from stop {stop_id}",
-                "from {stop_id}"
+                "{stop_name}",
+                "{stop_name} stop",
+                "stop {stop_name}",
+                "the {stop_name} stop",
+                "at {stop_name}",
+                "at the stop {stop_name}",
+                "at stop {stop_name}",
+                "from stop {stop_name}",
+                "from {stop_name}"
               ]
             }
           ],
