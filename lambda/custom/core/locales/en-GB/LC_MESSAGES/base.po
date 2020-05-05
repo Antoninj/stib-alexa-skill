@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2020-05-05 15:08+0200\n"
+"POT-Creation-Date: 2020-05-05 21:05+0200\n"
 "PO-Revision-Date: 2020-05-05 14:58+0200\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language: en_GB\n"
@@ -39,8 +39,9 @@ msgid ""
 "Vous pouvez demander des informations en temps réél concernant votre "
 "trajet favori ou modifier votre trajet favori à tout moment. Que "
 "souhaitez-vous faire?"
-msgstr "You can ask for real-time updates on your favorite journey or modify your preferences anytime you want. "
-"What would you like to do"
+msgstr ""
+"You can ask for real-time updates on your favorite journey or modify your"
+" preferences anytime you want. What would you like to do?"
 
 #: lambda/custom/core/data/data.py:39 lambda/custom/core/data/data.py:82
 msgid "Comment puis-je vous aider?"
@@ -58,7 +59,9 @@ msgstr "Would you like to configure your favorite trip information?"
 msgid ""
 "D'accord, c'est parti. Les lignes du réseau STIB sont numérotées de 1 à "
 "98. Quelle ligne utilisez vous d'habitude?"
-msgstr "Ok, let's do it. STIB network routes are numbered from 1 to 98. Which route do you usually travel on?"
+msgstr ""
+"Ok, let's do it. STIB network routes are numbered from 1 to 98. Which "
+"route do you usually travel on?"
 
 #: lambda/custom/core/data/data.py:57
 msgid "Quel est votre ligne STIB habituelle?"
@@ -80,7 +83,9 @@ msgstr "Bye bye!"
 msgid ""
 "La skill Horaires STIB n'est pas en mesure de vous aider pour cela. "
 "Comment puis-je vous aider?"
-msgstr "I'm affraid the STIB schedule skill can't help you with that. How can I help you?"
+msgstr ""
+"I'm affraid the STIB schedule skill can't help you with that. How can I "
+"help you?"
 
 #: lambda/custom/core/data/data.py:87
 msgid ""
@@ -104,7 +109,9 @@ msgstr "Where are you headed to, {} or {}?"
 msgid ""
 "Merci, vos préférences ont été correctement sauvegardées. Vous prenez "
 "donc le {} {} à l'arret {} direction {}."
-msgstr "You're all set. I'll remember you like to travel on the {} {} from {} towards {}"
+msgstr ""
+"You're all set. I'll remember you like to travel on the {} {} from {} "
+"towards {}"
 
 #: lambda/custom/core/data/data.py:117
 msgid "Le prochain {} {} en direction de {} passe dans {}."
@@ -127,18 +134,20 @@ msgid "INFORMATION MANQUANTE"
 msgstr "MISSING DATA"
 
 #: lambda/custom/core/data/data.py:133
-msgid "{} jours, {} heures, {} minutes et {} secondes."
-msgstr "{} days, {} hours, {} minutes et {} seconds."
+msgid "{} jours, {} heures, {} minutes et {} secondes"
+msgstr "{} days, {} hours, {} minutes and {} seconds"
 
 #: lambda/custom/core/data/data.py:136
-msgid "{} heures, {} minutes et {} secondes."
-msgstr "{} hours, {} minutes et {} seconds."
+msgid "{} heures, {} minutes et {} secondes"
+msgstr "{} hours, {} minutes and {} seconds"
 
 #: lambda/custom/core/data/data.py:137
-msgid "{} minutes et {} secondes."
-msgstr "{} minutes et {} seconds."
+msgid "{} minutes et {} secondes"
+msgstr "{} minutes and {} seconds"
 
 #: lambda/custom/core/data/data.py:138
-msgid "{} secondes."
-msgstr "{} seconds."
+msgid "{} secondes"
+msgstr "{} seconds"
+
+
 

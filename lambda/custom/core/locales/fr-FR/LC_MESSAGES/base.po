@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2020-05-05 15:03+0200\n"
+"POT-Creation-Date: 2020-05-05 21:05+0200\n"
 "PO-Revision-Date: 2020-04-09 17:00+0200\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language: fr_FR\n"
@@ -17,6 +17,10 @@ msgstr ""
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Generated-By: Babel 2.8.0\n"
+
+#: lambda/custom/core/data/data.py:21
+msgid "Horaires STIB"
+msgstr ""
 
 #: lambda/custom/core/data/data.py:30
 msgid "Bienvenue dans la skill Horaires STIB!"
@@ -37,7 +41,7 @@ msgid ""
 "souhaitez-vous faire?"
 msgstr ""
 
-#: lambda/custom/core/data/data.py:39 lambda/custom/core/data/data.py:80
+#: lambda/custom/core/data/data.py:39 lambda/custom/core/data/data.py:82
 msgid "Comment puis-je vous aider?"
 msgstr ""
 
@@ -45,17 +49,21 @@ msgstr ""
 msgid "Souhaitez-vous enregistrer vos préférences maintenant?"
 msgstr ""
 
-#: lambda/custom/core/data/data.py:51
+#: lambda/custom/core/data/data.py:41
+msgid "Voulez-vous configurer votre trajet favori maintenant?"
+msgstr ""
+
+#: lambda/custom/core/data/data.py:53
 msgid ""
 "D'accord, c'est parti. Les lignes du réseau STIB sont numérotées de 1 à "
 "98. Quelle ligne utilisez vous d'habitude?"
 msgstr ""
 
-#: lambda/custom/core/data/data.py:55
+#: lambda/custom/core/data/data.py:57
 msgid "Quel est votre ligne STIB habituelle?"
 msgstr ""
 
-#: lambda/custom/core/data/data.py:60 lambda/custom/core/data/data.py:64
+#: lambda/custom/core/data/data.py:62 lambda/custom/core/data/data.py:66
 msgid ""
 "Demandez par exemple 'Quand passe le prochain bus' pour obtenir des "
 "informations en temps réél sur les prochains horaires de passage.Vous "
@@ -63,59 +71,74 @@ msgid ""
 "trajet favori. Que souhaitez-vous faire?"
 msgstr ""
 
-#: lambda/custom/core/data/data.py:72
+#: lambda/custom/core/data/data.py:74
 msgid "D'accord. A bientôt!"
 msgstr ""
 
-#: lambda/custom/core/data/data.py:77
+#: lambda/custom/core/data/data.py:79
 msgid ""
 "La skill Horaires STIB n'est pas en mesure de vous aider pour cela. "
 "Comment puis-je vous aider?"
 msgstr ""
 
-#: lambda/custom/core/data/data.py:85
+#: lambda/custom/core/data/data.py:87
 msgid ""
 "Désolé, je n'ai pas compris votre requête. Pouvez vous répeter s'il vous "
 "plait."
 msgstr ""
 
-#: lambda/custom/core/data/data.py:88
+#: lambda/custom/core/data/data.py:90
 msgid "Désolé, je n'ai pas compris. Pouvez vous répeter s'il vous plait."
 msgstr ""
 
-#: lambda/custom/core/data/data.py:113
+#: lambda/custom/core/data/data.py:99
+msgid "C'est noté. Dans quelle direction prenez vous le {} {}, {} ou {}?"
+msgstr ""
+
+#: lambda/custom/core/data/data.py:102
+msgid "Dans quelle direction allez vous, {} ou {}?"
+msgstr ""
+
+#: lambda/custom/core/data/data.py:109
+msgid ""
+"Merci, vos préférences ont été correctement sauvegardées. Vous prenez "
+"donc le {} {} à l'arret {} direction {}."
+msgstr ""
+
+#: lambda/custom/core/data/data.py:117
 msgid "Le prochain {} {} en direction de {} passe dans {}."
 msgstr ""
 
-#: lambda/custom/core/data/data.py:114
+#: lambda/custom/core/data/data.py:118
 msgid "Le suivant passe dans {}."
 msgstr ""
 
-#: lambda/custom/core/data/data.py:115
+#: lambda/custom/core/data/data.py:119
 msgid "Désolé, je n'ai pas trouvé d'informations pour le trajet demandé."
 msgstr ""
 
-#: lambda/custom/core/data/data.py:118
+#: lambda/custom/core/data/data.py:122
 msgid "Bonne journée!"
 msgstr ""
 
-#: lambda/custom/core/data/data.py:128
+#: lambda/custom/core/data/data.py:132
 msgid "INFORMATION MANQUANTE"
 msgstr ""
 
-#: lambda/custom/core/data/data.py:129
-msgid "{} jours, {} heures, {} minutes et {} secondes."
-msgstr ""
-
-#: lambda/custom/core/data/data.py:132
-msgid "{} heures, {} minutes et {} secondes."
-msgstr ""
-
 #: lambda/custom/core/data/data.py:133
-msgid "{} minutes et {} secondes."
+msgid "{} jours, {} heures, {} minutes et {} secondes"
 msgstr ""
 
-#: lambda/custom/core/data/data.py:134
-msgid "{} secondes."
+#: lambda/custom/core/data/data.py:136
+msgid "{} heures, {} minutes et {} secondes"
 msgstr ""
+
+#: lambda/custom/core/data/data.py:137
+msgid "{} minutes et {} secondes"
+msgstr ""
+
+#: lambda/custom/core/data/data.py:138
+msgid "{} secondes"
+msgstr ""
+
 
