@@ -9,6 +9,7 @@ babel = "*"
 black = "*"
 lex-bot-tester = "*"
 pipenv-to-requirements = "*"
+interrogate = "*"
 
 [packages]
 ask-sdk-core = "==1.13.0"

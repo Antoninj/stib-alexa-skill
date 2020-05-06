@@ -3,6 +3,7 @@
 ![GitHub Pipenv locked Python version](https://img.shields.io/github/pipenv/locked/python-version/antoninj/playground)
 [![Code style: black](https://img.shields.io/badge/code%20style-black-000000.svg)](https://github.com/psf/black)
 [![Dependabot Status](https://api.dependabot.com/badges/status?host=github&repo=Antoninj/stib-alexa-skill&identifier=257949017)](https://dependabot.com)
+![Interrogate Status](assets/images/interrogate_badge.svg)
 
 Unofficial Alexa skill for retrieving live data from the STIB-MIVB network.
 
