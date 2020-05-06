@@ -17,11 +17,11 @@
 import csv
 import io
 import logging
-from typing import List, Optional
-from enum import Enum
-
 from dataclasses import dataclass, field
-from dataclasses_json import dataclass_json, LetterCase
+from enum import Enum
+from typing import List, Optional
+
+from dataclasses_json import LetterCase, dataclass_json
 
 from .passing_times import Destination
 

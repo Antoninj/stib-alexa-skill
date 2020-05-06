@@ -14,25 +14,26 @@
 #  specific language governing permissions and limitations under the
 #  License.
 
+import logging
 import uuid
 from typing import List, Optional
-import logging
 
 from ask_sdk_core.dispatch_components import AbstractRequestHandler
 from ask_sdk_core.handler_input import HandlerInput
-from ask_sdk_core.utils import is_intent_name, get_dialog_state, get_slot_value
+from ask_sdk_core.utils import get_dialog_state, get_slot_value, is_intent_name
 from ask_sdk_model import Response
-from ask_sdk_model.dialog_state import DialogState
 from ask_sdk_model.dialog.delegate_directive import DelegateDirective
 from ask_sdk_model.dialog.dynamic_entities_directive import *
+from ask_sdk_model.dialog_state import DialogState
 from ask_sdk_model.er.dynamic import (
     Entity,
-    EntityValueAndSynonyms,
     EntityListItem,
+    EntityValueAndSynonyms,
     UpdateBehavior,
 )
-from ...service.model.line_stops import LineDetails
+
 from ...data import data
+from ...service.model.line_stops import LineDetails
 
 logger = logging.getLogger("Lambda")
 

@@ -12,9 +12,9 @@
 #  specific language governing permissions and limitations under the
 #  License.
 
+import gettext
 import os
 import unittest
-import gettext
 
 from ..custom.core.data import data
 

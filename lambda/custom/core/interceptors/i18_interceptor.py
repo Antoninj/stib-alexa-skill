@@ -12,8 +12,8 @@
 #  specific language governing permissions and limitations under the
 #  License.
 
-import logging
 import gettext
+import logging
 
 from ask_sdk_core.dispatch_components import AbstractRequestInterceptor
 from ask_sdk_core.handler_input import HandlerInput

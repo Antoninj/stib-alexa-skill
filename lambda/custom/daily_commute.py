@@ -17,32 +17,32 @@
 import gettext
 import logging
 import os
+
 import boto3
-
-from ask_sdk_dynamodb.adapter import DynamoDbAdapter
 from ask_sdk_core.skill_builder import CustomSkillBuilder
+from ask_sdk_dynamodb.adapter import DynamoDbAdapter
 
-from core.handlers.custom.get_arrival_times_intent_handler import *
+from core.client.stib_api_client import OpenDataAPIClient
+from core.data import data
+from core.handlers.amazon.common_intents_handlers import *
+from core.handlers.amazon.fallback_intent_handler import FallBackHandler
+from core.handlers.amazon.intent_reflector_handler import IntentReflectorHandler
+from core.handlers.amazon.repeat_intent_handler import RepeatHandler
 from core.handlers.custom.commute_preferences_intent_handler import *
 from core.handlers.custom.favorite_line_intent_handler import *
 from core.handlers.custom.favorite_stop_intent_handler import *
+from core.handlers.custom.get_arrival_times_intent_handler import *
 from core.handlers.custom.save_trip_preferences_intent_handler import (
     SaveTripPreferencesHandler,
 )
-from core.handlers.launch_handler import LaunchRequestHandler
-from core.handlers.amazon.common_intents_handlers import *
-from core.handlers.amazon.repeat_intent_handler import RepeatHandler
-from core.handlers.amazon.fallback_intent_handler import FallBackHandler
-from core.handlers.amazon.intent_reflector_handler import IntentReflectorHandler
 from core.handlers.exception.error_handler import ErrorHandler
+from core.handlers.launch_handler import LaunchRequestHandler
 from core.interceptors.i18_interceptor import LocalizationInterceptor
 from core.interceptors.logger_interceptors import (
     RequestLoggerInterceptor,
     ResponseLoggerInterceptor,
 )
-from core.client.stib_api_client import OpenDataAPIClient
 from core.service.stib_service import OpenDataService
-from core.data import data
 
 # Environment variables definitions
 ENVIRONMENT = os.environ["env"]

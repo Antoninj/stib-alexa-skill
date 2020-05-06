@@ -17,13 +17,14 @@
 #
 import argparse
 import json
-import socket
-import os.path
-import six
-import re
-import typing
 import logging
+import os.path
+import re
+import socket
 import sys
+import typing
+
+import six
 
 logging.basicConfig(
     level=logging.INFO,

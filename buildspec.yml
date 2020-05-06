@@ -9,9 +9,8 @@ phases:
       - pip install -r lambda/custom/requirements.txt -t lambda/custom
       - pip install babel
       - pybabel compile -i lambda/custom/core/locales/fr-FR/LC_MESSAGES/base.po -o lambda/custom/core/locales/fr-FR/LC_MESSAGES/base.mo
+      - pybabel compile -i lambda/custom/core/locales/fr-CA/LC_MESSAGES/base.po -o lambda/custom/core/locales/fr-CA/LC_MESSAGES/base.mo
       - pybabel compile -i lambda/custom/core/locales/en-GB/LC_MESSAGES/base.po -o lambda/custom/core/locales/en-GB/LC_MESSAGES/base.mo
-      - pip install interrogate
-      - interrogate lambda/custom -q --ignore-init-method --ignore-init-module --ignore-module  --ignore-regex handle --ignore-regex can_handle --generate-badge assets/images/
       - pip install --upgrade awscli
       - aws cloudformation package --template template.yml --s3-bucket $S3_BUCKET --output-template template-export.yml
       # Do not remove this statement. This command is required for AWS CodeStar projects.

@@ -18,15 +18,15 @@ import io
 import logging
 import os
 import zipfile
-from typing import List, Optional, Dict
+from typing import Dict, List, Optional
 
-from ask_sdk_model.services import ApiClientRequest, ApiClient
-import hermes.backend.memcached
-import hermes.backend.dict
 import elasticache_auto_discovery
+import hermes.backend.dict
+import hermes.backend.memcached
+from ask_sdk_model.services import ApiClient, ApiClientRequest
 
-from .model.passing_times import PointPassingTimes, PassingTime
 from .model.line_stops import LineDetails
+from .model.passing_times import PassingTime, PointPassingTimes
 
 logger = logging.getLogger("Lambda")
 

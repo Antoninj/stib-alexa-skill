@@ -14,8 +14,8 @@
 #  specific language governing permissions and limitations under the
 #  License.
 
-from typing import List, Optional
 import logging
+from typing import List, Optional
 
 from ask_sdk_core.dispatch_components import AbstractRequestHandler
 from ask_sdk_core.handler_input import HandlerInput

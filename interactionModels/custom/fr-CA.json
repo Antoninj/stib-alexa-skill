@@ -1,0 +1,450 @@
+{
+  "interactionModel": {
+    "languageModel": {
+      "invocationName": "horaires stib",
+      "intents": [
+        {
+          "name": "AMAZON.YesIntent",
+          "samples": []
+        },
+        {
+          "name": "AMAZON.NoIntent",
+          "samples": []
+        },
+        {
+          "name": "AMAZON.CancelIntent",
+          "samples": []
+        },
+        {
+          "name": "AMAZON.HelpIntent",
+          "samples": []
+        },
+        {
+          "name": "AMAZON.StopIntent",
+          "samples": []
+        },
+        {
+          "name": "AMAZON.RepeatIntent",
+          "samples": []
+        },
+        {
+          "name": "AMAZON.FallbackIntent",
+          "samples": []
+        },
+        {
+          "name": "SaveTripPreferencesIntent",
+          "samples": [
+            "trajet favori",
+            "trajet préféré",
+            "trajet enregistré",
+            "enregistre mes préférences",
+            "sauvegarde mes préférences",
+            "modifie mes préférences",
+            "configure mes préférences",
+            "enregistre mon trajet",
+            "sauvegarde mon trajet",
+            "modifie mon trajet",
+            "configure mon trajet",
+            "enregistre mon trajet favori",
+            "sauvegarde mon trajet favori",
+            "modifie mon trajet favori",
+            "configure mon trajet favori",
+            "enregistre mon trajet préféré",
+            "sauvegarde mon trajet préféré",
+            "modifie mon trajet préféré",
+            "configure mon trajet préféré",
+            "enregistre mon trajet quotidien",
+            "sauvegarde mon trajet quotidien",
+            "modifie mon trajet quotidien",
+            "configure mon trajet quotidien",
+            "enregistre mon trajet habituel",
+            "sauvegarde mon trajet habituel",
+            "modifie mon trajet habituel",
+            "configure mon trajet habituel"
+          ]
+        },
+        {
+          "name": "SetFavoriteLineIntent",
+          "slots": [
+            {
+              "name": "line_id",
+              "type": "AMAZON.NUMBER",
+              "samples": [
+                "{line_id}",
+                "numéro {line_id}",
+                "ligne {line_id}",
+                "le numéro {line_id}",
+                "la ligne {line_id}",
+                "le {line_id}"
+              ]
+            },
+            {
+              "name": "transportation_type",
+              "type": "TRANSPORTATION_TYPES"
+            }
+          ],
+          "samples": [
+            "je prends la {line_id}",
+            "je prends la ligne {line_id}",
+            "je prends la ligne de {transportation_type} {line_id}",
+            "je prends la ligne de {transportation_type} numéro {line_id}",
+            "je prends le {transportation_type} {line_id}",
+            "je prends le {transportation_type} numéro {line_id}",
+            "je prends le numéro {line_id}",
+            "la {line_id}",
+            "la ligne {line_id}",
+            "la ligne de {transportation_type} {line_id}",
+            "la ligne de {transportation_type} numéro {line_id}",
+            "le {line_id}",
+            "le {transportation_type} {line_id}",
+            "le {transportation_type} numéro {line_id}",
+            "le numéro {line_id}"
+          ]
+        },
+        {
+          "name": "SetFavoriteStopIntent",
+          "slots": [
+            {
+              "name": "destination_name",
+              "type": "DESTINATION_NAME",
+              "samples": [
+                "{destination_name}",
+                "vers {destination_name}",
+                "en direction de {destination_name}",
+                "direction {destination_name}"
+              ]
+            },
+            {
+              "name": "stop_name",
+              "type": "STOP_NAME",
+              "samples": [
+                "{stop_name}",
+                "à l'arrêt {stop_name}",
+                "à {stop_name}",
+                "depuis l'arrêt {stop_name}",
+                "depuis {stop_name}"
+              ]
+            }
+          ],
+          "samples": [
+            "{destination_name}",
+            "vers {destination_name}",
+            "en direction de {destination_name}",
+            "direction {destination_name}",
+            "je vais en direction de {destination_name}",
+            "je vais direction {destination_name}",
+            "je vais vers {destination_name}",
+            "je voyage en direction de {destination_name}"
+          ]
+        },
+        {
+          "name": "GetArrivalTimesIntent",
+          "slots": [
+            {
+              "name": "transportation_type",
+              "type": "TRANSPORTATION_TYPES"
+            }
+          ],
+          "samples": [
+            "temps d'attente",
+            "le temps d'attente",
+            "prochain {transportation_type}",
+            "l'heure d'arrivée du {transportation_type}",
+            "l'heure d'arrivée de mon {transportation_type}",
+            "le temps d'attente du {transportation_type}",
+            "le temps d'attente de mon {transportation_type}",
+            "l'horaire du {transportation_type}",
+            "l'horaire de mon {transportation_type}",
+            "l'horaire du prochain {transportation_type}",
+            "l'horaire de mon prochain {transportation_type}",
+            "horaire du prochain {transportation_type}",
+            "horaire du {transportation_type}",
+            "horaire de mon prochain {transportation_type}",
+            "horaire de mon {transportation_type}",
+            "quand est le prochain {transportation_type}",
+            "quand est-ce que passe le {transportation_type}",
+            "quand est-ce que passe le prochain {transportation_type}",
+            "quand est-ce qu'arrive le {transportation_type}",
+            "quand est-ce qu'arrive le prochain {transportation_type}",
+            "quand est-ce que passe mon {transportation_type}",
+            "quand est-ce que passe mon prochain {transportation_type}",
+            "quand est-ce qu'arrive mon {transportation_type}",
+            "quand est-ce qu'arrive mon prochain {transportation_type}",
+            "quand passe le prochain {transportation_type}",
+            "quand passe le {transportation_type}",
+            "quand passe mon prochain {transportation_type}",
+            "quand passe mon {transportation_type}",
+            "dis moi quand passe le {transportation_type}",
+            "dis moi quand passe mon {transportation_type}",
+            "quel est l'horaire pour le prochain {transportation_type}",
+            "quel est l'horaire du prochain {transportation_type}",
+            "quel est l'horaire du {transportation_type}",
+            "quel est l'horaire de mon {transportation_type}",
+            "dans combien de temps arrive le prochain {transportation_type}",
+            "dans combien de temps arrive le {transportation_type}",
+            "dans combien de temps passe le prochain {transportation_type}",
+            "dans combien de temps passe le {transportation_type}",
+            "dans combien de temps est le prochain {transportation_type}",
+            "dans combien de temps est le {transportation_type}",
+            "dans combien de temps arrive mon prochain {transportation_type}",
+            "dans combien de temps arrive mon {transportation_type}",
+            "dans combien de temps passe mon prochain {transportation_type}",
+            "dans combien de temps passe mon {transportation_type}"
+          ]
+        }
+      ],
+      "types": [
+        {
+          "name": "DESTINATION_NAME",
+          "values": [
+            {
+              "id": "PLACEHOLDER",
+              "name": {
+                "value": "PLACEHOLDER"
+              }
+            }
+          ]
+        },
+        {
+          "name": "STOP_NAME",
+          "values": [
+            {
+              "id": "PLACEHOLDER",
+              "name": {
+                "value": "PLACEHOLDER"
+              }
+            }
+          ]
+        },
+        {
+          "name": "TRANSPORTATION_TYPES",
+          "values": [
+            {
+              "id": "bus",
+              "name": {
+                "value": "bus",
+                "synonyms": [
+                  "autobus",
+                  "car"
+                ]
+              }
+            },
+            {
+              "id": "metro",
+              "name": {
+                "value": "metro",
+                "synonyms": [
+                  "métro",
+                  "métropolitain"
+                ]
+              }
+            },
+            {
+              "id": "tram",
+              "name": {
+                "value": "tram",
+                "synonyms": [
+                  "tramway"
+                ]
+              }
+            }
+          ]
+        }
+      ]
+    },
+    "dialog": {
+      "intents": [
+        {
+          "name": "SetFavoriteLineIntent",
+          "delegationStrategy": "SKILL_RESPONSE",
+          "confirmationRequired": false,
+          "prompts": {},
+          "slots": [
+            {
+              "name": "line_id",
+              "type": "AMAZON.NUMBER",
+              "confirmationRequired": false,
+              "elicitationRequired": true,
+              "prompts": {
+                "elicitation": "Elicit.Slot.LineId"
+              },
+              "validations": [
+                {
+                  "type": "isGreaterThanOrEqualTo",
+                  "prompt": "Slot.Validation.LineId",
+                  "value": 1
+                },
+                {
+                  "type": "isLessThanOrEqualTo",
+                  "prompt": "Slot.Validation.LineId",
+                  "value": 98
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "name": "SetFavoriteStopIntent",
+          "delegationStrategy": "SKILL_RESPONSE",
+          "confirmationRequired": false,
+          "prompts": {},
+          "slots": [
+            {
+              "name": "destination_name",
+              "type": "DESTINATION_NAME",
+              "confirmationRequired": false,
+              "elicitationRequired": true,
+              "prompts": {
+                "elicitation": "Elicit.Slot.DestinationName"
+              },
+              "validations": [
+                {
+                  "type": "hasEntityResolutionMatch",
+                  "prompt": "Slot.Validation.DestinationName"
+                }
+              ]
+            },
+            {
+              "name": "stop_name",
+              "type": "STOP_NAME",
+              "confirmationRequired": false,
+              "elicitationRequired": true,
+              "prompts": {
+                "elicitation": "Elicit.Slot.StopName"
+              },
+              "validations": [
+                {
+                  "type": "hasEntityResolutionMatch",
+                  "prompt": "Slot.Validation.StopName"
+                }
+              ]
+            }
+          ]
+        }
+      ],
+      "delegationStrategy": "ALWAYS"
+    },
+    "prompts": [
+      {
+        "id": "Elicit.Slot.LineId",
+        "variations": [
+          {
+            "type": "PlainText",
+            "value": "Quelle ligne prenez vous habituellement?"
+          },
+          {
+            "type": "PlainText",
+            "value": "Quel numéro de ligne prenez vous habituellement?"
+          },
+          {
+            "type": "PlainText",
+            "value": "Quel est votre ligne favorite?"
+          }
+        ]
+      },
+      {
+        "id": "Elicit.Slot.TransportationType",
+        "variations": [
+          {
+            "type": "PlainText",
+            "value": "Quel mode de transport en commun utilisez vous?"
+          },
+          {
+            "type": "PlainText",
+            "value": "Vous êtes plutot bus, métro ou bien tram?"
+          }
+        ]
+      },
+      {
+        "id": "Elicit.Slot.DestinationName",
+        "variations": [
+          {
+            "type": "PlainText",
+            "value": "Dans quelle direction allez vous?"
+          }
+        ]
+      },
+      {
+        "id": "Elicit.Slot.StopName",
+        "variations": [
+          {
+            "type": "PlainText",
+            "value": "Parfait! Quel est le nom de votre arrêt?"
+          },
+          {
+            "type": "PlainText",
+            "value": "Top! Quel est le nom de l'arrêt auquel vous montez?"
+          },
+          {
+            "type": "PlainText",
+            "value": "Super! A quel arrêt montez vous?"
+          },
+          {
+            "type": "PlainText",
+            "value": "Ca roule. Quel est votre arrêt?"
+          },
+          {
+            "type": "PlainText",
+            "value": "Très bien. D'ou partez vous?"
+          },
+          {
+            "type": "PlainText",
+            "value": "D'accord. A quel arrêt commence votre voyage?"
+          }
+        ]
+      },
+      {
+        "id": "Slot.Validation.LineId",
+        "variations": [
+          {
+            "type": "PlainText",
+            "value": "La ligne {line_id} ne fait pas partie des lignes du réseau de la STIB. Donnez moi une ligne dont le numéro est compris entre 1 et 98"
+          },
+          {
+            "type": "PlainText",
+            "value": "Vous vous êtes surement trompé, la ligne {line_id} n'est pas un numéro de ligne valable. Donnez moi une ligne dont le numéro est compris entre 1 et 98"
+          },
+          {
+            "type": "PlainText",
+            "value": "La ligne {line_id} n'existe pas. Donnez moi une ligne dont le numéro est compris entre 1 et 98"
+          }
+        ]
+      },
+      {
+        "id": "Slot.Validation.TransportationType",
+        "variations": [
+          {
+            "type": "PlainText",
+            "value": "Le {transportation_type} n'est pas un mode de transport valable. Choisissez entre le bus, le métro et le tram"
+          },
+          {
+            "type": "PlainText",
+            "value": "Vous ne pouvez pas voyager en {transportation_type} sur les lignes de la STIB. Choisissez entre le bus, le métro et le tram"
+          }
+        ]
+      },
+      {
+        "id": "Slot.Validation.DestinationName",
+        "variations": [
+          {
+            "type": "PlainText",
+            "value": "La destination {destination_name} n'est pas une destination valable."
+          }
+        ]
+      },
+      {
+        "id": "Slot.Validation.StopName",
+        "variations": [
+          {
+            "type": "PlainText",
+            "value": "L'arrêt {stop_name} n'est pas un arrêt valable."
+          },
+          {
+            "type": "PlainText",
+            "value": "Désolé, je ne connais pas l'arret {stop_name}."
+          }
+        ]
+      }
+    ]
+  }
+}

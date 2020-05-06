@@ -10,6 +10,7 @@ black = "*"
 lex-bot-tester = "*"
 pipenv-to-requirements = "*"
 interrogate = "*"
+isort = "*"
 
 [packages]
 ask-sdk-core = "==1.13.0"
