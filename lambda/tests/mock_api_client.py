@@ -12,11 +12,10 @@
 #  specific language governing permissions and limitations under the
 #  License.
 
+import json
 import os
 
 from ask_sdk_model.services import ApiClient, ApiClientResponse
-import json
-
 
 PASSING_TIME_BY_POINT_SUFFIX = "/OperationMonitoring/4.0/PassingTimeByPoint/"
 PASSING_TIME_BY_POINT_SUCCESS_API_RESPONSE = (

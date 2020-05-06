@@ -13,8 +13,9 @@
 #  License.
 
 import unittest
-from .mock_api_client import MockAPIClient
+
 from ..custom.core.service.stib_service import OpenDataService
+from .mock_api_client import MockAPIClient
 
 
 class TestStibAPIService(unittest.TestCase):

@@ -131,8 +131,8 @@ Save trip preferences intent
 ###################################################
 NOT_FOUND = _("INFORMATION MANQUANTE")
 ARRIVAL_TIME_DAYS_HOURS_MINUTES_SECONDS = _(
-    "{} jours, {} heures, {} minutes et {} secondes."
+    "{} jours, {} heures, {} minutes et {} secondes"
 )
-ARRIVAL_TIME_HOURS_MINUTES_SECONDS = _("{} heures, {} minutes et {} secondes.")
-ARRIVAL_TIME_MINUTES_SECONDS = _("{} minutes et {} secondes.")
-ARRIVAL_TIME_SECONDS = _("{} secondes.")
+ARRIVAL_TIME_HOURS_MINUTES_SECONDS = _("{} heures, {} minutes et {} secondes")
+ARRIVAL_TIME_MINUTES_SECONDS = _("{} minutes et {} secondes")
+ARRIVAL_TIME_SECONDS = _("{} secondes")

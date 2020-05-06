@@ -14,7 +14,9 @@
 #  specific language governing permissions and limitations under the
 #  License.
 
-from datetime import datetime, time as datetime_time, timedelta
+from datetime import datetime
+from datetime import time as datetime_time
+from datetime import timedelta
 from typing import Dict
 
 import pytz

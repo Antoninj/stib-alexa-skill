@@ -14,20 +14,20 @@
 #  specific language governing permissions and limitations under the
 #  License.
 
-from typing import List, Optional
 import logging
+from typing import List, Optional
 
 from ask_sdk_core.dispatch_components import AbstractRequestHandler
 from ask_sdk_core.handler_input import HandlerInput
 from ask_sdk_core.utils import (
-    is_intent_name,
-    get_slot_value,
     get_dialog_state,
     get_slot,
+    get_slot_value,
+    is_intent_name,
 )
 from ask_sdk_model import Response, Slot
-from ask_sdk_model.dialog_state import DialogState
 from ask_sdk_model.dialog.delegate_directive import DelegateDirective
+from ask_sdk_model.dialog_state import DialogState
 
 from ...data import data
 

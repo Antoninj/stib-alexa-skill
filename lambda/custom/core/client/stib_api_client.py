@@ -15,16 +15,15 @@
 #  License.
 
 import json
-import os
 import logging
+import os
 from typing import Optional
 
-import six
-
-from ask_sdk_core.exceptions import ApiClientException
-from ask_sdk_model.services import ApiClient, ApiClientResponse, ApiClientRequest
-from urllib3.util import parse_url
 import requests
+import six
+from ask_sdk_core.exceptions import ApiClientException
+from ask_sdk_model.services import ApiClient, ApiClientRequest, ApiClientResponse
+from urllib3.util import parse_url
 
 from .token_helper import TokenHelper
 

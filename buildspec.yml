@@ -9,6 +9,7 @@ phases:
       - pip install -r lambda/custom/requirements.txt -t lambda/custom
       - pip install babel
       - pybabel compile -i lambda/custom/core/locales/fr-FR/LC_MESSAGES/base.po -o lambda/custom/core/locales/fr-FR/LC_MESSAGES/base.mo
+      - pybabel compile -i lambda/custom/core/locales/fr-CA/LC_MESSAGES/base.po -o lambda/custom/core/locales/fr-CA/LC_MESSAGES/base.mo
       - pybabel compile -i lambda/custom/core/locales/en-GB/LC_MESSAGES/base.po -o lambda/custom/core/locales/en-GB/LC_MESSAGES/base.mo
       - pip install --upgrade awscli
       - aws cloudformation package --template template.yml --s3-bucket $S3_BUCKET --output-template template-export.yml

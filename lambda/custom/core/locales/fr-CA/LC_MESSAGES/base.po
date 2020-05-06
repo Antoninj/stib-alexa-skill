@@ -1,4 +1,4 @@
-# French (France) translations for PROJECT.
+# French (Canada) translations for PROJECT.
 # Copyright (C) 2020 ORGANIZATION
 # This file is distributed under the same license as the PROJECT project.
 # FIRST AUTHOR <EMAIL@ADDRESS>, 2020.
@@ -8,10 +8,10 @@ msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
 "POT-Creation-Date: 2020-05-05 21:05+0200\n"
-"PO-Revision-Date: 2020-04-09 17:00+0200\n"
+"PO-Revision-Date: 2020-05-06 14:09+0200\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
-"Language: fr_FR\n"
-"Language-Team: fr_FR <LL@li.org>\n"
+"Language: fr_CA\n"
+"Language-Team: fr_CA <LL@li.org>\n"
 "Plural-Forms: nplurals=2; plural=(n > 1)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
@@ -140,5 +140,4 @@ msgstr ""
 #: lambda/custom/core/data/data.py:138
 msgid "{} secondes"
 msgstr ""
-
 

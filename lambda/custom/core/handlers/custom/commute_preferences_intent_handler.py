@@ -17,14 +17,14 @@
 import logging
 
 from ask_sdk_core.dispatch_components import AbstractRequestHandler
-from ask_sdk_core.utils import is_intent_name, get_slot_value, get_dialog_state
-from ask_sdk_model.dialog_state import DialogState
+from ask_sdk_core.utils import is_intent_name
 from ask_sdk_model.dialog.delegate_directive import DelegateDirective
 from ask_sdk_model.dialog.dynamic_entities_directive import *
+from ask_sdk_model.dialog_state import DialogState
 from ask_sdk_model.er.dynamic import (
     Entity,
-    EntityValueAndSynonyms,
     EntityListItem,
+    EntityValueAndSynonyms,
     UpdateBehavior,
 )
 

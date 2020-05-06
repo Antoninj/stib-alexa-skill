@@ -14,14 +14,14 @@
 #  specific language governing permissions and limitations under the
 #  License.
 
+from dataclasses import dataclass, field
 from datetime import datetime
 from typing import List, Optional
 
-from dataclasses import dataclass, field
-from dataclasses_json import dataclass_json, LetterCase
+from dataclasses_json import LetterCase, dataclass_json
 
-from ..utils.time_utils import TimeUtils
 from ...data import data
+from ..utils.time_utils import TimeUtils
 
 
 @dataclass_json(letter_case=LetterCase.CAMEL)
