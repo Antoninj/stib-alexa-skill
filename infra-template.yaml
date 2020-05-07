@@ -139,7 +139,7 @@ Resources:
   ElastiCacheSubnetGroup:
     Type: 'AWS::ElastiCache::SubnetGroup'
     Properties:
-      CacheSubnetGroupName: "commute-skill-cache-subnet"
+      CacheSubnetGroupName: "alexa-skill-cache-subnet-group"
       Description: Cache Subnet Group
       SubnetIds:
         - !Ref privateSubnet1
@@ -148,11 +148,15 @@ Resources:
     Type: 'AWS::EC2::SecurityGroup'
     Properties:
       GroupDescription: Elasticache Security Group
-      SecurityGroupIngress:
-        - IpProtocol: tcp
-          FromPort: '11211'
-          ToPort: '11211'
-          SourceSecurityGroupName: !GetAtt pubPrivateVPC.DefaultSecurityGroup
+      GroupName: 'alexa-skill-memcached-security-group'
+  ElasticacheSecurityGroupIngressRule:
+    Type: 'AWS::EC2::SecurityGroupIngress'
+    Properties:
+      GroupId: !GetAtt ElasticacheSecurityGroup.GroupId
+      IpProtocol: tcp
+      FromPort: '11211'
+      ToPort: '11211'
+      SourceSecurityGroupId: !GetAtt pubPrivateVPC.DefaultSecurityGroup
   ElasticacheCluster:
     Type: 'AWS::ElastiCache::CacheCluster'
     Properties:
@@ -161,6 +165,7 @@ Resources:
       CacheNodeType: cache.t3.micro
       NumCacheNodes: '1'
       CacheSubnetGroupName: !Ref ElastiCacheSubnetGroup
+      ClusterName: 'alexa-skill-memcached-cluster'
       VpcSecurityGroupIds:
         - !GetAtt
           - ElasticacheSecurityGroup

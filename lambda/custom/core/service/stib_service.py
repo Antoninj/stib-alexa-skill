@@ -23,8 +23,14 @@ from typing import Dict, List, Optional
 import elasticache_auto_discovery
 import hermes.backend.dict
 import hermes.backend.memcached
+from ask_sdk_core.exceptions import ApiClientException
 from ask_sdk_model.services import ApiClient, ApiClientRequest
 
+from .exceptions import (
+    OperationMonitoringError,
+    NetworkDescriptionError,
+    GTFSDataError,
+)
 from .model.line_stops import LineDetails
 from .model.passing_times import PassingTime, PointPassingTimes
 
@@ -76,14 +82,16 @@ class OpenDataService:
         )
         request_url = self.PASSING_TIME_BY_POINT_SUFFIX + stop_id
         api_request = ApiClientRequest(url=request_url, method="GET")
-        # Todo: Add try/except statements for error handling
-        response = self.api_client.invoke(api_request)
-        raw_passages = response.body.json()
-        point_passing_times = PointPassingTimes.schema().load(
-            raw_passages["points"], many=True
-        )
+        try:
+            response = self.api_client.invoke(api_request)
+            raw_passages = response.body.json()
+            point_passing_times = PointPassingTimes.schema().load(
+                raw_passages["points"], many=True
+            )
 
-        return self._filter_passing_times_by_line_id(point_passing_times, line_id)
+            return self._filter_passing_times_by_line_id(point_passing_times, line_id)
+        except ApiClientException as e:
+            raise OperationMonitoringError(e, line_id=line_id, stop_id=stop_id)
 
     @cache(ttl=86400)  # Cache STIB line data for one day
     def get_stops_by_line_id(self, line_id: str) -> Optional[List[LineDetails]]:
@@ -92,13 +100,15 @@ class OpenDataService:
         logger.info("Getting line details for line [%s]", line_id)
         request_url = self.STOPS_BY_LINE_SUFFIX + line_id
         api_request = ApiClientRequest(url=request_url, method="GET")
-        # Todo: Add try/except statements for error handling
-        response = self.api_client.invoke(api_request)
-        raw_lines_info = response.body.json()
-        line_details = LineDetails.schema().load(raw_lines_info["lines"], many=True)
-        self.enrich_line_details_with_gtfs_data(line_details)
+        try:
+            response = self.api_client.invoke(api_request)
+            raw_lines_info = response.body.json()
+            line_details = LineDetails.schema().load(raw_lines_info["lines"], many=True)
+            self.enrich_line_details_with_gtfs_data(line_details)
 
-        return line_details
+            return line_details
+        except ApiClientException as e:
+            raise NetworkDescriptionError(e, line_id)
 
     @cache(ttl=1209600)  # Cache GTFS data for two weeks
     def get_gtfs_data(self, csv_filenames: List[str]) -> Dict[str, io.BytesIO]:
@@ -110,17 +120,21 @@ class OpenDataService:
             method="GET",
             headers=[("Accept", "application/zip")],
         )
-        # Todo: Add try/except statements for error handling
-        response = self.api_client.invoke(api_request)
-        file = io.BytesIO(response.body.content)
-        if zipfile.is_zipfile(file):
-            with zipfile.ZipFile(file) as gtfs_zip_file:
-                logger.debug("GTFS data zip file content: %s", gtfs_zip_file.namelist())
-                csv_files = {
-                    csv_filename: io.BytesIO(gtfs_zip_file.read(name=csv_filename))
-                    for csv_filename in csv_filenames
-                }
-                return csv_files
+        try:
+            response = self.api_client.invoke(api_request)
+            file = io.BytesIO(response.body.content)
+            if zipfile.is_zipfile(file):
+                with zipfile.ZipFile(file) as gtfs_zip_file:
+                    logger.debug(
+                        "GTFS data zip file content: %s", gtfs_zip_file.namelist()
+                    )
+                    csv_files = {
+                        csv_filename: io.BytesIO(gtfs_zip_file.read(name=csv_filename))
+                        for csv_filename in csv_filenames
+                    }
+                    return csv_files
+        except ApiClientException as e:
+            raise GTFSDataError("Error getting GTFS files", e)
 
     def enrich_line_details_with_gtfs_data(
         self, line_details: List[LineDetails]

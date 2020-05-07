@@ -94,7 +94,6 @@ class CompletedFavoriteLineHandler(AbstractRequestHandler):
         line_id = get_slot_value(handler_input, "line_id")
 
         # Call STIB API to retrieve line details
-        # Todo: Add try/except statements for error handling
         line_details: Optional[
             List[LineDetails]
         ] = self.stib_service.get_stops_by_line_id(line_id)
@@ -149,7 +148,6 @@ class CompletedFavoriteLineHandler(AbstractRequestHandler):
         Create list of dynamic entity items from line details
         """
 
-        # Todo: Add try/except statements for error handling
         points = line_details[0].points + line_details[1].points
         destinations = [line.destination for line in line_details]
         stop_entities = [
