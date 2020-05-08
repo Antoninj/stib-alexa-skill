@@ -27,7 +27,7 @@ class OperationMonitoringError(OpenDataServiceException):
     """Exception for errors linked to Operation Monitoring API"""
 
     def __init__(self, original_exception, line_id, stop_id):
-        super(OpenDataServiceException, self).__init__(
+        super(OperationMonitoringError, self).__init__(
             "Error getting arrival times for line [{}] at stop [{}]".format(
                 line_id, stop_id
             ),
@@ -41,7 +41,7 @@ class NetworkDescriptionError(OpenDataServiceException):
     """Exception for Network Description API errors"""
 
     def __init__(self, original_exception, line_id):
-        super(OpenDataServiceException, self).__init__(
+        super(NetworkDescriptionError, self).__init__(
             "Error getting line details for line [{}]".format(line_id),
             original_exception,
         )
@@ -52,4 +52,4 @@ class GTFSDataError(OpenDataServiceException):
     """Exception for GTFS data API errors"""
 
     def __init__(self, msg, original_exception):
-        super(OpenDataServiceException, self).__init__(msg, original_exception)
+        super(GTFSDataError, self).__init__(msg, original_exception)

@@ -24,18 +24,21 @@ from ask_sdk_model import Response
 logger = logging.getLogger("Lambda")
 
 
-# Request and Response Loggers
 class RequestLoggerInterceptor(AbstractRequestInterceptor):
-    """Log the request envelope."""
+    """Request Interceptor for logging purposes."""
 
     def process(self, handler_input):
+        """Log the request envelope."""
+
         # type: (HandlerInput) -> None
         logger.debug("Request Envelope: {}".format(handler_input.request_envelope))
 
 
 class ResponseLoggerInterceptor(AbstractResponseInterceptor):
-    """Log the response envelope."""
+    """Response Interceptor for logging purposes."""
 
     def process(self, handler_input, response):
+        """Log the response envelope."""
+
         # type: (HandlerInput, Response) -> None
         logger.debug("Response: {}".format(response))
