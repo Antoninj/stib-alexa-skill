@@ -23,9 +23,11 @@ logger = logging.getLogger("Lambda")
 
 
 class LocalizationInterceptor(AbstractRequestInterceptor):
-    """Parse locale information and add i18n manager to the request attributes."""
+    """Request interceptor to handle multiple locales."""
 
     def process(self, handler_input):
+        """Parse locale information and add i18n manager to the request attributes."""
+
         # type: (HandlerInput) -> None
         logger.debug("In LocalizationInterceptor")
         locale = get_locale(handler_input)

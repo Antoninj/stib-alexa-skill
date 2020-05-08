@@ -61,6 +61,8 @@ class PassingTime:
         )
 
     def __str__(self):
+        """String representation of passing time object."""
+
         return self._format_waiting_time()
 
     def format_waiting_time(self, translate) -> str:

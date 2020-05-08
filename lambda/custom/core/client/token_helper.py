@@ -27,6 +27,14 @@ from botocore.exceptions import ClientError
 logger = logging.getLogger("Lambda")
 
 
+class TokenException(Exception):
+    """Exception for token generation errors"""
+
+    def __init__(self, msg, original_exception):
+        super(TokenException, self).__init__(msg + (": %s" % original_exception))
+        self.original_exception = original_exception
+
+
 class TokenHelper:
     """Helper to manage OpenData API bearer token lifecycle."""
 
@@ -91,10 +99,12 @@ class TokenHelper:
         )
         client_auth = requests.auth.HTTPBasicAuth(client_id, client_secret)
         post_data = {"grant_type": "client_credentials"}
-        # Todo: Add try/except statements for error handling
-        response = requests.post(request_url, auth=client_auth, data=post_data)
-        token_json = response.json()
-        return token_json["access_token"]
+        try:
+            response = requests.post(request_url, auth=client_auth, data=post_data)
+            token_json = response.json()
+            return token_json["access_token"]
+        except Exception as e:
+            raise TokenException("Problem generating new Open Data API token", e)
 
     def _retrieve_api_access_token(self) -> str:
         """Retrieve OpenData api bearer token."""
