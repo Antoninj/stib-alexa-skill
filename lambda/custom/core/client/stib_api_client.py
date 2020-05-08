@@ -22,7 +22,8 @@ from typing import Optional
 import requests
 import six
 from ask_sdk_core.exceptions import ApiClientException
-from ask_sdk_model.services import ApiClient, ApiClientRequest, ApiClientResponse
+from ask_sdk_model.services import (ApiClient, ApiClientRequest,
+                                    ApiClientResponse)
 from urllib3.util import parse_url
 
 from .token_helper import TokenHelper

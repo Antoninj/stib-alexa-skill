@@ -26,11 +26,8 @@ import hermes.backend.memcached
 from ask_sdk_core.exceptions import ApiClientException
 from ask_sdk_model.services import ApiClient, ApiClientRequest
 
-from .exceptions import (
-    OperationMonitoringError,
-    NetworkDescriptionError,
-    GTFSDataError,
-)
+from .exceptions import (GTFSDataError, NetworkDescriptionError,
+                         OperationMonitoringError)
 from .model.line_stops import LineDetails
 from .model.passing_times import PassingTime, PointPassingTimes
 

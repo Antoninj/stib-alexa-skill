@@ -23,9 +23,11 @@ logger = logging.getLogger("Lambda")
 
 
 class ErrorHandler(AbstractExceptionHandler):
-    """Catch All Exception handler.
+    """
+    Catch All Exception handler.
     This handler catches all kinds of exceptions and prints
-    the stack trace on AWS Cloudwatch with the request envelope."""
+    the stack trace on AWS Cloudwatch with the request envelope.
+    """
 
     def can_handle(self, handler_input, exception):
         # type: (HandlerInput, Exception) -> bool
