@@ -25,8 +25,12 @@ from ask_sdk_model import Response
 from ask_sdk_model.dialog.delegate_directive import DelegateDirective
 from ask_sdk_model.dialog.dynamic_entities_directive import *
 from ask_sdk_model.dialog_state import DialogState
-from ask_sdk_model.er.dynamic import (Entity, EntityListItem,
-                                      EntityValueAndSynonyms, UpdateBehavior)
+from ask_sdk_model.er.dynamic import (
+    Entity,
+    EntityListItem,
+    EntityValueAndSynonyms,
+    UpdateBehavior,
+)
 
 from ...data import data
 from ...service.model.line_stops import LineDetails

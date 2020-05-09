@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2020-05-05 21:05+0200\n"
+"POT-Creation-Date: 2020-05-09 11:14+0200\n"
 "PO-Revision-Date: 2020-05-05 14:58+0200\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language: en_GB\n"
@@ -87,25 +87,31 @@ msgstr ""
 "I'm affraid the STIB schedule skill can't help you with that. How can I "
 "help you?"
 
-#: lambda/custom/core/data/data.py:87
+#: lambda/custom/core/data/data.py:88
 msgid ""
 "Désolé, je n'ai pas compris votre requête. Pouvez vous répeter s'il vous "
 "plait."
 msgstr "I'm sorry but I didn't really catch that. Can you please repeat?"
 
-#: lambda/custom/core/data/data.py:90
+#: lambda/custom/core/data/data.py:91
 msgid "Désolé, je n'ai pas compris. Pouvez vous répeter s'il vous plait."
 msgstr "I didn't get that. Could you repeat please?"
 
-#: lambda/custom/core/data/data.py:99
+#: lambda/custom/core/data/data.py:95 lambda/custom/core/data/data.py:98
+msgid ""
+"Désolé, je ne suis pas en mesure de récupérer les informations de la STIB"
+" pour le moment."
+msgstr "I'm afraid I can't retrieve live data from the STIB at the moment."
+
+#: lambda/custom/core/data/data.py:109
 msgid "C'est noté. Dans quelle direction prenez vous le {} {}, {} ou {}?"
 msgstr "Very well. In which direction are you riding the {} {}, {} or {}?"
 
-#: lambda/custom/core/data/data.py:102
+#: lambda/custom/core/data/data.py:112
 msgid "Dans quelle direction allez vous, {} ou {}?"
 msgstr "Where are you headed to, {} or {}?"
 
-#: lambda/custom/core/data/data.py:109
+#: lambda/custom/core/data/data.py:119
 msgid ""
 "Merci, vos préférences ont été correctement sauvegardées. Vous prenez "
 "donc le {} {} à l'arret {} direction {}."
@@ -113,41 +119,39 @@ msgstr ""
 "You're all set. I'll remember you like to travel on the {} {} from {} "
 "towards {}"
 
-#: lambda/custom/core/data/data.py:117
+#: lambda/custom/core/data/data.py:127
 msgid "Le prochain {} {} en direction de {} passe dans {}."
 msgstr "The next {} {} towards {} is leaving in {}. "
 
-#: lambda/custom/core/data/data.py:118
+#: lambda/custom/core/data/data.py:128
 msgid "Le suivant passe dans {}."
 msgstr "The next one is leaving in {}."
 
-#: lambda/custom/core/data/data.py:119
+#: lambda/custom/core/data/data.py:129
 msgid "Désolé, je n'ai pas trouvé d'informations pour le trajet demandé."
 msgstr "I'm sorry, I couldn't find any information for the requested journey."
 
-#: lambda/custom/core/data/data.py:122
+#: lambda/custom/core/data/data.py:132
 msgid "Bonne journée!"
 msgstr "Have a nice day!"
 
-#: lambda/custom/core/data/data.py:132
+#: lambda/custom/core/data/data.py:142
 msgid "INFORMATION MANQUANTE"
 msgstr "MISSING DATA"
 
-#: lambda/custom/core/data/data.py:133
+#: lambda/custom/core/data/data.py:143
 msgid "{} jours, {} heures, {} minutes et {} secondes"
 msgstr "{} days, {} hours, {} minutes and {} seconds"
 
-#: lambda/custom/core/data/data.py:136
+#: lambda/custom/core/data/data.py:146
 msgid "{} heures, {} minutes et {} secondes"
 msgstr "{} hours, {} minutes and {} seconds"
 
-#: lambda/custom/core/data/data.py:137
+#: lambda/custom/core/data/data.py:147
 msgid "{} minutes et {} secondes"
 msgstr "{} minutes and {} seconds"
 
-#: lambda/custom/core/data/data.py:138
+#: lambda/custom/core/data/data.py:148
 msgid "{} secondes"
 msgstr "{} seconds"
-
-
 

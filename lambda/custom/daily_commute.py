@@ -26,20 +26,25 @@ from core.client.stib_api_client import OpenDataAPIClient
 from core.data import data
 from core.handlers.amazon.common_intents_handlers import *
 from core.handlers.amazon.fallback_intent_handler import FallBackHandler
-from core.handlers.amazon.intent_reflector_handler import \
-    IntentReflectorHandler
+from core.handlers.amazon.intent_reflector_handler import IntentReflectorHandler
 from core.handlers.amazon.repeat_intent_handler import RepeatHandler
 from core.handlers.custom.commute_preferences_intent_handler import *
 from core.handlers.custom.favorite_line_intent_handler import *
 from core.handlers.custom.favorite_stop_intent_handler import *
 from core.handlers.custom.get_arrival_times_intent_handler import *
-from core.handlers.custom.save_trip_preferences_intent_handler import \
-    SaveTripPreferencesHandler
-from core.handlers.exception.error_handler import ErrorHandler
+from core.handlers.custom.save_trip_preferences_intent_handler import (
+    SaveTripPreferencesHandler,
+)
+from core.handlers.exception.exception_handler import (
+    GenericExceptionHandler,
+    OpenDataAPIExceptionHandler,
+)
 from core.handlers.launch_handler import LaunchRequestHandler
 from core.interceptors.i18_interceptor import LocalizationInterceptor
-from core.interceptors.logger_interceptors import (RequestLoggerInterceptor,
-                                                   ResponseLoggerInterceptor)
+from core.interceptors.logger_interceptors import (
+    RequestLoggerInterceptor,
+    ResponseLoggerInterceptor,
+)
 from core.service.stib_service import OpenDataService
 
 # Environment variables definitions
@@ -82,8 +87,9 @@ def setup_skill_builder(service: OpenDataService) -> CustomSkillBuilder:
     skill_builder.add_request_handler(FallBackHandler())
     skill_builder.add_request_handler(SessionEndedRequestHandler())
     skill_builder.add_request_handler(IntentReflectorHandler())
-    logger.info("Adding skill exception handler...")
-    skill_builder.add_exception_handler(ErrorHandler())
+    logger.info("Adding skill exception handlers...")
+    skill_builder.add_exception_handler(OpenDataAPIExceptionHandler())
+    skill_builder.add_exception_handler(GenericExceptionHandler())
     logger.info("Adding skill request interceptors...")
     skill_builder.add_global_request_interceptor(LocalizationInterceptor())
     skill_builder.add_global_request_interceptor(RequestLoggerInterceptor())
@@ -93,7 +99,7 @@ def setup_skill_builder(service: OpenDataService) -> CustomSkillBuilder:
 
 
 # Create new Open Data API client and service instances
-logger.info("Launching skill in %s environment", ENVIRONMENT)
+logger.info("Launching skill in [%s] environment", ENVIRONMENT.upper())
 logger.info("Setting up Open Data API service")
 stib_service = OpenDataService(stib_api_client=OpenDataAPIClient())
 
