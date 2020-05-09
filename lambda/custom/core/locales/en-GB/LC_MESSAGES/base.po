@@ -73,7 +73,8 @@ msgid ""
 "informations en temps réél sur les prochains horaires de passage.Vous "
 "pouvez également dire 'Modifie mes préférences' pour modifier votre "
 "trajet favori. Que souhaitez-vous faire?"
-msgstr ""
+msgstr "You can say 'when is the next bus' to get arrival times in real time for your favorite trip. "
+"You can also modify your trip preferences at any time by saying 'modify my trip preferences'. What would you like to do?"
 
 #: lambda/custom/core/data/data.py:74
 msgid "D'accord. A bientôt!"

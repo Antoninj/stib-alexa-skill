@@ -15,7 +15,7 @@
 #  License.
 
 import logging
-from typing import List, Optional
+from typing import List, Optional, Dict
 
 from ask_sdk_core.dispatch_components import AbstractRequestHandler
 from ask_sdk_core.handler_input import HandlerInput
@@ -126,7 +126,7 @@ class CompletedFavoriteStopHandler(AbstractRequestHandler):
     @staticmethod
     def _parse_successful_entity_resolution_results_for_slot(
         slot: Optional[Slot],
-    ) -> dict:
+    ) -> Dict:
         entity_resolutions = {"values": [], "resolved": slot.value}
         success_entity_resolutions = [
             resolution_per_authority.values
@@ -141,10 +141,10 @@ class CompletedFavoriteStopHandler(AbstractRequestHandler):
 
     @staticmethod
     def _filter_correct_slot_value(
-        slot_success_er_results: dict,
+        slot_success_er_results: Dict,
         serialized_line_details: List,
         destination_name: str,
-    ) -> dict:
+    ) -> Dict:
         correct_destination_line_details = list(
             filter(
                 lambda line_detail: line_detail["destination"]["fr"]
