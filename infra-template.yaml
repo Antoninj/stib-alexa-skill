@@ -149,6 +149,7 @@ Resources:
     Properties:
       GroupDescription: Elasticache Security Group
       GroupName: 'alexa-skill-memcached-security-group'
+      VpcId: !Ref pubPrivateVPC
   ElasticacheSecurityGroupIngressRule:
     Type: 'AWS::EC2::SecurityGroupIngress'
     Properties:

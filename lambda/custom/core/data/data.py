@@ -81,21 +81,31 @@ FALLBACK = _(
 )
 FALLBACK_REPROMPT = _("Comment puis-je vous aider?")
 
-"""""" """""" """"
-Error handler
+"""""" """""" """
+Error handlers
 """ """""" """"""
-ERROR = _(
+
+GENERIC_ERROR = _(
     "Désolé, je n'ai pas compris votre requête. Pouvez vous répeter s'il vous plait."
 )
-ERROR_REPROMPT = _("Désolé, je n'ai pas compris. Pouvez vous répeter s'il vous plait.")
+GENERIC_ERROR_REPROMPT = _(
+    "Désolé, je n'ai pas compris. Pouvez vous répeter s'il vous plait."
+)
+
+OPEN_DATA_API_ERROR = _(
+    "Désolé, je ne suis pas en mesure de récupérer les informations de la STIB pour le moment."
+)
+OPEN_DATA_API_ERROR_REPROMPT = _(
+    "Désolé, je ne suis pas en mesure de récupérer les informations de la STIB pour le moment."
+)
 
 ###################################################
 #                CUSTOM INTENTS                   #
 ###################################################
 
-"""""" """""" """""
-favorite line intent
-""" """""" """""" ""
+"""""" """""" """""" """
+Set favorite line intent
+""" """""" """""" """"""
 ELLICIT_DESTINATION_PREFERENCES = _(
     "C'est noté. Dans quelle direction prenez vous le {} {}, {} ou {}?"
 )
@@ -103,9 +113,9 @@ ELLICIT_DESTINATION_PREFERENCES_REPROMPT = _(
     "Dans quelle direction allez vous, {} ou {}?"
 )
 
-"""""" """""" """""
-favorite stop intent
-""" """""" """""" ""
+"""""" """""" """""" """
+Set favorite stop intent
+""" """""" """""" """"""
 PREFERENCES_SAVED = _(
     "Merci, vos préférences ont été correctement sauvegardées."
     " Vous prenez donc le {} {} à l'arret {} direction {}."

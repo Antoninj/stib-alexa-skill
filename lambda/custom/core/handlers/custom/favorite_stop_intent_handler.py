@@ -15,12 +15,16 @@
 #  License.
 
 import logging
-from typing import List, Optional
+from typing import List, Optional, Dict
 
 from ask_sdk_core.dispatch_components import AbstractRequestHandler
 from ask_sdk_core.handler_input import HandlerInput
-from ask_sdk_core.utils import (get_dialog_state, get_slot, get_slot_value,
-                                is_intent_name)
+from ask_sdk_core.utils import (
+    get_dialog_state,
+    get_slot,
+    get_slot_value,
+    is_intent_name,
+)
 from ask_sdk_model import Response, Slot
 from ask_sdk_model.dialog.delegate_directive import DelegateDirective
 from ask_sdk_model.dialog_state import DialogState
@@ -122,7 +126,9 @@ class CompletedFavoriteStopHandler(AbstractRequestHandler):
     @staticmethod
     def _parse_successful_entity_resolution_results_for_slot(
         slot: Optional[Slot],
-    ) -> dict:
+    ) -> Dict:
+        """Parse successful ER results."""
+
         entity_resolutions = {"values": [], "resolved": slot.value}
         success_entity_resolutions = [
             resolution_per_authority.values
@@ -137,24 +143,24 @@ class CompletedFavoriteStopHandler(AbstractRequestHandler):
 
     @staticmethod
     def _filter_correct_slot_value(
-        slot_success_er_results: dict,
+        slot_success_er_results: Dict,
         serialized_line_details: List,
         destination_name: str,
-    ) -> dict:
-        correct_destination_line_details = list(
-            filter(
-                lambda line_detail: line_detail["destination"]["fr"]
-                == destination_name.upper(),
-                serialized_line_details,
-            )
-        )[-1]
+    ) -> Dict:
+        """Find correct stop name based on ER results and destination slot value."""
+
+        correct_destination_line_details = [
+            line_detail
+            for line_detail in serialized_line_details
+            if line_detail["destination"]["fr"] == destination_name.upper()
+        ][-1]
+
         plausible_stop_ids = [
             item["value"]["id"] for item in slot_success_er_results["values"]
         ]
-        correct_slot_value = list(
-            filter(
-                lambda point: point["id"] in plausible_stop_ids,
-                correct_destination_line_details["points"],
-            )
-        )[-1]
+        correct_slot_value = [
+            point
+            for point in correct_destination_line_details["points"]
+            if point["id"] in plausible_stop_ids
+        ][-1]
         return correct_slot_value
