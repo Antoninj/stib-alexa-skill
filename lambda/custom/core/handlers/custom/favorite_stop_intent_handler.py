@@ -145,20 +145,17 @@ class CompletedFavoriteStopHandler(AbstractRequestHandler):
         serialized_line_details: List,
         destination_name: str,
     ) -> Dict:
-        correct_destination_line_details = list(
-            filter(
-                lambda line_detail: line_detail["destination"]["fr"]
-                == destination_name.upper(),
-                serialized_line_details,
-            )
-        )[-1]
+        correct_destination_line_details = [
+            line_detail["destination"]["fr"] == destination_name.upper()
+            for line_detail in serialized_line_details
+        ][-1]
+
         plausible_stop_ids = [
             item["value"]["id"] for item in slot_success_er_results["values"]
         ]
-        correct_slot_value = list(
-            filter(
-                lambda point: point["id"] in plausible_stop_ids,
-                correct_destination_line_details["points"],
-            )
-        )[-1]
+        correct_slot_value = [
+            point["id"]
+            for point in correct_destination_line_details["points"]
+            if point["id"] in plausible_stop_ids
+        ][-1]
         return correct_slot_value

@@ -18,7 +18,7 @@ import calendar
 import json
 import logging
 import os
-from datetime import datetime, timedelta
+from datetime import datetime, timedelta, timezone
 
 import boto3
 import requests
@@ -50,13 +50,14 @@ class TokenHelper:
         """Compute future expiration date of a token."""
         if not token_validity_time:
             token_validity_time = int(self.TOKEN_VALIDITY_TIME)
-        future = datetime.utcnow() + timedelta(seconds=token_validity_time)
-        self.token_expiration_date = calendar.timegm(future.utctimetuple())
+        current_time = datetime.now(tz=timezone.utc)
+        future_time = current_time + timedelta(seconds=token_validity_time)
+        self.token_expiration_date = calendar.timegm(future_time.utctimetuple())
 
     def _is_token_expired(self) -> bool:
         """Check validity of a token"""
 
-        current_time = datetime.now()
+        current_time = datetime.now(tz=timezone.utc)
         unix_timestamp = current_time.timestamp()
         return unix_timestamp > self.token_expiration_date
 
