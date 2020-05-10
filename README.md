@@ -44,7 +44,9 @@ This skill is built with:
 ![architecture diagram](assets/images/alexa-skill-architecture.svg)
 
 ## Disclaimer
-Ce produit/service/application se base sur des données fournies à l’origine par la STIB qui ont été mises à jour le 3 Mai 2020 et qui en totalité ou partiellement ont été modifiées par Antonin Jousson. 
+Ce produit/service/application se base sur des données fournies à l’origine par la STIB qui ont été mises à jour le 10 Mai 2020 et qui en totalité ou partiellement ont été modifiées par Antonin Jousson. 
+
+This product/service/application is based on data originally provided by STIB/MIVB that was updated on the 05/10/2020 and that fully or partly was modified by Antonin Jousson.
 
 ## License
 [Apache v2.0](http://www.apache.org/licenses/LICENSE-2.0)

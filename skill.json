@@ -14,7 +14,7 @@
     "publishingInformation": {
       "locales": {
         "fr-FR": {
-          "description": "Informations sur le réseau STIB-MIVB en temps réel. Ce produit/service/application se base sur des données fournies à l’origine par la STIB qui ont été mises à jour le 3 Mai 2020 et qui en totalité ou partiellement ont été modifiées par Antonin Jousson.",
+          "description": "Marre d'attendre le bus/métro/tram tous les matins? Avec la skill Réseau STIB-MIVB, obtenez les horaires de passage en temps réel de votre bus/métro/tram préféré sur le réseau STIB-MIVB. Configurez vos préférences en un clin d'oeil en indiquant le numéro de votre ligne et le nom de votre arrêt à Alexa. Ensuite, demandez simplement \"Quand est-ce que passe le prochain bus/métro/tram?\" pour ne plus jamais être en retard!" ,
           "examplePhrases": [
             "Alexa ouvre horaires stib",
             "Alexa ouvre horaires stib et configure mon trajet favori",
@@ -37,7 +37,7 @@
           "summary": "Informations sur le réseau STIB-MIVB en temps réel"
         },
         "fr-CA": {
-          "description": "Informations sur le réseau STIB-MIVB en temps réel. Ce produit/service/application se base sur des données fournies à l’origine par la STIB qui ont été mises à jour le 3 Mai 2020 et qui en totalité ou partiellement ont été modifiées par Antonin Jousson.",
+          "description": "Marre d'attendre le bus/métro/tram tous les matins? Avec la skill Réseau STIB-MIVB, obtenez les horaires de passage en temps réel de votre bus/métro/tram préféré sur le réseau STIB-MIVB. Configurez vos préférences en un clin d'oeil en indiquant le numéro de votre ligne et le nom de votre arrêt à Alexa. Ensuite, demandez simplement \"Quand est-ce que passe le prochain bus/métro/tram?\" pour ne plus jamais être en retard!" ,
           "examplePhrases": [
             "Alexa ouvre horaires stib",
             "Alexa ouvre horaires stib et configure mon trajet favori",
@@ -60,7 +60,7 @@
           "summary": "Informations sur le réseau STIB-MIVB en temps réel"
         },
         "en-GB": {
-          "description": "Real-time information on the STIB-MIVB network. Ce produit/service/application se base sur des données fournies à l’origine par la STIB qui ont été mises à jour le 3 Mai 2020 et qui en totalité ou partiellement ont été modifiées par Antonin Jousson.",
+          "description": "Tired of waiting for your bus/metro/tram? The STIB-MIVB network skill lets you ask for your favorite bus/metro/tram arrival times in real time. Save your journey preferences in a heartbeat by simply telling Alexa your favorite line number and stop name. Then, just ask \"When is the next bus/metro/tram?\" to make sure you catch your next ride on the STIB-MIVB network on time!",
           "examplePhrases": [
             "Alexa open stib schedule",
             "Alexa open stib schedule and configure my journey preferences",

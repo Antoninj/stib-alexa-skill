@@ -127,6 +127,8 @@ class CompletedFavoriteStopHandler(AbstractRequestHandler):
     def _parse_successful_entity_resolution_results_for_slot(
         slot: Optional[Slot],
     ) -> Dict:
+        """Parse successful ER results."""
+
         entity_resolutions = {"values": [], "resolved": slot.value}
         success_entity_resolutions = [
             resolution_per_authority.values
@@ -145,16 +147,19 @@ class CompletedFavoriteStopHandler(AbstractRequestHandler):
         serialized_line_details: List,
         destination_name: str,
     ) -> Dict:
+        """Find correct stop name based on ER results and destination slot value."""
+
         correct_destination_line_details = [
-            line_detail["destination"]["fr"] == destination_name.upper()
+            line_detail
             for line_detail in serialized_line_details
+            if line_detail["destination"]["fr"] == destination_name.upper()
         ][-1]
 
         plausible_stop_ids = [
             item["value"]["id"] for item in slot_success_er_results["values"]
         ]
         correct_slot_value = [
-            point["id"]
+            point
             for point in correct_destination_line_details["points"]
             if point["id"] in plausible_stop_ids
         ][-1]
