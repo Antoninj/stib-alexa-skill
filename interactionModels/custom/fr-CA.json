@@ -198,9 +198,9 @@
           "name": "DESTINATION_NAME",
           "values": [
             {
-              "id": "PLACEHOLDER",
+              "id": "VERYHARDTOPRONOUNCEPLACEHOLDERVALUENOTMEANTTOBEMATCHED",
               "name": {
-                "value": "PLACEHOLDER"
+                "value": "VERYHARDTOPRONOUNCEPLACEHOLDERVALUENOTMEANTTOBEMATCHED"
               }
             }
           ]
@@ -209,9 +209,9 @@
           "name": "STOP_NAME",
           "values": [
             {
-              "id": "PLACEHOLDER",
+              "id": "VERYHARDTOPRONOUNCEPLACEHOLDERVALUENOTMEANTTOBEMATCHED",
               "name": {
-                "value": "PLACEHOLDER"
+                "value": "VERYHARDTOPRONOUNCEPLACEHOLDERVALUENOTMEANTTOBEMATCHED"
               }
             }
           ]
