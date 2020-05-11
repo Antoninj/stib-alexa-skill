@@ -94,6 +94,7 @@ class GetArrivalTimesIntentHandler(AbstractRequestHandler):
         logger.debug("Slots: %s", handler_input.request_envelope.request.intent.slots)
         logger.debug("Persistent attributes: %s", persistent_attributes)
         favorite_stop_id = persistent_attributes["favorite_stop_id"]
+        favorite_stop_name = persistent_attributes["favorite_stop_name"]
         favorite_line_id = persistent_attributes["favorite_line_id"]
         favorite_transportation_type = persistent_attributes[
             "favorite_transportation_type"
@@ -110,6 +111,7 @@ class GetArrivalTimesIntentHandler(AbstractRequestHandler):
         # Prepare skill response
         speech_text = self._format_waiting_times(
             passing_times=passing_times,
+            stop_name=favorite_stop_name,
             transportation_type=favorite_transportation_type,
             translate=_,
         )
@@ -123,13 +125,19 @@ class GetArrivalTimesIntentHandler(AbstractRequestHandler):
 
     @staticmethod
     def _format_waiting_times(
-        passing_times: List[PassingTime], transportation_type: str, translate
+        passing_times: List[PassingTime],
+        stop_name: str,
+        transportation_type: str,
+        translate,
     ) -> str:
         """Define method here."""
         if len(passing_times) == 2:
             formatted_waiting_times = (
                 GetArrivalTimesIntentHandler._format_first_waiting_time(
-                    passing_times[0], transportation_type, translate=translate
+                    passing_times[0],
+                    stop_name,
+                    transportation_type,
+                    translate=translate,
                 )
                 + " "
                 + GetArrivalTimesIntentHandler._format_second_waiting_time(
@@ -138,7 +146,7 @@ class GetArrivalTimesIntentHandler(AbstractRequestHandler):
             )
         elif len(passing_times) == 1:
             formatted_waiting_times = GetArrivalTimesIntentHandler._format_first_waiting_time(
-                passing_times[0], transportation_type, translate=translate
+                passing_times[0], stop_name, transportation_type, translate=translate
             )
         else:
             formatted_waiting_times = translate(data.NO_INFORMATION_FOUND)
@@ -146,7 +154,7 @@ class GetArrivalTimesIntentHandler(AbstractRequestHandler):
 
     @staticmethod
     def _format_first_waiting_time(
-        passing_time: PassingTime, transportation_type: str, translate
+        passing_time: PassingTime, stop_name: str, transportation_type: str, translate,
     ) -> str:
         """Define method here."""
         logger.debug(passing_time.arriving_in_dict)
@@ -154,6 +162,7 @@ class GetArrivalTimesIntentHandler(AbstractRequestHandler):
             transportation_type,
             passing_time.line_id,
             passing_time.destination.fr.lower(),
+            stop_name,
             passing_time.format_waiting_time(translate=translate),
         )
         return formatted_waiting_time

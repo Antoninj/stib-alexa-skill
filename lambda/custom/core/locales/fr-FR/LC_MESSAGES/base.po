@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2020-05-09 11:14+0200\n"
+"POT-Creation-Date: 2020-05-11 12:08+0200\n"
 "PO-Revision-Date: 2020-04-09 17:00+0200\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language: fr_FR\n"
@@ -112,38 +112,41 @@ msgid ""
 msgstr ""
 
 #: lambda/custom/core/data/data.py:127
-msgid "Le prochain {} {} en direction de {} passe dans {}."
+msgid "Le prochain {} {} en direction de {} passe à l'arrêt {} dans {}."
 msgstr ""
 
-#: lambda/custom/core/data/data.py:128
+#: lambda/custom/core/data/data.py:130
 msgid "Le suivant passe dans {}."
 msgstr ""
 
-#: lambda/custom/core/data/data.py:129
+#: lambda/custom/core/data/data.py:131
 msgid "Désolé, je n'ai pas trouvé d'informations pour le trajet demandé."
 msgstr ""
 
-#: lambda/custom/core/data/data.py:132
+#: lambda/custom/core/data/data.py:134
 msgid "Bonne journée!"
 msgstr ""
 
-#: lambda/custom/core/data/data.py:142
+#: lambda/custom/core/data/data.py:144
 msgid "INFORMATION MANQUANTE"
 msgstr ""
 
-#: lambda/custom/core/data/data.py:143
+#: lambda/custom/core/data/data.py:145
 msgid "{} jours, {} heures, {} minutes et {} secondes"
 msgstr ""
 
-#: lambda/custom/core/data/data.py:146
+#: lambda/custom/core/data/data.py:148
 msgid "{} heures, {} minutes et {} secondes"
 msgstr ""
 
-#: lambda/custom/core/data/data.py:147
+#: lambda/custom/core/data/data.py:149
 msgid "{} minutes et {} secondes"
 msgstr ""
 
-#: lambda/custom/core/data/data.py:148
+#: lambda/custom/core/data/data.py:150
 msgid "{} secondes"
 msgstr ""
+
+#~ msgid "Le prochain {} {} en direction de {} passe dans {}."
+#~ msgstr ""
 

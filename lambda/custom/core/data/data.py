@@ -124,7 +124,9 @@ PREFERENCES_SAVED = _(
 """""" """""" """""" """""" """"
 Get arrival times intent
 """ """""" """""" """""" """"""
-FIRST_ARRIVAL_TIME_INFO = _("Le prochain {} {} en direction de {} passe dans {}.")
+FIRST_ARRIVAL_TIME_INFO = _(
+    "Le prochain {} {} en direction de {} passe à l'arrêt {} dans {}."
+)
 SECOND_ARRIVAL_TIME_INFO = _("Le suivant passe dans {}.")
 NO_INFORMATION_FOUND = _(
     "Désolé, je n'ai pas trouvé d'informations pour le trajet demandé."

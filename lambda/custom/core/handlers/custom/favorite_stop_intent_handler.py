@@ -42,9 +42,14 @@ class StartedInProgressFavoriteStopHandler(AbstractRequestHandler):
     def can_handle(self, handler_input):
         # type: (HandlerInput) -> bool
 
+        attr = handler_input.attributes_manager.session_attributes
+        session_attributes_are_present = (
+            "favorite_transportation_type" in attr and "favorite_line_id" in attr
+        )
         return (
             is_intent_name("SetFavoriteStopIntent")(handler_input)
             and get_dialog_state(handler_input) != DialogState.COMPLETED
+            and session_attributes_are_present
         )
 
     def handle(self, handler_input):
@@ -69,9 +74,14 @@ class CompletedFavoriteStopHandler(AbstractRequestHandler):
     def can_handle(self, handler_input):
         # type: (HandlerInput) -> bool
 
+        attr = handler_input.attributes_manager.session_attributes
+        session_attributes_are_present = (
+            "favorite_transportation_type" in attr and "favorite_line_id" in attr
+        )
         return (
             is_intent_name("SetFavoriteStopIntent")(handler_input)
             and get_dialog_state(handler_input) == DialogState.COMPLETED
+            and session_attributes_are_present
         )
 
     def handle(self, handler_input):
@@ -104,9 +114,15 @@ class CompletedFavoriteStopHandler(AbstractRequestHandler):
         stib_transportation_type = persistent_attributes["favorite_transportation_type"]
 
         # Update persistent attributes
+        persistent_attributes["favorite_transportation_type"] = session_attributes[
+            "favorite_transportation_type"
+        ]
+        persistent_attributes["favorite_line_id"] = session_attributes[
+            "favorite_line_id"
+        ]
+        persistent_attributes["favorite_line_destination"] = destination_name
         persistent_attributes["favorite_stop_id"] = stop_id
         persistent_attributes["favorite_stop_name"] = stop_name_fr
-        persistent_attributes["favorite_line_destination"] = destination_name
         handler_input.attributes_manager.save_persistent_attributes()
 
         # Prepare skill response

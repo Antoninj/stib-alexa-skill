@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2020-05-09 11:14+0200\n"
+"POT-Creation-Date: 2020-05-11 12:08+0200\n"
 "PO-Revision-Date: 2020-05-05 14:58+0200\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language: en_GB\n"
@@ -73,8 +73,10 @@ msgid ""
 "informations en temps réél sur les prochains horaires de passage.Vous "
 "pouvez également dire 'Modifie mes préférences' pour modifier votre "
 "trajet favori. Que souhaitez-vous faire?"
-msgstr "You can say 'when is the next bus' to get arrival times in real time for your favorite trip. "
-"You can also modify your trip preferences at any time by saying 'modify my trip preferences'. What would you like to do?"
+msgstr ""
+"You can say 'when is the next bus' to get arrival times in real time for "
+"your favorite trip. You can also modify your trip preferences at any time"
+" by saying 'modify my trip preferences'. What would you like to do?"
 
 #: lambda/custom/core/data/data.py:74
 msgid "D'accord. A bientôt!"
@@ -121,38 +123,41 @@ msgstr ""
 "towards {}"
 
 #: lambda/custom/core/data/data.py:127
-msgid "Le prochain {} {} en direction de {} passe dans {}."
-msgstr "The next {} {} towards {} is leaving in {}. "
+msgid "Le prochain {} {} en direction de {} passe à l'arrêt {} dans {}."
+msgstr "The next {} {} towards {} is passing by {} in {}."
 
-#: lambda/custom/core/data/data.py:128
+#: lambda/custom/core/data/data.py:130
 msgid "Le suivant passe dans {}."
-msgstr "The next one is leaving in {}."
+msgstr "The following one is leaving in {}."
 
-#: lambda/custom/core/data/data.py:129
+#: lambda/custom/core/data/data.py:131
 msgid "Désolé, je n'ai pas trouvé d'informations pour le trajet demandé."
 msgstr "I'm sorry, I couldn't find any information for the requested journey."
 
-#: lambda/custom/core/data/data.py:132
+#: lambda/custom/core/data/data.py:134
 msgid "Bonne journée!"
 msgstr "Have a nice day!"
 
-#: lambda/custom/core/data/data.py:142
+#: lambda/custom/core/data/data.py:144
 msgid "INFORMATION MANQUANTE"
 msgstr "MISSING DATA"
 
-#: lambda/custom/core/data/data.py:143
+#: lambda/custom/core/data/data.py:145
 msgid "{} jours, {} heures, {} minutes et {} secondes"
 msgstr "{} days, {} hours, {} minutes and {} seconds"
 
-#: lambda/custom/core/data/data.py:146
+#: lambda/custom/core/data/data.py:148
 msgid "{} heures, {} minutes et {} secondes"
 msgstr "{} hours, {} minutes and {} seconds"
 
-#: lambda/custom/core/data/data.py:147
+#: lambda/custom/core/data/data.py:149
 msgid "{} minutes et {} secondes"
 msgstr "{} minutes and {} seconds"
 
-#: lambda/custom/core/data/data.py:148
+#: lambda/custom/core/data/data.py:150
 msgid "{} secondes"
 msgstr "{} seconds"
+
+#~ msgid "Le prochain {} {} en direction de {} passe dans {}."
+#~ msgstr "The next {} {} towards {} is leaving in {}. "
 
