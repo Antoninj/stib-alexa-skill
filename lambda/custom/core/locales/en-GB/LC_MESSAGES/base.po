@@ -108,23 +108,23 @@ msgstr "I'm afraid I can't retrieve live data from the STIB at the moment."
 
 #: lambda/custom/core/data/data.py:109
 msgid "C'est noté. Dans quelle direction prenez vous le {} {}, {} ou {}?"
-msgstr "Very well. In which direction are you riding the {} {}, {} or {}?"
+msgstr "Very well. In which direction are you riding the {} {}, <lang xml:lang='fr-FR'>{}</lang> or <lang xml:lang='fr-FR'>{}</lang>?"
 
 #: lambda/custom/core/data/data.py:112
 msgid "Dans quelle direction allez vous, {} ou {}?"
-msgstr "Where are you headed to, {} or {}?"
+msgstr "Where are you headed to, <lang xml:lang='fr-FR'>{}</lang> or <lang xml:lang='fr-FR'>{}</lang>?"
 
 #: lambda/custom/core/data/data.py:119
 msgid ""
 "Merci, vos préférences ont été correctement sauvegardées. Vous prenez "
 "donc le {} {} à l'arret {} direction {}."
 msgstr ""
-"You're all set. I'll remember you like to travel on the {} {} from {} "
-"towards {}"
+"You're all set. I'll remember you like to travel on the {} {} from <lang xml:lang='fr-FR'>{}</lang> "
+"towards <lang xml:lang='fr-FR'>{}</lang>"
 
 #: lambda/custom/core/data/data.py:127
 msgid "Le prochain {} {} en direction de {} passe à l'arrêt {} dans {}."
-msgstr "The next {} {} towards {} is passing by {} in {}."
+msgstr "The next {} {} towards <lang xml:lang='fr-FR'>{}</lang> is passing by <lang xml:lang='fr-FR'>{}</lang> in {}."
 
 #: lambda/custom/core/data/data.py:130
 msgid "Le suivant passe dans {}."
