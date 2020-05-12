@@ -65,6 +65,10 @@ class SecurityToken:
     def token_expiration_date(self, expiration_date: int) -> None:
         """Setter for token expiration date."""
 
+        logger.info(
+            "Setting STIB API security token expiration date to [%s]",
+            datetime.fromtimestamp(expiration_date),
+        )
         self._token_expiration_date = expiration_date
 
     @staticmethod
