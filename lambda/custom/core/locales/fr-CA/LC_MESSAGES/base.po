@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2020-05-11 12:08+0200\n"
+"POT-Creation-Date: 2020-05-12 19:53+0200\n"
 "PO-Revision-Date: 2020-05-06 14:09+0200\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language: fr_CA\n"
@@ -37,8 +37,8 @@ msgstr ""
 #: lambda/custom/core/data/data.py:35
 msgid ""
 "Vous pouvez demander des informations en temps réél concernant votre "
-"trajet favori ou modifier votre trajet favori à tout moment. Que "
-"souhaitez-vous faire?"
+"trajet favori, modifier vos préférences ou encore demander de l'aide. Que"
+" souhaitez-vous faire?"
 msgstr ""
 
 #: lambda/custom/core/data/data.py:39 lambda/custom/core/data/data.py:82
@@ -65,9 +65,9 @@ msgstr ""
 
 #: lambda/custom/core/data/data.py:62 lambda/custom/core/data/data.py:66
 msgid ""
-"Demandez par exemple 'Quand passe le prochain bus' pour obtenir des "
-"informations en temps réél sur les prochains horaires de passage.Vous "
-"pouvez également dire 'Modifie mes préférences' pour modifier votre "
+"Dites par exemple 'Quand est-ce que passe mon prochain bus?' pour obtenir"
+" des informations en temps réél sur les prochains horaires de passage. "
+"Vous pouvez également dire 'Modifie mes préférences' pour modifier votre "
 "trajet favori. Que souhaitez-vous faire?"
 msgstr ""
 
@@ -124,7 +124,7 @@ msgid "Désolé, je n'ai pas trouvé d'informations pour le trajet demandé."
 msgstr ""
 
 #: lambda/custom/core/data/data.py:134
-msgid "Bonne journée!"
+msgid "Bon voyage"
 msgstr ""
 
 #: lambda/custom/core/data/data.py:144
@@ -146,7 +146,4 @@ msgstr ""
 #: lambda/custom/core/data/data.py:150
 msgid "{} secondes"
 msgstr ""
-
-#~ msgid "Le prochain {} {} en direction de {} passe dans {}."
-#~ msgstr ""
 

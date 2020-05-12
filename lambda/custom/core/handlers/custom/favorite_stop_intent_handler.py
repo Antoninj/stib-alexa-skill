@@ -110,16 +110,12 @@ class CompletedFavoriteStopHandler(AbstractRequestHandler):
         logger.debug("Correct stop name slot value: %s", correct_slot_value)
         stop_id = correct_slot_value["id"]
         stop_name_fr = correct_slot_value["stopNameFr"]
-        line_id = persistent_attributes["favorite_line_id"]
-        stib_transportation_type = persistent_attributes["favorite_transportation_type"]
+        line_id = session_attributes["favorite_line_id"]
+        stib_transportation_type = session_attributes["favorite_transportation_type"]
 
         # Update persistent attributes
-        persistent_attributes["favorite_transportation_type"] = session_attributes[
-            "favorite_transportation_type"
-        ]
-        persistent_attributes["favorite_line_id"] = session_attributes[
-            "favorite_line_id"
-        ]
+        persistent_attributes["favorite_transportation_type"] = stib_transportation_type
+        persistent_attributes["favorite_line_id"] = line_id
         persistent_attributes["favorite_line_destination"] = destination_name
         persistent_attributes["favorite_stop_id"] = stop_id
         persistent_attributes["favorite_stop_name"] = stop_name_fr

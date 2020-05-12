@@ -115,14 +115,22 @@ class GetArrivalTimesIntentHandler(AbstractRequestHandler):
             "tram": "<audio src='soundbank://soundlibrary/vehicles/trains/train_01'/>",
         }
 
-        speech_text = sound_effects[favorite_transportation_type] + " "
-        speech_text += self._format_waiting_times(
-            passing_times=passing_times,
-            stop_name=favorite_stop_name,
-            transportation_type=favorite_transportation_type,
-            translate=_,
-        )
-        speech_text += " " + _(data.FAREWELL)
+        if len(passing_times) > 0:
+            speech_text = sound_effects[favorite_transportation_type] + " "
+            speech_text += self._format_waiting_times(
+                passing_times=passing_times,
+                stop_name=favorite_stop_name,
+                transportation_type=favorite_transportation_type,
+                translate=_,
+            )
+            speech_text += (
+                " "
+                + "<say-as interpret-as='interjection'>"
+                + _(data.FAREWELL)
+                + "</say-as>"
+            )
+        else:
+            speech_text = _(data.NO_INFORMATION_FOUND)
 
         # Update repeat prompt
         session_attributes["repeat_prompt"] = speech_text

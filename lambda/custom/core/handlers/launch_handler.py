@@ -54,7 +54,7 @@ class LaunchRequestHandler(AbstractRequestHandler):
         else:
             speech = _(data.WELCOME_RETURNING_USER)
             speech += " " + _(data.SKILL_DESCRIPTION_WITH_PREFERENCES)
-            reprompt = _(data.SKILL_DESCRIPTION_WITH_PREFERENCES_REPROMPT)
+            reprompt = _(data.SKILL_DESCRIPTION_WITH_PREFERENCES)
 
         session_attributes["repeat_prompt"] = reprompt
 
