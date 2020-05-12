@@ -109,7 +109,14 @@ class GetArrivalTimesIntentHandler(AbstractRequestHandler):
         logger.debug(passing_times)
 
         # Prepare skill response
-        speech_text = self._format_waiting_times(
+        sound_effects = {
+            "bus": "<audio src='soundbank://soundlibrary/vehicles/buses/buses_08'/>",
+            "metro": "<audio src='soundbank://soundlibrary/vehicles/trains/train_01'/>",
+            "tram": "<audio src='soundbank://soundlibrary/vehicles/trains/train_01'/>",
+        }
+
+        speech_text = sound_effects[favorite_transportation_type] + " "
+        speech_text += self._format_waiting_times(
             passing_times=passing_times,
             stop_name=favorite_stop_name,
             transportation_type=favorite_transportation_type,
