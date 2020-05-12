@@ -39,5 +39,5 @@ class RepeatHandler(AbstractRequestHandler):
         # Get last prompt from session attributes
         repeat_text = session_attributes["repeat_prompt"]
 
-        handler_input.response_builder.speak(repeat_text)
+        handler_input.response_builder.speak(repeat_text).set_should_end_session(False)
         return handler_input.response_builder.response
