@@ -77,7 +77,7 @@ class OpenDataAPIClient(ApiClient):
                 else:
                     raw_data = request.body
 
-            api_security_token = self.token_helper.get_security_token()
+            api_security_token = self.token_helper.get_security_bearer_token()
 
             http_response = http_method(
                 url=request.url,
