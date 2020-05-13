@@ -535,7 +535,7 @@
           },
           {
             "type": "PlainText",
-            "value": "You can not travel by {transportation_type} on the STIB network. Choose between bus,tram or metro."
+            "value": "You can't travel by {transportation_type} on the STIB network. Choose between bus,tram or metro."
           }
         ]
       },
@@ -543,8 +543,8 @@
         "id": "Slot.Validation.DestinationName",
         "variations": [
           {
-            "type": "PlainText",
-            "value": "<lang xml:lang='fr-FR'>{destination_name}</lang> is not a valid destination."
+            "type": "SSML",
+            "value": "<speak><lang xml:lang='fr-FR'>{destination_name}</lang> isn't a valid destination.</speak>"
           }
         ]
       },
@@ -553,11 +553,11 @@
         "variations": [
           {
             "type": "SSML",
-            "value": "<lang xml:lang='fr-FR'>{stop_name}</lang> is not a valid stop name. What's your stop name?"
+            "value": "<speak><lang xml:lang='fr-FR'>{stop_name}</lang> isn't a valid stop name. What's your stop name?</speak>"
           },
           {
             "type": "SSML",
-            "value": "I'm sorry but I don't know the stop <lang xml:lang='fr-FR'>{stop_name}</lang>. What's your stop name?"
+            "value": "<speak>I'm sorry but I don't know the stop <lang xml:lang='fr-FR'>{stop_name}</lang>. What's your stop name?</speak>"
           }
         ]
       }
