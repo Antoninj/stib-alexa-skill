@@ -544,7 +544,7 @@
         "variations": [
           {
             "type": "PlainText",
-            "value": "<lang xml:lang=\"fr-FR\">{destination_name}</lang> is not a valid destination."
+            "value": "<lang xml:lang='fr-FR'>{destination_name}</lang> is not a valid destination."
           }
         ]
       },
@@ -553,11 +553,11 @@
         "variations": [
           {
             "type": "SSML",
-            "value": "<lang xml:lang=\"fr-FR\">{stop_name}</lang> is not a valid stop name. What's your stop name?"
+            "value": "<lang xml:lang='fr-FR'>{stop_name}</lang> is not a valid stop name. What's your stop name?"
           },
           {
             "type": "SSML",
-            "value": "I'm sorry but I don't know the stop <lang xml:lang=\"fr-FR\">{stop_name}</lang>. What's your stop name?"
+            "value": "I'm sorry but I don't know the stop <lang xml:lang='fr-FR'>{stop_name}</lang>. What's your stop name?"
           }
         ]
       }
