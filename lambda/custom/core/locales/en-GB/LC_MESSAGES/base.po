@@ -124,7 +124,7 @@ msgid ""
 "donc le {} {} à l'arret {} direction {}."
 msgstr ""
 "You're all set. I'll remember you like to travel on the {} {} from <lang "
-"xml:lang='fr-FR'>{}</lang> towards <lang xml:lang='fr-FR'>{}</lang>"
+"xml:lang='fr-FR'>{}</lang> towards <lang xml:lang='fr-FR'>{}</lang>."
 
 #: lambda/custom/core/data/data.py:127
 msgid "Le prochain {} {} en direction de {} passe à l'arrêt {} dans {}."
