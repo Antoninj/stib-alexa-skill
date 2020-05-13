@@ -316,9 +316,9 @@
           "name": "DESTINATION_NAME",
           "values": [
             {
-              "id": "PLACEHOLDER",
+              "id": "VERYHARDTOPRONOUNCEPLACEHOLDERVALUENOTMEANTTOBEMATCHED",
               "name": {
-                "value": "PLACEHOLDER"
+                "value": "VERYHARDTOPRONOUNCEPLACEHOLDERVALUENOTMEANTTOBEMATCHED"
               }
             }
           ]
@@ -327,9 +327,9 @@
           "name": "STOP_NAME",
           "values": [
             {
-              "id": "PLACEHOLDER",
+              "id": "VERYHARDTOPRONOUNCEPLACEHOLDERVALUENOTMEANTTOBEMATCHED",
               "name": {
-                "value": "PLACEHOLDER"
+                "value": "VERYHARDTOPRONOUNCEPLACEHOLDERVALUENOTMEANTTOBEMATCHED"
               }
             }
           ]
@@ -544,7 +544,7 @@
         "variations": [
           {
             "type": "PlainText",
-            "value": "{destination_name} is not a valid destination."
+            "value": "<lang xml:lang=\"fr-FR\">{destination_name}</lang> is not a valid destination."
           }
         ]
       },
@@ -552,12 +552,12 @@
         "id": "Slot.Validation.StopName",
         "variations": [
           {
-            "type": "PlainText",
-            "value": "{stop_name} is not a valid stop name."
+            "type": "SSML",
+            "value": "<lang xml:lang=\"fr-FR\">{stop_name}</lang> is not a valid stop name. What's your stop name?"
           },
           {
-            "type": "PlainText",
-            "value": "I'm sorry but I don't know the stop {stop_name}."
+            "type": "SSML",
+            "value": "I'm sorry but I don't know the stop <lang xml:lang=\"fr-FR\">{stop_name}</lang>. What's your stop name?"
           }
         ]
       }

@@ -198,9 +198,9 @@
           "name": "DESTINATION_NAME",
           "values": [
             {
-              "id": "PLACEHOLDER",
+              "id": "VERYHARDTOPRONOUNCEPLACEHOLDERVALUENOTMEANTTOBEMATCHED",
               "name": {
-                "value": "PLACEHOLDER"
+                "value": "VERYHARDTOPRONOUNCEPLACEHOLDERVALUENOTMEANTTOBEMATCHED"
               }
             }
           ]
@@ -209,9 +209,9 @@
           "name": "STOP_NAME",
           "values": [
             {
-              "id": "PLACEHOLDER",
+              "id": "VERYHARDTOPRONOUNCEPLACEHOLDERVALUENOTMEANTTOBEMATCHED",
               "name": {
-                "value": "PLACEHOLDER"
+                "value": "VERYHARDTOPRONOUNCEPLACEHOLDERVALUENOTMEANTTOBEMATCHED"
               }
             }
           ]
@@ -437,11 +437,11 @@
         "variations": [
           {
             "type": "PlainText",
-            "value": "L'arrêt {stop_name} n'est pas un arrêt valable."
+            "value": "L'arrêt {stop_name} n'est pas un arrêt valable. Quel est le nom de votre arrêt?"
           },
           {
             "type": "PlainText",
-            "value": "Désolé, je ne connais pas l'arret {stop_name}."
+            "value": "Désolé, je ne connais pas l'arret {stop_name}. Quel est le nom de votre arrêt?"
           }
         ]
       }

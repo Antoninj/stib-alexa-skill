@@ -34,7 +34,7 @@ SKILL_DESCRIPTION_WITHOUT_PREFERENCES = _(
 )
 SKILL_DESCRIPTION_WITH_PREFERENCES = _(
     "Vous pouvez demander des informations en temps réél concernant "
-    "votre trajet favori ou modifier votre trajet favori à tout moment. Que souhaitez-vous faire?"
+    "votre trajet favori, modifier vos préférences ou encore demander de l'aide. Que souhaitez-vous faire?"
 )
 SKILL_DESCRIPTION_WITH_PREFERENCES_REPROMPT = _("Comment puis-je vous aider?")
 ASK_FOR_PREFERENCES = _("Souhaitez-vous enregistrer vos préférences maintenant?")
@@ -51,8 +51,8 @@ ASK_FOR_PREFERENCES_REPROMPT = _(
     Yes intent
 """ """""" """""" """"""
 ELLICIT_LINE_PREFERENCES = _(
-    "D'accord, c'est parti. Les lignes du réseau STIB sont numérotées de 1 à 98."
-    " Quelle ligne utilisez vous d'habitude?"
+    "D'accord, c'est parti. Les lignes du réseau STIB sont numérotées de 1 à 98. "
+    "Quelle ligne utilisez vous d'habitude?"
 )
 ELLICIT_LINE_PREFERENCES_REPROMPT = _("Quel est votre ligne STIB habituelle?")
 
@@ -60,11 +60,11 @@ ELLICIT_LINE_PREFERENCES_REPROMPT = _("Quel est votre ligne STIB habituelle?")
 Help intent
 """ """""" """"""
 HELP = _(
-    "Demandez par exemple 'Quand passe le prochain bus' pour obtenir des informations en temps réél sur les prochains horaires de passage."
+    "Dites par exemple 'Quand est-ce que passe mon prochain bus?' pour obtenir des informations en temps réél sur les prochains horaires de passage. "
     "Vous pouvez également dire 'Modifie mes préférences' pour modifier votre trajet favori. Que souhaitez-vous faire?"
 )
 HELP_REPROMPT = _(
-    "Demandez par exemple 'Quand passe le prochain bus' pour obtenir des informations en temps réél sur les prochains horaires de passage."
+    "Dites par exemple 'Quand est-ce que passe mon prochain bus?' pour obtenir des informations en temps réél sur les prochains horaires de passage. "
     "Vous pouvez également dire 'Modifie mes préférences' pour modifier votre trajet favori. Que souhaitez-vous faire?"
 )
 
@@ -124,12 +124,14 @@ PREFERENCES_SAVED = _(
 """""" """""" """""" """""" """"
 Get arrival times intent
 """ """""" """""" """""" """"""
-FIRST_ARRIVAL_TIME_INFO = _("Le prochain {} {} en direction de {} passe dans {}.")
+FIRST_ARRIVAL_TIME_INFO = _(
+    "Le prochain {} {} en direction de {} passe à l'arrêt {} dans {}."
+)
 SECOND_ARRIVAL_TIME_INFO = _("Le suivant passe dans {}.")
 NO_INFORMATION_FOUND = _(
     "Désolé, je n'ai pas trouvé d'informations pour le trajet demandé."
 )
-FAREWELL = _("Bonne journée!")
+FAREWELL = _("Bon voyage")
 
 """""" """""" """""" """""" """
 Save trip preferences intent

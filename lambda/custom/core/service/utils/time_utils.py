@@ -23,7 +23,7 @@ import pytz
 
 
 class TimeUtils:
-    """Utility class for time manipulation methods (anti-pythonic I know)."""
+    """Utility class for time manipulation methods."""
 
     @staticmethod
     def get_current_localized_time():

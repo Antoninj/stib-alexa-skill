@@ -86,7 +86,6 @@ class CompletedFavoriteLineHandler(AbstractRequestHandler):
         logger.debug("In CompletedFavoriteLineHandler")
         # Boilerplate
         _ = handler_input.attributes_manager.request_attributes["_"]
-        persistent_attributes = handler_input.attributes_manager.persistent_attributes
         session_attributes = handler_input.attributes_manager.session_attributes
 
         # Retrieve slot values
@@ -110,10 +109,9 @@ class CompletedFavoriteLineHandler(AbstractRequestHandler):
         stib_transportation_type = line_details[0].route_type.name.lower()
         logger.debug("Transportation type: %s", stib_transportation_type)
 
-        # Save attributes as persistent attributes
-        persistent_attributes["favorite_line_id"] = line_id
-        persistent_attributes["favorite_transportation_type"] = stib_transportation_type
-        handler_input.attributes_manager.save_persistent_attributes()
+        # Save attributes as session attributes
+        session_attributes["favorite_line_id"] = line_id
+        session_attributes["favorite_transportation_type"] = stib_transportation_type
 
         # Prepare skill response
         speech = _(data.ELLICIT_DESTINATION_PREFERENCES).format(
