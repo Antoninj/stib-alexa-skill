@@ -74,7 +74,7 @@ msgid ""
 "Vous pouvez également dire 'Modifie mes préférences' pour modifier votre "
 "trajet favori. Que souhaitez-vous faire?"
 msgstr ""
-"You can say 'when is my next bus?' to get the next arrival times for your"
+"Try to ask 'when is my next bus?' to get the next arrival times for your"
 " configured journey. You can also modify your trip preferences at any "
 "time by saying 'modify my trip preferences'. What would you like to do?"
 
