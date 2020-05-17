@@ -145,7 +145,7 @@ class GetArrivalTimesIntentHandler(AbstractRequestHandler):
         transportation_type: str,
         translate,
     ) -> str:
-        """Define method here."""
+        """Format arrival times."""
         if len(passing_times) == 2:
             formatted_waiting_times = (
                 GetArrivalTimesIntentHandler._format_first_waiting_time(
@@ -171,7 +171,7 @@ class GetArrivalTimesIntentHandler(AbstractRequestHandler):
     def _format_first_waiting_time(
         passing_time: PassingTime, stop_name: str, transportation_type: str, translate,
     ) -> str:
-        """Define method here."""
+        """Format first arrival time."""
         logger.debug(passing_time.arriving_in_dict)
         formatted_waiting_time = translate(data.FIRST_ARRIVAL_TIME_INFO).format(
             transportation_type,
@@ -184,7 +184,7 @@ class GetArrivalTimesIntentHandler(AbstractRequestHandler):
 
     @staticmethod
     def _format_second_waiting_time(passing_time: PassingTime, translate) -> str:
-        """Define method here."""
+        """Format second arrival time."""
         formatted_waiting_time = translate(data.SECOND_ARRIVAL_TIME_INFO).format(
             passing_time.format_waiting_time(translate=translate)
         )
