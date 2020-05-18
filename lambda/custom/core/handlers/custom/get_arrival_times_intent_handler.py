@@ -116,8 +116,8 @@ class GetArrivalTimesIntentHandler(AbstractRequestHandler):
         }
 
         if len(passing_times) > 0:
-            speech_text = sound_effects[favorite_transportation_type] + " "
-            speech_text += self._format_waiting_times(
+            # speech_text = sound_effects[favorite_transportation_type] + " "
+            speech_text = self._format_waiting_times(
                 passing_times=passing_times,
                 stop_name=favorite_stop_name,
                 transportation_type=favorite_transportation_type,
