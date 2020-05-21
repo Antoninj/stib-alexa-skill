@@ -23,9 +23,9 @@ from typing import Dict, List, Optional
 import elasticache_auto_discovery
 import hermes.backend.dict
 import hermes.backend.memcached
-import marshmallow
 from ask_sdk_core.exceptions import ApiClientException
 from ask_sdk_model.services import ApiClient, ApiClientRequest
+from marshmallow import ValidationError
 
 from .exceptions import GTFSDataError, NetworkDescriptionError, OperationMonitoringError
 from .model.line_stops import LineDetails
@@ -94,7 +94,7 @@ class OpenDataService:
             )
             return self._filter_passing_times_by_line_id(point_passing_times, line_id)
 
-        except ApiClientException as e:
+        except (ApiClientException, ValidationError) as e:
             raise OperationMonitoringError(e, line_id=line_id, stop_id=stop_id)
 
         except Exception as e:
@@ -117,7 +117,7 @@ class OpenDataService:
             self._enrich_line_details_with_gtfs_data(line_details)
             return line_details
 
-        except ApiClientException as e:
+        except (ApiClientException, ValidationError) as e:
             raise NetworkDescriptionError(e, line_id)
 
         except Exception as e:
@@ -149,7 +149,7 @@ class OpenDataService:
                         for csv_filename in csv_filenames
                     }
                     return csv_files
-        except (ApiClientException, marshmallow.ValidationError) as e:
+        except ApiClientException as e:
             raise GTFSDataError("Error getting GTFS files", e)
 
         except Exception as e:
