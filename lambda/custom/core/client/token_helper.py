@@ -157,20 +157,21 @@ class TokenHelper:
         client_auth = requests.auth.HTTPBasicAuth(client_id, client_secret)
         post_data = {"grant_type": "client_credentials"}
         try:
-            response = requests.post(request_url, auth=client_auth, data=post_data)
-            token_json = response.json()
-            return token_json["access_token"]
-        except Exception as e:
-            raise TokenException("Problem generating new Open Data API token", e)
+            with requests.post(
+                request_url, auth=client_auth, data=post_data
+            ) as response:
+                response.raise_for_status()
+                token_json = response.json()
+                return token_json["access_token"]
+        except requests.RequestException as error:
+            raise TokenException("Problem generating new Open Data API token", error)
 
     def _retrieve_api_access_token(self) -> str:
         """Retrieve OpenData api bearer token."""
 
         stib_api_credentials = self._api_credentials
-        # logger.debug("STIB API credentials {}".format(stib_api_credentials))
         api_credentials = json.loads(stib_api_credentials)
         client_id = api_credentials["key"]
         client_secret = api_credentials["secret"]
         access_token = self._get_access_token(client_id, client_secret)
-        # logger.debug("STIB API access token [{}]".format(access_token))
         return access_token

@@ -78,21 +78,21 @@ class OpenDataAPIClient(ApiClient):
                     raw_data = request.body
 
             api_security_token = self.token_helper.get_security_bearer_token()
-
-            http_response = http_method(
+            with http_method(
                 url=request.url,
                 headers=http_headers,
                 data=raw_data,
                 auth=BearerAuth(api_security_token),
-            )
-
-            return ApiClientResponse(
-                headers=self._convert_dict_to_list_tuples(http_response.headers),
-                status_code=http_response.status_code,
-                body=http_response,
-            )
-        except Exception as e:
-            raise ApiClientException("Error executing the request: {}".format(str(e)))
+            ) as http_response:
+                http_response.raise_for_status()
+                return ApiClientResponse(
+                    headers=self._convert_dict_to_list_tuples(http_response.headers),
+                    status_code=http_response.status_code,
+                    body=http_response,
+                )
+        except Exception as error:
+            message = str(error)
+            raise ApiClientException("Error executing the request: {}".format(message))
 
     @staticmethod
     def _resolve_method(request):

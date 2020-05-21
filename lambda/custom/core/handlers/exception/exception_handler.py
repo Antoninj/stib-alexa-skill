@@ -58,9 +58,7 @@ class OpenDataAPIExceptionHandler(AbstractExceptionHandler):
     def can_handle(self, handler_input, exception):
         # type: (HandlerInput, OpenDataServiceException) -> bool
 
-        return isinstance(exception, OpenDataServiceException) or isinstance(
-            exception, TokenException
-        )
+        return isinstance(exception, OpenDataServiceException)
 
     def handle(self, handler_input, exception):
         # type: (HandlerInput, e) -> Response
@@ -70,6 +68,6 @@ class OpenDataAPIExceptionHandler(AbstractExceptionHandler):
         session_attributes = handler_input.attributes_manager.session_attributes
         session_attributes["repeat_prompt"] = _(data.OPEN_DATA_API_ERROR)
         handler_input.response_builder.speak(_(data.OPEN_DATA_API_ERROR_REPROMPT)).ask(
-            _(data.GENERIC_ERROR_REPROMPT)
+            _(data.OPEN_DATA_API_ERROR_REPROMPT)
         )
         return handler_input.response_builder.response
