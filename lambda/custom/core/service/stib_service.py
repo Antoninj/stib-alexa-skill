@@ -23,6 +23,7 @@ from typing import Dict, List, Optional
 import elasticache_auto_discovery
 import hermes.backend.dict
 import hermes.backend.memcached
+import marshmallow
 from ask_sdk_core.exceptions import ApiClientException
 from ask_sdk_model.services import ApiClient, ApiClientRequest
 
@@ -88,10 +89,12 @@ class OpenDataService:
             api_request = ApiClientRequest(url=request_url, method="GET")
             with self.api_client.invoke(api_request) as response:
                 raw_passages = response.body.json()
-            point_passing_times = PointPassingTimes.schema().load(
-                raw_passages["points"], many=True
-            )
-            return self._filter_passing_times_by_line_id(point_passing_times, line_id)
+                point_passing_times = PointPassingTimes.schema().load(
+                    raw_passages["points"], many=True
+                )
+                return self._filter_passing_times_by_line_id(
+                    point_passing_times, line_id
+                )
         except ApiClientException as e:
             raise OperationMonitoringError(e, line_id=line_id, stop_id=stop_id)
 
@@ -111,9 +114,11 @@ class OpenDataService:
             api_request = ApiClientRequest(url=request_url, method="GET")
             with self.api_client.invoke(api_request) as response:
                 raw_lines_info = response.body.json()
-            line_details = LineDetails.schema().load(raw_lines_info["lines"], many=True)
-            self._enrich_line_details_with_gtfs_data(line_details)
-            return line_details
+                line_details = LineDetails.schema().load(
+                    raw_lines_info["lines"], many=True
+                )
+                self._enrich_line_details_with_gtfs_data(line_details)
+                return line_details
         except ApiClientException as e:
             raise NetworkDescriptionError(e, line_id)
 
@@ -146,7 +151,7 @@ class OpenDataService:
                         for csv_filename in csv_filenames
                     }
                     return csv_files
-        except ApiClientException as e:
+        except (ApiClientException, marshmallow.ValidationError) as e:
             raise GTFSDataError("Error getting GTFS files", e)
 
         except Exception as e:
