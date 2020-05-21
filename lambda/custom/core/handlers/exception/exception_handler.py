@@ -58,9 +58,7 @@ class OpenDataAPIExceptionHandler(AbstractExceptionHandler):
     def can_handle(self, handler_input, exception):
         # type: (HandlerInput, OpenDataServiceException) -> bool
 
-        return isinstance(exception, OpenDataServiceException) or isinstance(
-            exception, TokenException
-        )
+        return isinstance(exception, OpenDataServiceException)
 
     def handle(self, handler_input, exception):
         # type: (HandlerInput, e) -> Response

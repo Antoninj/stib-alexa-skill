@@ -80,20 +80,22 @@ class OpenDataService:
         The data is cached for 20 seconds following Open Data API recommendations.
         """
 
-        logger.debug(
-            "Getting arrival times for line [%s] at stop [%s]", line_id, stop_id
-        )
-        request_url = self.PASSING_TIME_BY_POINT_SUFFIX + stop_id
-        api_request = ApiClientRequest(url=request_url, method="GET")
         try:
-            response = self.api_client.invoke(api_request)
-            raw_passages = response.body.json()
+            logger.debug(
+                "Getting arrival times for line [%s] at stop [%s]", line_id, stop_id
+            )
+            request_url = self.PASSING_TIME_BY_POINT_SUFFIX + stop_id
+            api_request = ApiClientRequest(url=request_url, method="GET")
+            with self.api_client.invoke(api_request) as response:
+                raw_passages = response.body.json()
             point_passing_times = PointPassingTimes.schema().load(
                 raw_passages["points"], many=True
             )
-
             return self._filter_passing_times_by_line_id(point_passing_times, line_id)
         except ApiClientException as e:
+            raise OperationMonitoringError(e, line_id=line_id, stop_id=stop_id)
+
+        except Exception as e:
             raise OperationMonitoringError(e, line_id=line_id, stop_id=stop_id)
 
     @cache(ttl=86400)
@@ -103,17 +105,19 @@ class OpenDataService:
         The data is cached for one day following Open Data API recommendations.
 .       """
 
-        logger.info("Getting line details for line [%s]", line_id)
-        request_url = self.STOPS_BY_LINE_SUFFIX + line_id
-        api_request = ApiClientRequest(url=request_url, method="GET")
         try:
-            response = self.api_client.invoke(api_request)
-            raw_lines_info = response.body.json()
+            logger.info("Getting line details for line [%s]", line_id)
+            request_url = self.STOPS_BY_LINE_SUFFIX + line_id
+            api_request = ApiClientRequest(url=request_url, method="GET")
+            with self.api_client.invoke(api_request) as response:
+                raw_lines_info = response.body.json()
             line_details = LineDetails.schema().load(raw_lines_info["lines"], many=True)
             self._enrich_line_details_with_gtfs_data(line_details)
-
             return line_details
         except ApiClientException as e:
+            raise NetworkDescriptionError(e, line_id)
+
+        except Exception as e:
             raise NetworkDescriptionError(e, line_id)
 
     @cache(ttl=1209600)
@@ -123,15 +127,15 @@ class OpenDataService:
         The data is cached for two weeks following Open Data API recommendations.
         """
 
-        logger.debug("Getting GTFS files %s", csv_filenames)
-        api_request = ApiClientRequest(
-            url=self.GTFS_FILES_SUFFIX,
-            method="GET",
-            headers=[("Accept", "application/zip")],
-        )
         try:
-            response = self.api_client.invoke(api_request)
-            file = io.BytesIO(response.body.content)
+            logger.debug("Getting GTFS files %s", csv_filenames)
+            api_request = ApiClientRequest(
+                url=self.GTFS_FILES_SUFFIX,
+                method="GET",
+                headers=[("Accept", "application/zip")],
+            )
+            with self.api_client.invoke(api_request) as response:
+                file = io.BytesIO(response.body.content)
             if zipfile.is_zipfile(file):
                 with zipfile.ZipFile(file) as gtfs_zip_file:
                     logger.debug(
@@ -143,6 +147,9 @@ class OpenDataService:
                     }
                     return csv_files
         except ApiClientException as e:
+            raise GTFSDataError("Error getting GTFS files", e)
+
+        except Exception as e:
             raise GTFSDataError("Error getting GTFS files", e)
 
     def _enrich_line_details_with_gtfs_data(
