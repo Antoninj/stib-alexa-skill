@@ -15,7 +15,6 @@
 #  License.
 
 import io
-import logging
 import os
 import zipfile
 from typing import Dict, List, Optional
@@ -25,13 +24,16 @@ import hermes.backend.dict
 import hermes.backend.memcached
 from ask_sdk_core.exceptions import ApiClientException
 from ask_sdk_model.services import ApiClient, ApiClientRequest
+from aws_lambda_powertools.logging import Logger
+from aws_lambda_powertools.tracing import Tracer
 from marshmallow import ValidationError
 
 from .exceptions import GTFSDataError, NetworkDescriptionError, OperationMonitoringError
 from .model.line_stops import LineDetails
 from .model.passing_times import PassingTime, PointPassingTimes
 
-logger = logging.getLogger("Lambda")
+logger = Logger(service="STIB service")
+tracer = Tracer(service="STIB service")
 
 ENVIRONMENT = os.environ["env"]
 ELASTICACHE_CONFIG_ENDPOINT = os.environ["elasticache_config_endpoint"]
@@ -39,11 +41,25 @@ ELASTICACHE_CONFIG_ENDPOINT = os.environ["elasticache_config_endpoint"]
 
 def initialize_cache() -> hermes.Hermes:
     if ENVIRONMENT == "Sandbox":
-        logger.info("Using local dictionary as caching backend")
+        logger.info(
+            {
+                "operation": "Setting Hermes caching backend",
+                "environment": ENVIRONMENT.upper(),
+                "backend": "Dictionary",
+                "elasticache_config_endpoint": "Not used",
+            }
+        )
         cache = hermes.Hermes(backendClass=hermes.backend.dict.Backend)
 
     elif ENVIRONMENT == "Production":
-        logger.info("Using ElastiCache memcached as caching backend")
+        logger.info(
+            {
+                "operation": "Setting Hermes caching backend",
+                "environment": ENVIRONMENT.upper(),
+                "backend": "Elasticache memcached",
+                "elasticache_config_endpoint": ELASTICACHE_CONFIG_ENDPOINT,
+            }
+        )
         nodes = elasticache_auto_discovery.discover(ELASTICACHE_CONFIG_ENDPOINT)
         servers = list(
             map(lambda x: x[1].decode("UTF-8") + ":" + x[2].decode("UTF-8"), nodes)
@@ -53,7 +69,14 @@ def initialize_cache() -> hermes.Hermes:
         )
 
     else:
-        logger.info("Using local memcached instance as caching backend")
+        logger.info(
+            {
+                "operation": "Setting Hermes caching backend",
+                "environment": ENVIRONMENT.upper(),
+                "backend": "Local memcached",
+                "elasticache_config_endpoint": ELASTICACHE_CONFIG_ENDPOINT,
+            }
+        )
         cache = hermes.Hermes(
             backendClass=hermes.backend.memcached.Backend,
             servers=[ELASTICACHE_CONFIG_ENDPOINT],
@@ -82,8 +105,12 @@ class OpenDataService:
         """
 
         try:
-            logger.debug(
-                "Getting arrival times for line [%s] at stop [%s]", line_id, stop_id
+            logger.info(
+                {
+                    "operation": "Getting arrival times",
+                    "line_id": line_id,
+                    "stop_id": stop_id,
+                }
             )
             request_url = self.PASSING_TIME_BY_POINT_SUFFIX + stop_id
             api_request = ApiClientRequest(url=request_url, method="GET")
@@ -108,7 +135,9 @@ class OpenDataService:
 .       """
 
         try:
-            logger.info("Getting line details for line [%s]", line_id)
+            logger.info(
+                {"operation": "Getting line details", "line_id": line_id,}
+            )
             request_url = self.STOPS_BY_LINE_SUFFIX + line_id
             api_request = ApiClientRequest(url=request_url, method="GET")
             response = self.api_client.invoke(api_request)
@@ -131,7 +160,9 @@ class OpenDataService:
         """
 
         try:
-            logger.debug("Getting GTFS files %s", csv_filenames)
+            logger.info(
+                {"operation": "Getting GTFS files", "csv_filenames": csv_filenames,}
+            )
             api_request = ApiClientRequest(
                 url=self.GTFS_FILES_SUFFIX,
                 method="GET",
@@ -141,8 +172,11 @@ class OpenDataService:
             file = io.BytesIO(response.body.content)
             if zipfile.is_zipfile(file):
                 with zipfile.ZipFile(file) as gtfs_zip_file:
-                    logger.debug(
-                        "GTFS data zip file content: %s", gtfs_zip_file.namelist()
+                    logger.info(
+                        {
+                            "operation": "Inspecting GTFS data zip file content",
+                            "zip_file_content": gtfs_zip_file.namelist(),
+                        }
                     )
                     csv_files = {
                         csv_filename: io.BytesIO(gtfs_zip_file.read(name=csv_filename))
@@ -160,8 +194,13 @@ class OpenDataService:
     ) -> None:
         """Enrich line details dynamically using GTFS data."""
 
-        logger.debug("Enriching line details with STIB network GTFS data")
         filenames = ["routes.txt", "stops.txt", "translations.txt"]
+        logger.info(
+            {
+                "operation": "Enriching line details with STIB network GTFS data",
+                "csv_filenames": filenames,
+            }
+        )
         csv_files = self.get_gtfs_data(csv_filenames=filenames)
         for line_detail in line_details:
             line_detail.set_route_type(csv_files["routes.txt"])

@@ -12,14 +12,16 @@
 #  specific language governing permissions and limitations under the
 #  License.
 
-import logging
-
 from ask_sdk_core.dispatch_components import AbstractRequestHandler
 from ask_sdk_core.handler_input import HandlerInput
 from ask_sdk_core.utils import is_intent_name
+from aws_lambda_powertools.logging import Logger
+from aws_lambda_powertools.tracing import Tracer
 from requests import Response
 
-logger = logging.getLogger("Lambda")
+# Logging/tracing configuration
+logger = Logger(service="Repeat Amazon handler")
+tracer = Tracer(service="Repeat Amazon handler")
 
 
 class RepeatHandler(AbstractRequestHandler):

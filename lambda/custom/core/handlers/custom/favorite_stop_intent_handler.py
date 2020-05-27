@@ -14,7 +14,6 @@
 #  specific language governing permissions and limitations under the
 #  License.
 
-import logging
 from typing import List, Optional, Dict
 
 from ask_sdk_core.dispatch_components import AbstractRequestHandler
@@ -28,10 +27,14 @@ from ask_sdk_core.utils import (
 from ask_sdk_model import Response, Slot
 from ask_sdk_model.dialog.delegate_directive import DelegateDirective
 from ask_sdk_model.dialog_state import DialogState
+from aws_lambda_powertools.logging import Logger
+from aws_lambda_powertools.tracing import Tracer
 
 from ...data import data
 
-logger = logging.getLogger("Lambda")
+# Logging/tracing configuration
+logger = Logger(service="Favorite stop intent handler")
+tracer = Tracer(service="Favorite stop intent handler")
 
 
 class StartedInProgressFavoriteStopHandler(AbstractRequestHandler):

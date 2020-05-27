@@ -16,7 +16,6 @@
 
 import csv
 import io
-import logging
 from dataclasses import dataclass, field
 from enum import Enum
 from typing import List, Optional
@@ -24,8 +23,6 @@ from typing import List, Optional
 from dataclasses_json import LetterCase, dataclass_json
 
 from .passing_times import Destination
-
-logger = logging.getLogger("Lambda")
 
 NOT_FOUND = "NOT FOUND"
 

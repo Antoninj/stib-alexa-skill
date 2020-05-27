@@ -22,9 +22,14 @@ from datetime import datetime, timedelta, timezone
 
 import boto3
 import requests
+from aws_lambda_powertools.logging import Logger
+from aws_lambda_powertools.tracing import Tracer
 from botocore.exceptions import ClientError
 
-logger = logging.getLogger("Lambda")
+
+# Logging/tracing configuration
+logger = Logger(service="Token helper")
+tracer = Tracer(service="Token helper")
 
 
 class TokenException(Exception):
@@ -64,10 +69,11 @@ class SecurityToken:
     @token_expiration_date.setter
     def token_expiration_date(self, expiration_date: int) -> None:
         """Setter for token expiration date."""
-
         logger.info(
-            "Setting STIB API security token expiration date to [%s]",
-            datetime.fromtimestamp(expiration_date),
+            {
+                "operation": "Setting STIB API security token expiration date",
+                "expiration_date": datetime.fromtimestamp(expiration_date),
+            }
         )
         self._token_expiration_date = expiration_date
 
@@ -130,9 +136,10 @@ class TokenHelper:
 
         try:
             logger.info(
-                "Getting secret value for secret [{}] from SSM parameter store".format(
-                    secret_name
-                )
+                {
+                    "operation": "Getting secret value for secret from SSM parameter store",
+                    "secret_name": secret_name,
+                }
             )
             get_secret_value_response = client.get_parameter(
                 Name=secret_name, WithDecryption=True
@@ -150,9 +157,10 @@ class TokenHelper:
 
         request_url = self.OPEN_DATA_API_ENDPOINT + "/token"
         logger.info(
-            "Getting access token for STIB open data api using token url: {} ".format(
-                request_url
-            )
+            {
+                "operation": "Getting access token for STIB open data api",
+                "token_url": request_url,
+            }
         )
         client_auth = requests.auth.HTTPBasicAuth(client_id, client_secret)
         post_data = {"grant_type": "client_credentials"}

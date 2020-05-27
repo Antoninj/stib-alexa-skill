@@ -14,7 +14,6 @@
 #  specific language governing permissions and limitations under the
 #  License.
 
-import logging
 import uuid
 from typing import List, Optional
 
@@ -31,11 +30,15 @@ from ask_sdk_model.er.dynamic import (
     EntityValueAndSynonyms,
     UpdateBehavior,
 )
+from aws_lambda_powertools.logging import Logger
+from aws_lambda_powertools.tracing import Tracer
 
 from ...data import data
 from ...service.model.line_stops import LineDetails
 
-logger = logging.getLogger("Lambda")
+# Logging/tracing configuration
+logger = Logger(service="Favorite line intent handler")
+tracer = Tracer(service="Favorite line intent handler")
 
 
 class StartedInProgressFavoriteLineHandler(AbstractRequestHandler):

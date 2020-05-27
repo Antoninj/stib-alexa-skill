@@ -12,14 +12,16 @@
 #  specific language governing permissions and limitations under the
 #  License.
 
-import logging
-
 from ask_sdk_core.dispatch_components import (AbstractRequestInterceptor,
                                               AbstractResponseInterceptor)
 from ask_sdk_core.handler_input import HandlerInput
 from ask_sdk_model import Response
+from aws_lambda_powertools.logging import Logger
+from aws_lambda_powertools.tracing import Tracer
 
-logger = logging.getLogger("Lambda")
+# Logging/tracing configuration
+logger = Logger(service="Logger interceptor")
+tracer = Tracer(service="Logger interceptor")
 
 
 class RequestLoggerInterceptor(AbstractRequestInterceptor):
@@ -29,7 +31,7 @@ class RequestLoggerInterceptor(AbstractRequestInterceptor):
         """Log the request envelope."""
 
         # type: (HandlerInput) -> None
-        logger.debug("Request Envelope: {}".format(handler_input.request_envelope))
+        logger.debug({"Request Envelope": handler_input.request_envelope})
 
 
 class ResponseLoggerInterceptor(AbstractResponseInterceptor):
@@ -39,4 +41,4 @@ class ResponseLoggerInterceptor(AbstractResponseInterceptor):
         """Log the response envelope."""
 
         # type: (HandlerInput, Response) -> None
-        logger.debug("Response: {}".format(response))
+        logger.debug({"Response": response})

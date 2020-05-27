@@ -46,12 +46,14 @@ Resources:
       Environment:
         Variables:
           env: !Ref Stage
-          log_level: DEBUG
+          LOG_LEVEL: INFO
           secret_name: !Sub 'OpenData${Stage}Secret'
           open_data_api_endpoint: !Ref OpenDataAPIEndpoint
           open_data_api_token_validity: !Ref OpenDataAPITokenValidity
           dynamo_db_table_name: !Ref DynamoDBTableName
           elasticache_config_endpoint: localhost
+          POWERTOOLS_TRACE_DISABLED: true
+          POWERTOOLS_LOGGER_SAMPLE_RATE: 0.2
 
       Handler: daily_commute.handler
       Runtime: python3.7

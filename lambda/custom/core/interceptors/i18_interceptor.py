@@ -13,13 +13,16 @@
 #  License.
 
 import gettext
-import logging
 
 from ask_sdk_core.dispatch_components import AbstractRequestInterceptor
 from ask_sdk_core.handler_input import HandlerInput
 from ask_sdk_core.utils import get_locale
+from aws_lambda_powertools.logging import Logger
+from aws_lambda_powertools.tracing import Tracer
 
-logger = logging.getLogger("Lambda")
+# Logging/tracing configuration
+logger = Logger(service="i18n interceptor")
+tracer = Tracer(service="i18n interceptor")
 
 
 class LocalizationInterceptor(AbstractRequestInterceptor):
@@ -31,7 +34,7 @@ class LocalizationInterceptor(AbstractRequestInterceptor):
         # type: (HandlerInput) -> None
         logger.debug("In LocalizationInterceptor")
         locale = get_locale(handler_input)
-        logger.debug("Locale is {}".format(locale))
+        logger.debug({"Locale": locale})
         i18n = gettext.translation(
             "base", localedir="core/locales/", languages=[locale], fallback=True
         )

@@ -14,18 +14,21 @@
 #  specific language governing permissions and limitations under the
 #  License.
 
-import logging
 from typing import List, Optional
 
 from ask_sdk_core.dispatch_components import AbstractRequestHandler
 from ask_sdk_core.handler_input import HandlerInput
 from ask_sdk_core.utils import is_intent_name
 from ask_sdk_model import Response
+from aws_lambda_powertools.logging import Logger
+from aws_lambda_powertools.tracing import Tracer
 
 from ...data import data
 from ...service.model.passing_times import PassingTime
 
-logger = logging.getLogger("Lambda")
+# Logging/tracing configuration
+logger = Logger(service="Get arrival time intent handler")
+tracer = Tracer(service="Get arrival time intent handler")
 
 
 class GetArrivalTimesNoPrefsIntentHandler(AbstractRequestHandler):

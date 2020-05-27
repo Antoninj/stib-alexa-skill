@@ -15,7 +15,6 @@
 #  License.
 
 import json
-import logging
 import os
 from typing import Optional
 
@@ -23,11 +22,14 @@ import requests
 import six
 from ask_sdk_core.exceptions import ApiClientException
 from ask_sdk_model.services import ApiClient, ApiClientRequest, ApiClientResponse
+from aws_lambda_powertools.logging import Logger
+from aws_lambda_powertools.tracing import Tracer
 from urllib3.util import parse_url
 
 from .token_helper import TokenHelper
 
-logger = logging.getLogger("Lambda")
+logger = Logger(service="STIB API client")
+tracer = Tracer(service="STIB API client")
 OPEN_DATA_API_ENDPOINT = os.environ["open_data_api_endpoint"]
 
 
