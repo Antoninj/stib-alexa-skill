@@ -38,10 +38,6 @@ tracer = Tracer(service="STIB service")
 ENVIRONMENT = os.environ["env"]
 ELASTICACHE_CONFIG_ENDPOINT = os.environ["elasticache_config_endpoint"]
 
-tracer.put_metadata(
-    key="elasticache_config_endpoint", value=ELASTICACHE_CONFIG_ENDPOINT
-)
-
 
 @tracer.capture_method
 def initialize_cache() -> hermes.Hermes:
@@ -86,6 +82,12 @@ def initialize_cache() -> hermes.Hermes:
             backendClass=hermes.backend.memcached.Backend,
             servers=[ELASTICACHE_CONFIG_ENDPOINT],
         )
+
+    tracer.put_metadata(
+        key="elasticache_config_endpoint", value=ELASTICACHE_CONFIG_ENDPOINT
+    )
+    tracer.put_annotation("CACHE_SETUP", "SUCCESS")
+
     return cache
 
 

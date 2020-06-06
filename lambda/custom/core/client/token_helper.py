@@ -16,7 +16,6 @@
 
 import calendar
 import json
-import logging
 import os
 from datetime import datetime, timedelta, timezone
 
@@ -25,7 +24,6 @@ import requests
 from aws_lambda_powertools.logging import Logger
 from aws_lambda_powertools.tracing import Tracer
 from botocore.exceptions import ClientError
-
 
 # Logging/tracing configuration
 logger = Logger(service="Token helper")
@@ -75,9 +73,7 @@ class SecurityToken:
                 "expiration_date": datetime.fromtimestamp(expiration_date),
             }
         )
-        tracer.put_metadata(
-            key="token_expiration_date", value=datetime.fromtimestamp(expiration_date)
-        )
+
         self._token_expiration_date = expiration_date
 
     @staticmethod
@@ -156,6 +152,7 @@ class TokenHelper:
 
         return secret
 
+    @tracer.capture_method
     def _get_access_token(self, client_id: str, client_secret: str) -> str:
         """Get OpenData API access token."""
 

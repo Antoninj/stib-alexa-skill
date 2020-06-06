@@ -56,9 +56,6 @@ DYNAMO_DB_TABLE_NAME = os.environ["dynamo_db_table_name"]
 logger = Logger(service="Skill setup")
 tracer = Tracer(service="Skill setup")
 
-tracer.put_metadata(key="environment", value=ENVIRONMENT.upper())
-tracer.put_metadata(key="dynamo_db_table_name", value=DYNAMO_DB_TABLE_NAME)
-
 
 @tracer.capture_method
 def setup_skill_builder(service: OpenDataService) -> CustomSkillBuilder:
@@ -106,6 +103,7 @@ def setup_skill_builder(service: OpenDataService) -> CustomSkillBuilder:
     skill_builder.add_global_response_interceptor(ResponseLoggerInterceptor())
 
     tracer.put_annotation("SKILL_SETUP", "SUCCESS")
+    tracer.put_metadata(key="environment", value=ENVIRONMENT.upper())
 
     return skill_builder
 
@@ -115,7 +113,6 @@ logger.info(
     {"operation": "Launching alexa skill", "environment": ENVIRONMENT.upper(),}
 )
 logger.info("Setting up Open Data API service")
-
 stib_service = OpenDataService(stib_api_client=OpenDataAPIClient())
 
 # Set up the skill builder and lambda handler
