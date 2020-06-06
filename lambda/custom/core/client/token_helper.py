@@ -66,7 +66,6 @@ class SecurityToken:
 
         return self._token_expiration_date
 
-    @tracer.capture_method
     @token_expiration_date.setter
     def token_expiration_date(self, expiration_date: int) -> None:
         """Setter for token expiration date."""
