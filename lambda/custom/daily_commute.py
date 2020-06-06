@@ -15,9 +15,9 @@
 #  License.
 
 import gettext
-import os
+from os import environ
 
-import boto3
+from boto3 import resource
 from ask_sdk_core.skill_builder import CustomSkillBuilder
 from ask_sdk_dynamodb.adapter import DynamoDbAdapter
 from aws_lambda_powertools.logging import Logger
@@ -49,8 +49,8 @@ from core.interceptors.logger_interceptors import (
 from core.service.stib_service import OpenDataService
 
 # Environment variables definitions
-ENVIRONMENT = os.environ["env"]
-DYNAMO_DB_TABLE_NAME = os.environ["dynamo_db_table_name"]
+ENVIRONMENT = environ["env"]
+DYNAMO_DB_TABLE_NAME = environ["dynamo_db_table_name"]
 
 # Logging/tracing configuration
 logger = Logger(service="Skill setup")
@@ -72,7 +72,7 @@ def setup_skill_builder(service: OpenDataService) -> CustomSkillBuilder:
         partition_key_name="id",
         attribute_name="attributes",
         create_table=True,
-        dynamodb_resource=boto3.resource("dynamodb"),
+        dynamodb_resource=resource("dynamodb"),
     )
 
     skill_builder = CustomSkillBuilder(persistence_adapter=dynamo_db_adapter)

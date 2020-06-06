@@ -14,8 +14,8 @@
 #  specific language governing permissions and limitations under the
 #  License.
 
-import csv
-import io
+from csv import reader
+from io import BytesIO
 from dataclasses import dataclass, field
 from enum import Enum
 from typing import List, Optional
@@ -46,33 +46,31 @@ class LinePoint:
     stop_name_fr: str = ""
     stop_name_nl: str = ""
 
-    def set_stop_names(
-        self, stops_csv_file: io.BytesIO, translations_csv_file: io.BytesIO
-    ):
+    def set_stop_names(self, stops_csv_file: BytesIO, translations_csv_file: BytesIO):
         """Extract stop name and translations from csv files."""
 
         self.stop_name = self._set_generic_stop_name(stops_csv_file)
         self.stop_name_fr = self._set_stop_name_translation("fr", translations_csv_file)
         self.stop_name_nl = self._set_stop_name_translation("nl", translations_csv_file)
 
-    def _set_generic_stop_name(self, stops_csv_file: io.BytesIO) -> str:
+    def _set_generic_stop_name(self, stops_csv_file: BytesIO) -> str:
         """Extract generic stop name from csv translations file."""
 
-        reader = csv.reader(stops_csv_file.getvalue().decode("utf-8").splitlines())
-        for stop_info in reader:
+        csv_reader = reader(stops_csv_file.getvalue().decode("utf-8").splitlines())
+        for stop_info in csv_reader:
             if stop_info[0] == self.id:
                 return stop_info[2]
         return NOT_FOUND
 
     def _set_stop_name_translation(
-        self, language: str, translations_csv_file: io.BytesIO
+        self, language: str, translations_csv_file: BytesIO
     ) -> str:
         """Extract stop name translation from csv translations file."""
 
-        reader = csv.reader(
+        csv_reader = reader(
             translations_csv_file.getvalue().decode("utf-8").splitlines()
         )
-        for translation_info in reader:
+        for translation_info in csv_reader:
             if (
                 translation_info[0] == self.stop_name
                 and translation_info[2] == language
@@ -92,11 +90,11 @@ class LineDetails:
     points: List[LinePoint] = field(default_factory=list)
     route_type: Optional[RouteType] = None
 
-    def set_route_type(self, routes_csv_file: io.BytesIO):
+    def set_route_type(self, routes_csv_file: BytesIO):
         """Extract route type from csv routes file."""
 
-        reader = csv.reader(routes_csv_file.getvalue().decode("utf-8").splitlines())
-        for route_info in reader:
+        csv_reader = reader(routes_csv_file.getvalue().decode("utf-8").splitlines())
+        for route_info in csv_reader:
             if route_info[1] == self.line_id:
                 self.route_type = RouteType(int(route_info[4]))
 
