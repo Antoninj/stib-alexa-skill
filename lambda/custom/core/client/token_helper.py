@@ -66,6 +66,7 @@ class SecurityToken:
 
         return self._token_expiration_date
 
+    @tracer.capture_method
     @token_expiration_date.setter
     def token_expiration_date(self, expiration_date: int) -> None:
         """Setter for token expiration date."""
@@ -74,6 +75,9 @@ class SecurityToken:
                 "operation": "Setting STIB API security token expiration date",
                 "expiration_date": datetime.fromtimestamp(expiration_date),
             }
+        )
+        tracer.put_metadata(
+            key="token_expiration_date", value=datetime.fromtimestamp(expiration_date)
         )
         self._token_expiration_date = expiration_date
 
@@ -118,6 +122,7 @@ class TokenHelper:
             )
             return self._security_token
 
+    @tracer.capture_method
     def get_security_bearer_token(self) -> str:
         """Public method to access the OpenData API bearer token securely."""
 

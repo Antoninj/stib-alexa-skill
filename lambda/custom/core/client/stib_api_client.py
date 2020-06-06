@@ -32,6 +32,8 @@ logger = Logger(service="STIB API client")
 tracer = Tracer(service="STIB API client")
 OPEN_DATA_API_ENDPOINT = os.environ["open_data_api_endpoint"]
 
+tracer.put_metadata(key="open_data_api_endpoint", value=OPEN_DATA_API_ENDPOINT)
+
 
 class OpenDataAPIClient(ApiClient):
     """OpenData API client implementation wrapping HTTP requests"""

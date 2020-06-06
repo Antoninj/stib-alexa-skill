@@ -83,6 +83,7 @@ class GetArrivalTimesIntentHandler(AbstractRequestHandler):
             handler_input
         )
 
+    @tracer.capture_method
     def handle(self, handler_input):
         # type: (HandlerInput) -> Response
 

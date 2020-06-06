@@ -13,7 +13,7 @@ Parameters:
   Stage:
     Type: String
     Description: The name for a project pipeline stage, such as Staging or Prod, for which resources are provisioned and deployed.
-    Default: ''
+    Default: 'Sandbox'
   OpenDataAPIEndpoint:
     Description: Open Data API endpoint (SSM Parameter name)
     Type: AWS::SSM::Parameter::Value<String>
@@ -41,6 +41,7 @@ Resources:
   DailyCommuteFunction:
     Type: AWS::Serverless::Function
     Properties:
+      Tracing: Active
       FunctionName: !Sub 'awscodestar-${ProjectId}-lambda-DailyCommuteFunction'
       CodeUri: 'lambda/custom'
       Environment:
@@ -52,7 +53,7 @@ Resources:
           open_data_api_token_validity: !Ref OpenDataAPITokenValidity
           dynamo_db_table_name: !Ref DynamoDBTableName
           elasticache_config_endpoint: localhost
-          POWERTOOLS_TRACE_DISABLED: true
+          POWERTOOLS_TRACE_DISABLED: false
           POWERTOOLS_LOGGER_SAMPLE_RATE: 0.2
 
       Handler: daily_commute.handler
@@ -75,7 +76,7 @@ Resources:
       Path: /
       ManagedPolicyArns:
         - !Sub 'arn:${AWS::Partition}:iam::aws:policy/service-role/AWSLambdaVPCAccessExecutionRole'
-        - !Sub 'arn:${AWS::Partition}:iam::aws:policy/service-role/AWSLambdaBasicExecutionRole'
+        - !Sub 'arn:${AWS::Partition}:iam::aws:policy/AWSXrayWriteOnlyAccess'
         - !Sub 'arn:${AWS::Partition}:iam::${AWS::AccountId}:policy/SystemsManagerGetParameters'
         - !Sub 'arn:${AWS::Partition}:iam::${AWS::AccountId}:policy/AmazonDynamoDBAlexaSkillAccess'
 

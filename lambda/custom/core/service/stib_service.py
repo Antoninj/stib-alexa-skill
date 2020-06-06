@@ -38,7 +38,12 @@ tracer = Tracer(service="STIB service")
 ENVIRONMENT = os.environ["env"]
 ELASTICACHE_CONFIG_ENDPOINT = os.environ["elasticache_config_endpoint"]
 
+tracer.put_metadata(
+    key="elasticache_config_endpoint", value=ELASTICACHE_CONFIG_ENDPOINT
+)
 
+
+@tracer.capture_method
 def initialize_cache() -> hermes.Hermes:
     if ENVIRONMENT == "Sandbox":
         logger.info(
@@ -95,6 +100,7 @@ class OpenDataService:
     def __init__(self, stib_api_client: ApiClient):
         self.api_client = stib_api_client
 
+    @tracer.capture_method
     @cache(ttl=20)
     def get_passing_times_for_stop_id_and_line_id(
         self, stop_id: str, line_id: str
@@ -112,6 +118,12 @@ class OpenDataService:
                     "stop_id": stop_id,
                 }
             )
+
+            tracer.put_metadata(key="line_id", value=line_id)
+            tracer.put_metadata(key="stop_id", value=stop_id)
+            tracer.put_annotation("STIB_LINE_ID", line_id)
+            tracer.put_annotation("STIB_STOP_ID", stop_id)
+
             request_url = self.PASSING_TIME_BY_POINT_SUFFIX + stop_id
             api_request = ApiClientRequest(url=request_url, method="GET")
             response = self.api_client.invoke(api_request)
@@ -127,6 +139,7 @@ class OpenDataService:
         except Exception as e:
             raise OperationMonitoringError(e, line_id=line_id, stop_id=stop_id)
 
+    @tracer.capture_method
     @cache(ttl=86400)
     def get_stops_by_line_id(self, line_id: str) -> Optional[List[LineDetails]]:
         """
@@ -138,6 +151,9 @@ class OpenDataService:
             logger.info(
                 {"operation": "Getting line details", "line_id": line_id,}
             )
+            tracer.put_metadata(key="line_id", value=line_id)
+            tracer.put_annotation("STIB_LINE_ID", line_id)
+
             request_url = self.STOPS_BY_LINE_SUFFIX + line_id
             api_request = ApiClientRequest(url=request_url, method="GET")
             response = self.api_client.invoke(api_request)
@@ -152,6 +168,7 @@ class OpenDataService:
         except Exception as e:
             raise NetworkDescriptionError(e, line_id)
 
+    @tracer.capture_method
     @cache(ttl=1209600)
     def get_gtfs_data(self, csv_filenames: List[str]) -> Dict[str, io.BytesIO]:
         """
