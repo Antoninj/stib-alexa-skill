@@ -121,7 +121,3 @@ stib_service = OpenDataService(stib_api_client=OpenDataAPIClient())
 # Set up the skill builder and lambda handler
 sb = setup_skill_builder(service=stib_service)
 handler = sb.lambda_handler()
-
-
-def handler():
-    pass
