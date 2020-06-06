@@ -15,12 +15,13 @@
 #  License.
 
 import gettext
-import logging
 import os
 
 import boto3
 from ask_sdk_core.skill_builder import CustomSkillBuilder
 from ask_sdk_dynamodb.adapter import DynamoDbAdapter
+from aws_lambda_powertools.logging import Logger
+from aws_lambda_powertools.tracing import Tracer
 
 from core.client.stib_api_client import OpenDataAPIClient
 from core.data import data
@@ -49,18 +50,26 @@ from core.service.stib_service import OpenDataService
 
 # Environment variables definitions
 ENVIRONMENT = os.environ["env"]
-LOGGING_LEVEL = os.environ["log_level"]
 DYNAMO_DB_TABLE_NAME = os.environ["dynamo_db_table_name"]
 
-# Logging configuration
-logger = logging.getLogger("Lambda")
-logger.setLevel(LOGGING_LEVEL)
+# Logging/tracing configuration
+logger = Logger(service="Skill setup")
+tracer = Tracer(service="Skill setup")
+
+tracer.put_metadata(key="environment", value=ENVIRONMENT.upper())
+tracer.put_metadata(key="dynamo_db_table_name", value=DYNAMO_DB_TABLE_NAME)
 
 
+@tracer.capture_method
 def setup_skill_builder(service: OpenDataService) -> CustomSkillBuilder:
     """Helper method to create the custom skill builder instance."""
 
-    logger.info("Setting up Custom Skill Builder with Dynamo DB persistence adapter...")
+    logger.info(
+        {
+            "operation": "Setting up Custom Skill Builder with Dynamo DB persistence adapter",
+            "dynamo_db_table_name": DYNAMO_DB_TABLE_NAME,
+        }
+    )
     dynamo_db_adapter = DynamoDbAdapter(
         table_name=DYNAMO_DB_TABLE_NAME,
         partition_key_name="id",
@@ -95,12 +104,18 @@ def setup_skill_builder(service: OpenDataService) -> CustomSkillBuilder:
     skill_builder.add_global_request_interceptor(RequestLoggerInterceptor())
     logger.info("Adding skill response interceptors...")
     skill_builder.add_global_response_interceptor(ResponseLoggerInterceptor())
+
+    tracer.put_annotation("SKILL_SETUP", "SUCCESS")
+
     return skill_builder
 
 
 # Create new Open Data API client and service instances
-logger.info("Launching skill in [%s] environment", ENVIRONMENT.upper())
+logger.info(
+    {"operation": "Launching alexa skill", "environment": ENVIRONMENT.upper(),}
+)
 logger.info("Setting up Open Data API service")
+
 stib_service = OpenDataService(stib_api_client=OpenDataAPIClient())
 
 # Set up the skill builder and lambda handler

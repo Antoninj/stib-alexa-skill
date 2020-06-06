@@ -12,17 +12,18 @@
 #  specific language governing permissions and limitations under the
 #  License.
 
-import logging
-
 from ask_sdk_core.dispatch_components import AbstractExceptionHandler
 from ask_sdk_core.handler_input import HandlerInput
+from aws_lambda_powertools.logging import Logger
+from aws_lambda_powertools.tracing import Tracer
 
 from ...data import data
 from ...service.exceptions import OpenDataServiceException
-from ...client.token_helper import TokenException
 
 
-logger = logging.getLogger("Lambda")
+# Logging/tracing configuration
+logger = Logger(service="Exception handler")
+tracer = Tracer(service="Exception handler")
 
 
 class GenericExceptionHandler(AbstractExceptionHandler):
