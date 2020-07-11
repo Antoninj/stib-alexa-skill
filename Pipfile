@@ -4,20 +4,20 @@ url = "https://pypi.org/simple"
 verify_ssl = true
 
 [dev-packages]
-boto3 = "==1.14.2"
+boto3 = "==1.14.16"
 babel = "==2.8.0"
 black = "==19.10b0"
 lex-bot-tester = "==1.0.6"
 pipenv-to-requirements = "==0.9.0"
 interrogate = "==1.2.0"
-isort = "==4.3.21"
+isort = "==5.0.3"
 
 [packages]
 ask-sdk-core = "==1.13.0"
-requests = "==2.23.0"
-pytz = "==2019.3"
+requests = "==2.24.0"
+pytz = "==2020.1"
 ask-sdk = "==1.13.0"
-dataclasses-json = "==0.4.2"
+dataclasses-json = "==0.5.1"
 hermescache = "==0.8.0"
 pylibmc = "==1.6.1"
 elasticache-auto-discovery = "==1.0.0"
