@@ -19,7 +19,7 @@ from datetime import time as datetime_time
 from datetime import timedelta
 from typing import Dict
 
-import pytz
+from pytz import utc
 
 
 class TimeUtils:
@@ -30,7 +30,7 @@ class TimeUtils:
         """Define method here."""
 
         current_time_utc = datetime.utcnow()
-        return pytz.utc.localize(current_time_utc)
+        return utc.localize(current_time_utc)
 
     @staticmethod
     def compute_time_diff(start, end) -> Dict:

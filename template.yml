@@ -23,7 +23,7 @@ Parameters:
     Type: AWS::SSM::Parameter::Value<String>
     Default: 'OpenDataAPITokenValidity'
   DynamoDBTableName:
-    Description: The name of the dynamo DB table used by the alexa skill for persistent storage of user data
+    Description: The name of the dynamo DB table used by the alexa skill for persistent storage of user data (SSM Parameter name)
     Type: AWS::SSM::Parameter::Value<String>
     Default: 'DynamoDBTableName'
 
@@ -54,7 +54,7 @@ Resources:
           dynamo_db_table_name: !Ref DynamoDBTableName
           elasticache_config_endpoint: localhost
           POWERTOOLS_TRACE_DISABLED: false
-          POWERTOOLS_LOGGER_SAMPLE_RATE: 0.2
+          POWERTOOLS_LOGGER_SAMPLE_RATE: 0.4
 
       Handler: daily_commute.handler
       Runtime: python3.7

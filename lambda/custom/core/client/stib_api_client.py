@@ -15,7 +15,7 @@
 #  License.
 
 import json
-import os
+from os import environ
 from typing import Optional
 
 import requests
@@ -30,7 +30,7 @@ from .token_helper import TokenHelper
 
 logger = Logger(service="STIB API client")
 tracer = Tracer(service="STIB API client")
-OPEN_DATA_API_ENDPOINT = os.environ["open_data_api_endpoint"]
+OPEN_DATA_API_ENDPOINT = environ["open_data_api_endpoint"]
 
 tracer.put_metadata(key="open_data_api_endpoint", value=OPEN_DATA_API_ENDPOINT)
 

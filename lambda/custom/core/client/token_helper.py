@@ -14,18 +14,16 @@
 #  specific language governing permissions and limitations under the
 #  License.
 
-import calendar
 import json
-import logging
-import os
+from calendar import timegm
+from os import environ
 from datetime import datetime, timedelta, timezone
 
-import boto3
 import requests
+from boto3.session import Session
 from aws_lambda_powertools.logging import Logger
 from aws_lambda_powertools.tracing import Tracer
 from botocore.exceptions import ClientError
-
 
 # Logging/tracing configuration
 logger = Logger(service="Token helper")
@@ -47,7 +45,7 @@ class SecurityToken:
         if token_validity_time:
             self.TOKEN_VALIDITY_TIME = token_validity_time
         else:
-            self.TOKEN_VALIDITY_TIME = int(os.environ["open_data_api_token_validity"])
+            self.TOKEN_VALIDITY_TIME = int(environ["open_data_api_token_validity"])
 
         self._bearer: str = token
         self._token_expiration_date = None
@@ -75,9 +73,7 @@ class SecurityToken:
                 "expiration_date": datetime.fromtimestamp(expiration_date),
             }
         )
-        tracer.put_metadata(
-            key="token_expiration_date", value=datetime.fromtimestamp(expiration_date)
-        )
+
         self._token_expiration_date = expiration_date
 
     @staticmethod
@@ -86,7 +82,7 @@ class SecurityToken:
 
         current_time = datetime.now(tz=timezone.utc)
         future_time = current_time + timedelta(seconds=validity_time)
-        return calendar.timegm(future_time.utctimetuple())
+        return timegm(future_time.utctimetuple())
 
     def is_token_expired(self) -> bool:
         """Check validity of a token."""
@@ -100,8 +96,8 @@ class TokenHelper:
     """OpenData API authentication token lifecycle management helper class."""
 
     def __init__(self, token_validity_time: int = None):
-        self.SECRET_NAME: str = os.environ["secret_name"]
-        self.OPEN_DATA_API_ENDPOINT: str = os.environ["open_data_api_endpoint"]
+        self.SECRET_NAME: str = environ["secret_name"]
+        self.OPEN_DATA_API_ENDPOINT: str = environ["open_data_api_endpoint"]
         self._api_credentials: str = self._get_api_credentials_from_ssm()
         self._security_token: SecurityToken = SecurityToken(
             token=self._retrieve_api_access_token(),
@@ -135,7 +131,7 @@ class TokenHelper:
         region_name = "eu-west-1"
 
         # Create a SSM Parameter Store client
-        session = boto3.session.Session()
+        session = Session()
         client = session.client(service_name="ssm", region_name=region_name)
 
         try:
@@ -156,6 +152,7 @@ class TokenHelper:
 
         return secret
 
+    @tracer.capture_method
     def _get_access_token(self, client_id: str, client_secret: str) -> str:
         """Get OpenData API access token."""
 
