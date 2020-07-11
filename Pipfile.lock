@@ -55,11 +55,11 @@
         },
         "aws-lambda-powertools": {
             "hashes": [
-                "sha256:214604b8ee56bd25c6431540fbdc3ad651504b36dca9ae731f750f9284802f40",
-                "sha256:89bdb2bc85f0bcf6eae5bda5804ba0b9000bd5a239747d0054730570f0d8ed5c"
+                "sha256:696ddda1b55658bd7d42a0dcde70a87c7984cdcac7b09a3c968a5fd8a7c3d253",
+                "sha256:e916ab96217e6ba72ed371a143dd3f1d8bda6c7fc7a6d5928f19b3492ec1a506"
             ],
             "index": "pypi",
-            "version": "==0.11.0"
+            "version": "==1.0.1"
         },
         "aws-xray-sdk": {
             "hashes": [
