@@ -21,7 +21,7 @@ dataclasses-json = "==0.4.2"
 hermescache = "==0.7.2"
 pylibmc = "==1.6.1"
 elasticache-auto-discovery = "==1.0.0"
-aws-lambda-powertools = "*"
+aws-lambda-powertools = "==1.0.1"
 
 [requires]
 python_version = "3.7"
