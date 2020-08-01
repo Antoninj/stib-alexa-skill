@@ -36,7 +36,9 @@ logger = Logger(service="STIB service")
 tracer = Tracer(service="STIB service")
 
 ENVIRONMENT = environ["env"]
-ELASTICACHE_CONFIG_ENDPOINT = environ["elasticache_config_endpoint"]
+MEMCACHED_ENDPOINT = environ["cache_endpoint"]
+MEMCACHED_USERNAME = environ["cache_username"]
+MEMCACHED_PASSWORD = environ["cache_password"]
 
 
 @tracer.capture_method
@@ -47,7 +49,7 @@ def initialize_cache() -> hermes.Hermes:
                 "operation": "Setting Hermes caching backend",
                 "environment": ENVIRONMENT.upper(),
                 "backend": "Dictionary",
-                "elasticache_config_endpoint": "Not used",
+                "cache_endpoint": "Not used",
             }
         )
         cache = hermes.Hermes(backendClass=hermes.backend.dict.Backend)
@@ -57,16 +59,22 @@ def initialize_cache() -> hermes.Hermes:
             {
                 "operation": "Setting Hermes caching backend",
                 "environment": ENVIRONMENT.upper(),
-                "backend": "Elasticache memcached",
-                "elasticache_config_endpoint": ELASTICACHE_CONFIG_ENDPOINT,
+                "backend": "Redis memcached",
+                "cache_endpoint": MEMCACHED_ENDPOINT,
             }
         )
+        """ 
         nodes = elasticache_auto_discovery.discover(ELASTICACHE_CONFIG_ENDPOINT)
         servers = list(
             map(lambda x: x[1].decode("UTF-8") + ":" + x[2].decode("UTF-8"), nodes)
         )
+        """
         cache = hermes.Hermes(
-            backendClass=hermes.backend.memcached.Backend, servers=servers
+            backendClass=hermes.backend.memcached.Backend,
+            servers=[MEMCACHED_ENDPOINT],
+            binary=True,
+            username=MEMCACHED_USERNAME,
+            password=MEMCACHED_PASSWORD,
         )
 
     else:
@@ -75,17 +83,14 @@ def initialize_cache() -> hermes.Hermes:
                 "operation": "Setting Hermes caching backend",
                 "environment": ENVIRONMENT.upper(),
                 "backend": "Local memcached",
-                "elasticache_config_endpoint": ELASTICACHE_CONFIG_ENDPOINT,
+                "cache_endpoint": MEMCACHED_ENDPOINT,
             }
         )
         cache = hermes.Hermes(
-            backendClass=hermes.backend.memcached.Backend,
-            servers=[ELASTICACHE_CONFIG_ENDPOINT],
+            backendClass=hermes.backend.memcached.Backend, servers=[MEMCACHED_ENDPOINT],
         )
 
-    tracer.put_metadata(
-        key="elasticache_config_endpoint", value=ELASTICACHE_CONFIG_ENDPOINT
-    )
+    tracer.put_metadata(key="cache_endpoint", value=MEMCACHED_ENDPOINT)
     tracer.put_annotation("CACHE_SETUP", "SUCCESS")
 
     return cache

@@ -26,12 +26,24 @@ Parameters:
     Description: The name of the dynamo DB table used by the alexa skill for persistent storage of user data (SSM Parameter name)
     Type: AWS::SSM::Parameter::Value<String>
     Default: 'DynamoDBTableName'
+  MemcachedEndpoint:
+    Description: The SAAS solution (redislabs) memcached endpoint (SSM Parameter name)
+    Type: AWS::SSM::Parameter::Value<String>
+    Default: 'MemcachedEndpoint'
+  MemcachedUsername:
+    Description: The SAAS solution (redislabs) memcached username for for SASL Authentication (SSM Parameter name)
+    Type: AWS::SSM::Parameter::Value<String>
+    Default: 'MemcachedUsername'
+  MemcachedPassword:
+    Description: The SAAS solution (redislabs) memcached password for for SASL Authentication (SSM Parameter name)
+    Type: AWS::SSM::Parameter::Value<String>
+    Default: 'MemcachedPassword'
 
 Globals:
   Function:
     MemorySize: 256
     Timeout: 30
-    AutoPublishAlias: live
+    AutoPublishAlias: prod
     DeploymentPreference:
       Enabled: true
       Type: AllAtOnce
@@ -52,7 +64,9 @@ Resources:
           open_data_api_endpoint: !Ref OpenDataAPIEndpoint
           open_data_api_token_validity: !Ref OpenDataAPITokenValidity
           dynamo_db_table_name: !Ref DynamoDBTableName
-          elasticache_config_endpoint: localhost
+          cache_endpoint: !Ref MemcachedEndpoint
+          cache_username: !Ref MemcachedUsername
+          cache_password: !Ref MemcachedPassword
           POWERTOOLS_TRACE_DISABLED: false
           POWERTOOLS_LOGGER_SAMPLE_RATE: 0.4
 
