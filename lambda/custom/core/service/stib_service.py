@@ -14,9 +14,9 @@
 #  specific language governing permissions and limitations under the
 #  License.
 
-import io
-import os
-import zipfile
+from io import BytesIO
+from os import environ
+from zipfile import ZipFile, is_zipfile
 from typing import Dict, List, Optional
 
 import elasticache_auto_discovery
@@ -35,12 +35,10 @@ from .model.passing_times import PassingTime, PointPassingTimes
 logger = Logger(service="STIB service")
 tracer = Tracer(service="STIB service")
 
-ENVIRONMENT = os.environ["env"]
-ELASTICACHE_CONFIG_ENDPOINT = os.environ["elasticache_config_endpoint"]
-
-tracer.put_metadata(
-    key="elasticache_config_endpoint", value=ELASTICACHE_CONFIG_ENDPOINT
-)
+ENVIRONMENT = environ["env"]
+MEMCACHED_ENDPOINT = environ["cache_endpoint"]
+MEMCACHED_USERNAME = environ["cache_username"]
+MEMCACHED_PASSWORD = environ["cache_password"]
 
 
 @tracer.capture_method
@@ -51,7 +49,7 @@ def initialize_cache() -> hermes.Hermes:
                 "operation": "Setting Hermes caching backend",
                 "environment": ENVIRONMENT.upper(),
                 "backend": "Dictionary",
-                "elasticache_config_endpoint": "Not used",
+                "cache_endpoint": "Not used",
             }
         )
         cache = hermes.Hermes(backendClass=hermes.backend.dict.Backend)
@@ -61,16 +59,22 @@ def initialize_cache() -> hermes.Hermes:
             {
                 "operation": "Setting Hermes caching backend",
                 "environment": ENVIRONMENT.upper(),
-                "backend": "Elasticache memcached",
-                "elasticache_config_endpoint": ELASTICACHE_CONFIG_ENDPOINT,
+                "backend": "Redis memcached",
+                "cache_endpoint": MEMCACHED_ENDPOINT,
             }
         )
+        """ 
         nodes = elasticache_auto_discovery.discover(ELASTICACHE_CONFIG_ENDPOINT)
         servers = list(
             map(lambda x: x[1].decode("UTF-8") + ":" + x[2].decode("UTF-8"), nodes)
         )
+        """
         cache = hermes.Hermes(
-            backendClass=hermes.backend.memcached.Backend, servers=servers
+            backendClass=hermes.backend.memcached.Backend,
+            servers=[MEMCACHED_ENDPOINT],
+            binary=True,
+            username=MEMCACHED_USERNAME,
+            password=MEMCACHED_PASSWORD,
         )
 
     else:
@@ -79,13 +83,16 @@ def initialize_cache() -> hermes.Hermes:
                 "operation": "Setting Hermes caching backend",
                 "environment": ENVIRONMENT.upper(),
                 "backend": "Local memcached",
-                "elasticache_config_endpoint": ELASTICACHE_CONFIG_ENDPOINT,
+                "cache_endpoint": MEMCACHED_ENDPOINT,
             }
         )
         cache = hermes.Hermes(
-            backendClass=hermes.backend.memcached.Backend,
-            servers=[ELASTICACHE_CONFIG_ENDPOINT],
+            backendClass=hermes.backend.memcached.Backend, servers=[MEMCACHED_ENDPOINT],
         )
+
+    tracer.put_metadata(key="cache_endpoint", value=MEMCACHED_ENDPOINT)
+    tracer.put_annotation("CACHE_SETUP", "SUCCESS")
+
     return cache
 
 
@@ -170,7 +177,7 @@ class OpenDataService:
 
     @tracer.capture_method
     @cache(ttl=1209600)
-    def get_gtfs_data(self, csv_filenames: List[str]) -> Dict[str, io.BytesIO]:
+    def get_gtfs_data(self, csv_filenames: List[str]) -> Dict[str, BytesIO]:
         """
         Retrieve GTFS files of the STIB network.
         The data is cached for two weeks following Open Data API recommendations.
@@ -186,9 +193,9 @@ class OpenDataService:
                 headers=[("Accept", "application/zip")],
             )
             response = self.api_client.invoke(api_request)
-            file = io.BytesIO(response.body.content)
-            if zipfile.is_zipfile(file):
-                with zipfile.ZipFile(file) as gtfs_zip_file:
+            file = BytesIO(response.body.content)
+            if is_zipfile(file):
+                with ZipFile(file) as gtfs_zip_file:
                     logger.info(
                         {
                             "operation": "Inspecting GTFS data zip file content",
@@ -196,7 +203,7 @@ class OpenDataService:
                         }
                     )
                     csv_files = {
-                        csv_filename: io.BytesIO(gtfs_zip_file.read(name=csv_filename))
+                        csv_filename: BytesIO(gtfs_zip_file.read(name=csv_filename))
                         for csv_filename in csv_filenames
                     }
                     return csv_files
