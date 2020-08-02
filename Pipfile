@@ -22,6 +22,7 @@ hermescache = "==0.8.0"
 pylibmc = "==1.6.1"
 elasticache-auto-discovery = "==1.0.0"
 aws-lambda-powertools = "==1.0.1"
+python-binary-memcached = "==0.29.0"
 
 [requires]
 python_version = "3.7"
