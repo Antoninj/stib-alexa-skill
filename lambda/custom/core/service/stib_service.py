@@ -19,17 +19,14 @@ from os import environ
 from zipfile import ZipFile, is_zipfile
 from typing import Dict, List, Optional
 
-# import elasticache_auto_discovery
 import hermes.backend.dict
-
-import hermes.backend.memcached
 from ask_sdk_core.exceptions import ApiClientException
 from ask_sdk_model.services import ApiClient, ApiClientRequest
 from aws_lambda_powertools.logging import Logger
 from aws_lambda_powertools.tracing import Tracer
 from marshmallow import ValidationError
 
-from .cache.bmemcached import Backend
+from .cache.bmemcached import Backend as CustomBackend
 from .exceptions import GTFSDataError, NetworkDescriptionError, OperationMonitoringError
 from .model.line_stops import LineDetails
 from .model.passing_times import PassingTime, PointPassingTimes
@@ -61,18 +58,13 @@ def initialize_cache() -> hermes.Hermes:
             {
                 "operation": "Setting Hermes caching backend",
                 "environment": ENVIRONMENT.upper(),
-                "backend": "Redis memcached",
+                "backend": "Redis cloud memcached",
                 "cache_endpoint": MEMCACHED_ENDPOINT,
             }
         )
-        """ 
-        nodes = elasticache_auto_discovery.discover(ELASTICACHE_CONFIG_ENDPOINT)
-        servers = list(
-            map(lambda x: x[1].decode("UTF-8") + ":" + x[2].decode("UTF-8"), nodes)
-        )
-        """
+
         cache = hermes.Hermes(
-            backendClass=Backend,
+            backendClass=CustomBackend,
             servers=[MEMCACHED_ENDPOINT],
             username=MEMCACHED_USERNAME,
             password=MEMCACHED_PASSWORD,
@@ -87,9 +79,7 @@ def initialize_cache() -> hermes.Hermes:
                 "cache_endpoint": MEMCACHED_ENDPOINT,
             }
         )
-        cache = hermes.Hermes(
-            backendClass=hermes.backend.memcached.Backend, servers=[MEMCACHED_ENDPOINT],
-        )
+        cache = hermes.Hermes(backendClass=CustomBackend, servers=[MEMCACHED_ENDPOINT],)
 
     tracer.put_metadata(key="cache_endpoint", value=MEMCACHED_ENDPOINT)
     tracer.put_annotation("CACHE_SETUP", "SUCCESS")
