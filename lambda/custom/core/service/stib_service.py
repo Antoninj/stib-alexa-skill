@@ -19,8 +19,9 @@ from os import environ
 from zipfile import ZipFile, is_zipfile
 from typing import Dict, List, Optional
 
-import elasticache_auto_discovery
+# import elasticache_auto_discovery
 import hermes.backend.dict
+
 import hermes.backend.memcached
 from ask_sdk_core.exceptions import ApiClientException
 from ask_sdk_model.services import ApiClient, ApiClientRequest
@@ -28,6 +29,7 @@ from aws_lambda_powertools.logging import Logger
 from aws_lambda_powertools.tracing import Tracer
 from marshmallow import ValidationError
 
+from .cache.bmemcached import Backend
 from .exceptions import GTFSDataError, NetworkDescriptionError, OperationMonitoringError
 from .model.line_stops import LineDetails
 from .model.passing_times import PassingTime, PointPassingTimes
@@ -70,9 +72,8 @@ def initialize_cache() -> hermes.Hermes:
         )
         """
         cache = hermes.Hermes(
-            backendClass=hermes.backend.memcached.Backend,
+            backendClass=Backend,
             servers=[MEMCACHED_ENDPOINT],
-            binary=True,
             username=MEMCACHED_USERNAME,
             password=MEMCACHED_PASSWORD,
         )
