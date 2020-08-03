@@ -59,7 +59,8 @@ class Lock(AbstractLock):
 
 
 class Backend(AbstractBackend):
-    """Memcached backend implementation."""
+    """Memcached backend implementation using bmemcached pure python client with binary protocol
+     and SASL auth support (https://github.com/jaysonsantos/python-binary-memcached/tree/master/bmemcached)."""
 
     _local = None
     """Thread-local data."""
