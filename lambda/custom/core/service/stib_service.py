@@ -166,7 +166,6 @@ class OpenDataService:
         except Exception as e:
             raise NetworkDescriptionError(e, line_id)
 
-    @tracer.capture_method
     @cache(ttl=1209600)
     def get_gtfs_data(self, csv_filenames: List[str]) -> Dict[str, BytesIO]:
         """
