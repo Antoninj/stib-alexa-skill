@@ -11,16 +11,12 @@
 - Add safety nets in dialog flow to avoid triggering wrong intents
 
 ### Certification & Publishing 
-- Prepare app for production:
-    - Deploy lambda in custom VPC => ok
-    - Use memcached Elasticache cluster configuration endpoint in env variables => ok
+- Look into setting up correct Lambda aliases
 
 ### CICD / Tooling
 - Extend test suite
-- Update CodePipeline project to deploy infra template (elasticache and network)  => not for now
 - Add unit tests to build process => not for now
 - Add code coverage => not for now
-- Add code quality 
 
 ### Next features
 - Add network updates by line
