@@ -12,6 +12,7 @@ phases:
       - pybabel compile -i lambda/custom/core/locales/fr-CA/LC_MESSAGES/base.po -o lambda/custom/core/locales/fr-CA/LC_MESSAGES/base.mo
       - pybabel compile -i lambda/custom/core/locales/en-GB/LC_MESSAGES/base.po -o lambda/custom/core/locales/en-GB/LC_MESSAGES/base.mo
       - pip install --upgrade awscli
+      - aws cloudformation validate-template --template-body file://template.yml
       - aws cloudformation package --template template.yml --s3-bucket $S3_BUCKET --output-template template-export.yml
       # Do not remove this statement. This command is required for AWS CodeStar projects.
       # Update the AWS Partition, AWS Region, account ID and project ID in the project ARN on template-configuration.json file so AWS CloudFormation can tag project resources.
@@ -19,6 +20,5 @@ phases:
 
 artifacts:
   files:
-    - infra-template.yaml
     - template-export.yml
     - template-configuration.json

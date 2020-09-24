@@ -26,7 +26,7 @@ from aws_lambda_powertools.logging import Logger
 from aws_lambda_powertools.tracing import Tracer
 from marshmallow import ValidationError
 
-from .cache.bmemcached import Backend as CustomBackend
+from .cache.bmemcached import BmemcachedBackend
 from .exceptions import GTFSDataError, NetworkDescriptionError, OperationMonitoringError
 from .model.line_stops import LineDetails
 from .model.passing_times import PassingTime, PointPassingTimes
@@ -64,7 +64,7 @@ def initialize_cache() -> hermes.Hermes:
         )
 
         cache = hermes.Hermes(
-            backendClass=CustomBackend,
+            backendClass=BmemcachedBackend,
             servers=[MEMCACHED_ENDPOINT],
             username=MEMCACHED_USERNAME,
             password=MEMCACHED_PASSWORD,
@@ -79,7 +79,9 @@ def initialize_cache() -> hermes.Hermes:
                 "cache_endpoint": MEMCACHED_ENDPOINT,
             }
         )
-        cache = hermes.Hermes(backendClass=CustomBackend, servers=[MEMCACHED_ENDPOINT],)
+        cache = hermes.Hermes(
+            backendClass=BmemcachedBackend, servers=[MEMCACHED_ENDPOINT],
+        )
 
     tracer.put_metadata(key="cache_endpoint", value=MEMCACHED_ENDPOINT)
     tracer.put_annotation("CACHE_SETUP", "SUCCESS")
@@ -166,7 +168,6 @@ class OpenDataService:
         except Exception as e:
             raise NetworkDescriptionError(e, line_id)
 
-    @tracer.capture_method
     @cache(ttl=1209600)
     def get_gtfs_data(self, csv_filenames: List[str]) -> Dict[str, BytesIO]:
         """

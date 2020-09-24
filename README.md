@@ -37,7 +37,7 @@ This skill is built with:
 - [Alexa Skills kit SDK for python](https://github.com/alexa/alexa-skills-kit-sdk-for-python)
 - [Amazon Lambda](https://aws.amazon.com/lambda/) 
 - [Amazon DynamoDB](https://aws.amazon.com/dynamodb/) for storing users trip preferences
-- [HermesCache](https://pypi.org/project/HermesCache/) using [Amazon ElastiCache for Memcached](https://aws.amazon.com/elasticache/memcached/) as a backend for caching
+- [HermesCache](https://pypi.org/project/HermesCache/) using [redis labs hosted memcached](https://redislabs.com/solutions/use-cases/caching/) as a backend for caching
 - [Open Data API](https://opendata.stib-mivb.be/store/)
 
 ## Architecture
