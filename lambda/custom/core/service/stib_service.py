@@ -26,7 +26,7 @@ from aws_lambda_powertools.logging import Logger
 from aws_lambda_powertools.tracing import Tracer
 from marshmallow import ValidationError
 
-from .cache.bmemcached import BmemcachedBackend
+from .cache.bmemcached import Backend as BmemcachedBackend
 from .exceptions import GTFSDataError, NetworkDescriptionError, OperationMonitoringError
 from .model.line_stops import LineDetails
 from .model.passing_times import PassingTime, PointPassingTimes
