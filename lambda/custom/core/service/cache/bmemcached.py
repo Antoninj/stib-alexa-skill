@@ -13,10 +13,10 @@
 #  License.
 
 import bmemcached
-from hermes.backend import memcached
+from hermes.backend.memcached import Backend
 
 
-class BmemcachedBackend(memcached.Backend):
+class BmemcachedBackend(Backend):
     @property
     def client(self):
         if not hasattr(self._local, "client"):
