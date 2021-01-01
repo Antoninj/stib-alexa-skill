@@ -14,7 +14,7 @@ isort = "==5.0.3"
 
 [packages]
 ask-sdk-core = "==1.13.0"
-requests = "==2.24.0"
+requests = "==2.25.1"
 pytz = "==2020.1"
 ask-sdk = "==1.13.0"
 dataclasses-json = "==0.5.1"
