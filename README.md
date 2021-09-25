@@ -1,6 +1,7 @@
 # STIB network Alexa skill
 
 ![GitHub Pipenv locked Python version](https://img.shields.io/github/pipenv/locked/python-version/antoninj/playground)
+[![Codacy Badge](https://api.codacy.com/project/badge/Grade/8b2c623842084af0bcda491ef5e36cc1)](https://app.codacy.com/manual/Antoninj/stib-alexa-skill?utm_source=github.com&utm_medium=referral&utm_content=Antoninj/stib-alexa-skill&utm_campaign=Badge_Grade_Dashboard)
 [![Code style: black](https://img.shields.io/badge/code%20style-black-000000.svg)](https://github.com/psf/black)
 [![Dependabot Status](https://api.dependabot.com/badges/status?host=github&repo=Antoninj/stib-alexa-skill&identifier=257949017)](https://dependabot.com)
 ![Interrogate Status](assets/images/interrogate_badge.svg)
