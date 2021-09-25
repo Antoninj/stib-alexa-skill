@@ -4,9 +4,9 @@ url = "https://pypi.org/simple"
 verify_ssl = true
 
 [dev-packages]
-boto3 = "==1.14.16"
+boto3 = "==1.17.49"
 babel = "==2.8.0"
-black = "==19.10b0"
+black = "==21.8b0"
 lex-bot-tester = "==1.0.6"
 pipenv-to-requirements = "==0.9.0"
 interrogate = "==1.2.0"
@@ -19,7 +19,7 @@ pytz = "==2020.1"
 ask-sdk = "==1.13.0"
 dataclasses-json = "==0.5.1"
 hermescache = "==0.8.0"
-aws-lambda-powertools = "==1.10.5"
+aws-lambda-powertools = "==1.20.2"
 python-binary-memcached = "==0.29.0"
 
 [requires]
