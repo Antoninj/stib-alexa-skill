@@ -9,7 +9,7 @@ babel = "==2.8.0"
 black = "==21.8b0"
 lex-bot-tester = "==1.0.6"
 pipenv-to-requirements = "==0.9.0"
-interrogate = "==1.2.0"
+interrogate = "==1.5.0"
 isort = "==5.0.3"
 
 [packages]
