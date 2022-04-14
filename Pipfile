@@ -18,7 +18,7 @@ requests = "==2.24.0"
 pytz = "==2020.1"
 ask-sdk = "==1.13.0"
 dataclasses-json = "==0.5.1"
-hermescache = "==0.8.0"
+hermescache = "==0.10.0"
 aws-lambda-powertools = "==1.20.2"
 python-binary-memcached = "==0.31.1"
 
