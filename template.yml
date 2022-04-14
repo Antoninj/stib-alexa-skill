@@ -71,7 +71,7 @@ Resources:
           POWERTOOLS_LOGGER_SAMPLE_RATE: 0.4
 
       Handler: daily_commute.handler
-      Runtime: python3.7
+      Runtime: python3.8
       Role: !GetAtt LambdaExecutionRole.Arn
       Events:
         AlexaSkillEvent:
