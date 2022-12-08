@@ -19,7 +19,7 @@ aws-lambda-powertools==1.25.7
 aws-xray-sdk==2.9.0
 boto3==1.21.40 ; python_version >= '3.6'
 botocore==1.24.40 ; python_version >= '3.6'
-certifi==2021.10.8
+certifi==2022.12.7
 chardet==3.0.4
 dataclasses-json==0.5.7
 fastjsonschema==2.15.3
