@@ -15,7 +15,7 @@ isort = "==5.10.1"
 [packages]
 ask-sdk-core = "==1.17.1"
 requests = "==2.24.0"
-pytz = "==2022.1"
+pytz = "==2022.7"
 ask-sdk = "==1.17.1"
 dataclasses-json = "==0.5.7"
 hermescache = "==0.10.0"
